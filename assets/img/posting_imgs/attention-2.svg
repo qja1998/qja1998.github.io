@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" role="img" aria-label="Attention: 디코더의 매 시점마다 인코더 전체를 가중합한다">
+<title>Attention: 디코더의 매 시점마다 인코더 전체를 가중합한다</title>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68707d"/></marker>
+  <marker id="ar_att" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+  <marker id="ar_enc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+  <marker id="ar_dec" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  <marker id="ar_bad" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+</defs>
+<rect width="900" height="400" rx="10" fill="#fcfcfd" stroke="#e4e7ec" stroke-width="1"/>
+<text x="62" y="36" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#17365d" text-anchor="start" font-weight="700">Encoder hidden state를 하나도 버리지 않고 전부 보관한다</text>
+<rect x="62" y="64" width="66" height="50" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="95.0" y="94.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h1</text>
+<text x="95.0" y="132" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">I</text>
+<rect x="70.0" y="142" width="50" height="23" rx="11.5" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.2"/>
+<text x="95.0" y="158" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="700">0.05</text>
+<path d="M 95.0 170 C 95.0 194, 360 210, 423 240" fill="none" stroke="#8b5cf6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.33499999999999996"/>
+<rect x="146" y="64" width="66" height="50" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="179.0" y="94.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h2</text>
+<text x="179.0" y="132" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">feel</text>
+<rect x="154.0" y="142" width="50" height="23" rx="11.5" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.2"/>
+<text x="179.0" y="158" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="700">0.12</text>
+<path d="M 179.0 170 C 179.0 194, 360 210, 423 240" fill="none" stroke="#8b5cf6" stroke-width="1.72" stroke-linecap="round" stroke-linejoin="round" opacity="0.384"/>
+<rect x="230" y="64" width="66" height="50" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="263.0" y="94.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h3</text>
+<text x="263.0" y="132" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">hungry</text>
+<rect x="238.0" y="142" width="50" height="23" rx="11.5" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.2"/>
+<text x="263.0" y="158" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="700">0.78</text>
+<path d="M 263.0 170 C 263.0 194, 360 210, 423 240" fill="none" stroke="#8b5cf6" stroke-width="5.68" stroke-linecap="round" stroke-linejoin="round" opacity="0.8459999999999999"/>
+<rect x="314" y="64" width="66" height="50" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="347.0" y="94.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h4</text>
+<text x="347.0" y="132" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">.</text>
+<rect x="322.0" y="142" width="50" height="23" rx="11.5" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.2"/>
+<text x="347.0" y="158" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="700">0.05</text>
+<path d="M 347.0 170 C 347.0 194, 360 210, 423 240" fill="none" stroke="#8b5cf6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.33499999999999996"/>
+<text x="406" y="154" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#4c1d95" text-anchor="start" font-weight="700">attention weight  α</text>
+<text x="406" y="172" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">네 값을 더하면 정확히 1</text>
+<text x="406" y="190" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">선이 굵을수록 크게 본 것</text>
+<circle cx="448" cy="244" r="22" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.8"/>
+<text x="448" y="252" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="21" fill="#4c1d95" text-anchor="middle" font-weight="700">Σ</text>
+<text x="448" y="288" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="middle" font-weight="400">가중합</text>
+<rect x="552" y="220" width="88" height="48" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="596.0" y="249.95" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="17" fill="#4c1d95" text-anchor="middle" font-weight="600">c3</text>
+<text x="596" y="208" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">3번째 시점 전용 context</text>
+<line x1="474" y1="244" x2="548" y2="244" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" marker-end="url(#ar_att)"/>
+<rect x="712" y="220" width="88" height="48" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="1.6"/>
+<text x="756.0" y="249.95" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="17" fill="#7c2d12" text-anchor="middle" font-weight="600">s3</text>
+<line x1="640" y1="244" x2="708" y2="244" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" marker-end="url(#ar_att)"/>
+<text x="756" y="208" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#7c2d12" text-anchor="middle" font-weight="600">Decoder 3번째 시점</text>
+<line x1="756" y1="272" x2="756" y2="282" stroke="#f97316" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<text x="756" y="300" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#22272e" text-anchor="middle" font-weight="600">출력 “고프다”</text>
+<rect x="62" y="328" width="776" height="56" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2" opacity="0.75"/>
+<text x="80" y="349" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#14532d" text-anchor="start" font-weight="700">달라진 점</text>
+<text x="80" y="368" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#14532d" text-anchor="start" font-weight="400">context를 하나만 만들지 않고 디코더 시점마다 c1, c2, c3, … 를 새로 만든다. “고프다”를 낼 때는 h3(hungry)을 크게 본다.</text>
+</svg>

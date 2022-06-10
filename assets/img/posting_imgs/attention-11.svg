@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440" role="img" aria-label="Masked self-attention: 뒤쪽 자리를 -∞로 막는다">
+<title>Masked self-attention: 뒤쪽 자리를 -∞로 막는다</title>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68707d"/></marker>
+  <marker id="ar_att" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+  <marker id="ar_enc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+  <marker id="ar_dec" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  <marker id="ar_bad" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+</defs>
+<rect width="900" height="440" rx="10" fill="#fcfcfd" stroke="#e4e7ec" stroke-width="1"/>
+<text x="450" y="38" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#22272e" text-anchor="middle" font-weight="700">디코더는 아직 만들지 않은 뒤쪽 단어를 미리 볼 수 없어야 한다</text>
+<text x="258" y="84" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#22272e" text-anchor="middle" font-weight="700">① softmax에 넣기 전 점수</text>
+<text x="258" y="102" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">뒤쪽(대각선 위) 자리를 −∞ 로 바꾼다</text>
+<text x="177.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">&lt;SOS&gt;</text>
+<text x="231.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">나는</text>
+<text x="285.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">배가</text>
+<text x="339.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">고프다</text>
+<text x="142" y="161.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">&lt;SOS&gt;</text>
+<rect x="150" y="130" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="175.5" y="159.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">0.0</text>
+<rect x="204" y="130" width="51" height="51" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.1"/>
+<text x="229.5" y="160.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#7f1d1d" text-anchor="middle" font-weight="700">−∞</text>
+<rect x="258" y="130" width="51" height="51" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.1"/>
+<text x="283.5" y="160.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#7f1d1d" text-anchor="middle" font-weight="700">−∞</text>
+<rect x="312" y="130" width="51" height="51" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.1"/>
+<text x="337.5" y="160.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#7f1d1d" text-anchor="middle" font-weight="700">−∞</text>
+<text x="142" y="215.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">나는</text>
+<rect x="150" y="184" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="175.5" y="213.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">-0.5</text>
+<rect x="204" y="184" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="229.5" y="213.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">-1.0</text>
+<rect x="258" y="184" width="51" height="51" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.1"/>
+<text x="283.5" y="214.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#7f1d1d" text-anchor="middle" font-weight="700">−∞</text>
+<rect x="312" y="184" width="51" height="51" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.1"/>
+<text x="337.5" y="214.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#7f1d1d" text-anchor="middle" font-weight="700">−∞</text>
+<text x="142" y="269.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">배가</text>
+<rect x="150" y="238" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="175.5" y="267.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">-0.5</text>
+<rect x="204" y="238" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="229.5" y="267.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">-0.6</text>
+<rect x="258" y="238" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="283.5" y="267.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">0.5</text>
+<rect x="312" y="238" width="51" height="51" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.1"/>
+<text x="337.5" y="268.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#7f1d1d" text-anchor="middle" font-weight="700">−∞</text>
+<text x="142" y="323.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">고프다</text>
+<rect x="150" y="292" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="175.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">0.1</text>
+<rect x="204" y="292" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="229.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">-0.9</text>
+<rect x="258" y="292" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="283.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">0.0</text>
+<rect x="312" y="292" width="51" height="51" rx="4" fill="#ffffff" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="337.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="middle" font-weight="400">0.7</text>
+<line x1="408" y1="238" x2="452" y2="238" stroke="#68707d" stroke-width="1.8" stroke-linecap="round" marker-end="url(#ar)"/>
+<text x="430" y="226" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">softmax</text>
+<text x="624" y="84" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#22272e" text-anchor="middle" font-weight="700">② softmax를 지난 attention weight</text>
+<text x="624" y="102" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">−∞ 였던 자리는 정확히 0이 된다</text>
+<text x="543.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">&lt;SOS&gt;</text>
+<text x="597.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">나는</text>
+<text x="651.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">배가</text>
+<text x="705.0" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#17365d" text-anchor="middle" font-weight="600">고프다</text>
+<text x="508" y="161.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">&lt;SOS&gt;</text>
+<rect x="516" y="130" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.92"/>
+<text x="541.5" y="159.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1.00</text>
+<rect x="570" y="130" width="51" height="51" rx="4" fill="#f1f3f5" stroke="none" stroke-width="1.6"/>
+<text x="595.5" y="159.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#9aa2ad" text-anchor="middle" font-weight="400">0</text>
+<rect x="624" y="130" width="51" height="51" rx="4" fill="#f1f3f5" stroke="none" stroke-width="1.6"/>
+<text x="649.5" y="159.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#9aa2ad" text-anchor="middle" font-weight="400">0</text>
+<rect x="678" y="130" width="51" height="51" rx="4" fill="#f1f3f5" stroke="none" stroke-width="1.6"/>
+<text x="703.5" y="159.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#9aa2ad" text-anchor="middle" font-weight="400">0</text>
+<text x="508" y="215.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">나는</text>
+<rect x="516" y="184" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.6179674649614837"/>
+<text x="541.5" y="213.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">0.62</text>
+<rect x="570" y="184" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.4220325350385164"/>
+<text x="595.5" y="213.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="400">0.38</text>
+<rect x="624" y="184" width="51" height="51" rx="4" fill="#f1f3f5" stroke="none" stroke-width="1.6"/>
+<text x="649.5" y="213.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#9aa2ad" text-anchor="middle" font-weight="400">0</text>
+<rect x="678" y="184" width="51" height="51" rx="4" fill="#f1f3f5" stroke="none" stroke-width="1.6"/>
+<text x="703.5" y="213.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#9aa2ad" text-anchor="middle" font-weight="400">0</text>
+<text x="508" y="269.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">배가</text>
+<rect x="516" y="238" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.2930433409448645"/>
+<text x="541.5" y="267.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="400">0.22</text>
+<rect x="570" y="238" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.2765760898288674"/>
+<text x="595.5" y="267.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="400">0.20</text>
+<rect x="624" y="238" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.5903805692262682"/>
+<text x="649.5" y="267.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">0.59</text>
+<rect x="678" y="238" width="51" height="51" rx="4" fill="#f1f3f5" stroke="none" stroke-width="1.6"/>
+<text x="703.5" y="267.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#9aa2ad" text-anchor="middle" font-weight="400">0</text>
+<text x="508" y="323.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#7c2d12" text-anchor="end" font-weight="600">고프다</text>
+<rect x="516" y="292" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.31536803586363105"/>
+<text x="541.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="400">0.24</text>
+<rect x="570" y="292" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.1918718838562749"/>
+<text x="595.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="400">0.09</text>
+<rect x="624" y="292" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.29677630913760467"/>
+<text x="649.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="400">0.22</text>
+<rect x="678" y="292" width="51" height="51" rx="4" fill="#8b5cf6" stroke="none" stroke-width="1.6" opacity="0.4759837711424894"/>
+<text x="703.5" y="321.5" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="400">0.44</text>
+<text x="450" y="386" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">왼쪽 이름표가 “지금 만들고 있는 자리”, 위쪽 이름표가 “볼 수 있는 자리”다. 가려진 칸은 exp(−∞) = 0 이 되어 남은 칸끼리만 합이 1이 된다.</text>
+<text x="450" y="410" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#9aa2ad" text-anchor="middle" font-weight="400">※ 점수는 설명을 위해 무작위로 만든 값이다.</text>
+</svg>

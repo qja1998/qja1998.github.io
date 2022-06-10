@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" role="img" aria-label="Luong의 score 함수 세 가지: dot / general / concat">
+<title>Luong의 score 함수 세 가지: dot / general / concat</title>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68707d"/></marker>
+  <marker id="ar_att" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+  <marker id="ar_enc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+  <marker id="ar_dec" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  <marker id="ar_bad" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+</defs>
+<rect width="900" height="400" rx="10" fill="#fcfcfd" stroke="#e4e7ec" stroke-width="1"/>
+<text x="450" y="40" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#22272e" text-anchor="middle" font-weight="700">점수를 매기는 방법만 바꾼 세 가지</text>
+<text x="450" y="62" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">셋 다 “디코더 상태와 인코더 상태가 얼마나 맞는지”를 숫자 하나로 만든다</text>
+<rect x="58" y="92" width="258" height="244" rx="10" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/>
+<rect x="58" y="92" width="258" height="34" rx="10" fill="#dcfce7" stroke="none" stroke-width="1.6"/>
+<rect x="58" y="116" width="258" height="10" rx="0" fill="#dcfce7" stroke="none" stroke-width="1.6"/>
+<text x="187.0" y="114" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#14532d" text-anchor="middle" font-weight="700">dot</text>
+<text x="143.82" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">score(</text>
+<text x="184.69" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="191.55" y="155.90" font-family="Georgia,'Times New Roman',serif" font-size="9.1" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">t</text>
+<text x="194.52" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">, </text>
+<text x="201.52" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="208.37" y="155.90" font-family="Georgia,'Times New Roman',serif" font-size="9.1" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">s</text>
+<text x="213.18" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">) =</text>
+<text x="167.26" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="176.23" y="187.10" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">t</text>
+<text x="180.12" y="174.52" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve">⊤</text>
+<text x="187.91" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve"> </text>
+<text x="191.49" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="200.46" y="187.10" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">s</text>
+<line x1="76" y1="202" x2="298" y2="202" stroke="#e4e7ec" stroke-width="1.1" stroke-linecap="round"/>
+<text x="76" y="224" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="start" font-weight="600">학습되는 파라미터</text>
+<text x="298" y="224" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#14532d" text-anchor="end" font-weight="700">없음</text>
+<text x="76" y="252" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">두 vector를 그냥 내적한다.</text>
+<text x="76" y="271" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">가장 싸지만 두 vector의</text>
+<text x="76" y="290" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">차원과 의미 공간이 같아야 한다.</text>
+<rect x="332" y="92" width="258" height="244" rx="10" fill="#ffffff" stroke="#eab308" stroke-width="1.5"/>
+<rect x="332" y="92" width="258" height="34" rx="10" fill="#fef9c3" stroke="none" stroke-width="1.6"/>
+<rect x="332" y="116" width="258" height="10" rx="0" fill="#fef9c3" stroke="none" stroke-width="1.6"/>
+<text x="461.0" y="114" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#713f12" text-anchor="middle" font-weight="700">general</text>
+<text x="417.82" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">score(</text>
+<text x="458.69" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="465.55" y="155.90" font-family="Georgia,'Times New Roman',serif" font-size="9.1" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">t</text>
+<text x="468.52" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">, </text>
+<text x="475.52" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="482.37" y="155.90" font-family="Georgia,'Times New Roman',serif" font-size="9.1" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">s</text>
+<text x="487.18" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">) =</text>
+<text x="427.54" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="436.51" y="187.10" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">t</text>
+<text x="440.40" y="174.52" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve">⊤</text>
+<text x="448.19" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve"> </text>
+<text x="451.77" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">W</text>
+<text x="469.35" y="187.10" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">a</text>
+<text x="475.63" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve"> </text>
+<text x="479.21" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="488.18" y="187.10" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">s</text>
+<line x1="350" y1="202" x2="572" y2="202" stroke="#e4e7ec" stroke-width="1.1" stroke-linecap="round"/>
+<text x="350" y="224" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="start" font-weight="600">학습되는 파라미터</text>
+<text x="572" y="224" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#713f12" text-anchor="end" font-weight="700">행렬 Wa 하나</text>
+<text x="350" y="252" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">가운데에 학습되는 행렬을 끼운다.</text>
+<text x="350" y="271" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">두 공간이 달라도 맞춰 주며,</text>
+<text x="350" y="290" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">dot의 자연스러운 일반화다.</text>
+<rect x="606" y="92" width="258" height="244" rx="10" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+<rect x="606" y="92" width="258" height="34" rx="10" fill="#ede9fe" stroke="none" stroke-width="1.6"/>
+<rect x="606" y="116" width="258" height="10" rx="0" fill="#ede9fe" stroke="none" stroke-width="1.6"/>
+<text x="735.0" y="114" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#4c1d95" text-anchor="middle" font-weight="700">concat</text>
+<text x="691.82" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">score(</text>
+<text x="732.69" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="739.55" y="155.90" font-family="Georgia,'Times New Roman',serif" font-size="9.1" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">t</text>
+<text x="742.52" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">, </text>
+<text x="749.52" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="756.37" y="155.90" font-family="Georgia,'Times New Roman',serif" font-size="9.1" fill="#68707d" text-anchor="start" font-style="italic" xml:space="preserve">s</text>
+<text x="761.18" y="152.00" font-family="Georgia,'Times New Roman',serif" font-size="13.0" fill="#68707d" text-anchor="start" font-style="normal" xml:space="preserve">) =</text>
+<text x="672.47" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">v</text>
+<text x="679.59" y="186.05" font-family="Georgia,'Times New Roman',serif" font-size="9.4" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">a</text>
+<text x="684.57" y="176.06" font-family="Georgia,'Times New Roman',serif" font-size="9.4" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve">⊤</text>
+<text x="690.76" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve"> tanh(</text>
+<text x="726.22" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve"> </text>
+<text x="729.07" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">W</text>
+<text x="743.03" y="186.05" font-family="Georgia,'Times New Roman',serif" font-size="9.4" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">a</text>
+<text x="748.01" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve">[</text>
+<text x="753.14" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="760.26" y="186.05" font-family="Georgia,'Times New Roman',serif" font-size="9.4" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">t</text>
+<text x="763.35" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve"> ; </text>
+<text x="773.46" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">h</text>
+<text x="780.58" y="186.05" font-family="Georgia,'Times New Roman',serif" font-size="9.4" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">s</text>
+<text x="785.57" y="182.00" font-family="Georgia,'Times New Roman',serif" font-size="13.5" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve">])</text>
+<line x1="624" y1="202" x2="846" y2="202" stroke="#e4e7ec" stroke-width="1.1" stroke-linecap="round"/>
+<text x="624" y="224" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="start" font-weight="600">학습되는 파라미터</text>
+<text x="846" y="224" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="end" font-weight="700">Wa 와 va</text>
+<text x="624" y="252" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">두 vector를 이어 붙여 작은</text>
+<text x="624" y="271" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">신경망에 통과시킨다.</text>
+<text x="624" y="290" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#22272e" text-anchor="start" font-weight="400">Bahdanau가 쓴 방식과 같은 계열.</text>
+<text x="450" y="356" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="middle" font-weight="400">아래첨자 t 는 디코더 시점, s 는 인코더 위치를 가리킨다</text>
+<text x="450" y="378" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#9aa2ad" text-anchor="middle" font-weight="400">세 가지 모두 점수를 낸 뒤에는 똑같이 softmax → 가중합 순서를 거친다</text>
+</svg>

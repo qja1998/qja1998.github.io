@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440" role="img" aria-label="Bahdanau attention: 작은 신경망으로 점수를 매긴다">
+<title>Bahdanau attention: 작은 신경망으로 점수를 매긴다</title>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68707d"/></marker>
+  <marker id="ar_att" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+  <marker id="ar_enc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+  <marker id="ar_dec" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  <marker id="ar_bad" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+</defs>
+<rect width="900" height="440" rx="10" fill="#fcfcfd" stroke="#e4e7ec" stroke-width="1"/>
+<text x="450" y="38" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="700">① 점수 매기기 — 디코더의 직전 상태와 인코더 상태 하나를 짝지어 점수를 낸다</text>
+<rect x="58" y="68" width="112" height="46" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="1.6"/>
+<text x="114.0" y="95.9" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#7c2d12" text-anchor="middle" font-weight="600">s(t-1)</text>
+<text x="114" y="130" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">디코더 직전 상태</text>
+<rect x="58" y="152" width="112" height="46" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="114.0" y="179.9" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#17365d" text-anchor="middle" font-weight="600">h(j)</text>
+<text x="114" y="214" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">인코더 j번째 상태</text>
+<rect x="216" y="68" width="104" height="46" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="268.0" y="95.375" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#22272e" text-anchor="middle" font-weight="600">Wa · s(t-1)</text>
+<rect x="216" y="152" width="104" height="46" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="268.0" y="179.375" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#22272e" text-anchor="middle" font-weight="600">Ua · h(j)</text>
+<line x1="174" y1="91" x2="212" y2="91" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<line x1="174" y1="175" x2="212" y2="175" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<circle cx="360" cy="133" r="18" fill="#ffffff" stroke="#68707d" stroke-width="1.6"/>
+<text x="360" y="140" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="20" fill="#22272e" text-anchor="middle" font-weight="700">+</text>
+<line x1="324" y1="91" x2="348" y2="124" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<line x1="324" y1="175" x2="348" y2="142" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="404" y="110" width="74" height="46" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="441.0" y="137.9" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#22272e" text-anchor="middle" font-weight="600">tanh</text>
+<line x1="380" y1="133" x2="400" y2="133" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="512" y="110" width="74" height="46" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="533.86" y="138.60" font-family="Georgia,'Times New Roman',serif" font-size="16.0" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">v</text>
+<text x="542.30" y="143.40" font-family="Georgia,'Times New Roman',serif" font-size="11.2" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">a</text>
+<text x="548.21" y="131.56" font-family="Georgia,'Times New Roman',serif" font-size="11.2" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve">⊤</text>
+<text x="555.53" y="138.60" font-family="Georgia,'Times New Roman',serif" font-size="16.0" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve"> ·</text>
+<line x1="482" y1="133" x2="508" y2="133" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="620" y="110" width="92" height="46" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="666.0" y="138.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#4c1d95" text-anchor="middle" font-weight="600">e(t,j)</text>
+<line x1="590" y1="133" x2="616" y2="133" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<text x="666" y="176" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">숫자 하나</text>
+<text x="666" y="192" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">(스칼라)</text>
+<rect x="738" y="100" width="108" height="66" rx="8" fill="#ffffff" stroke="#68707d" stroke-width="1.1" stroke-dasharray="4 3"/>
+<text x="792" y="122" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">이 작은 신경망도</text>
+<text x="792" y="138" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">번역 모델과 함께</text>
+<text x="792" y="154" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">같이 학습된다</text>
+<line x1="58" y1="244" x2="842" y2="244" stroke="#e4e7ec" stroke-width="1.2" stroke-linecap="round"/>
+<text x="450" y="272" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="700">② 모든 j에 대해 점수를 낸 뒤 softmax로 비율을 만들고, 그 비율로 h를 섞는다</text>
+<rect x="58" y="300" width="130" height="44" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="123.0" y="326.375" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#4c1d95" text-anchor="middle" font-weight="600">e(t,1) … e(t,n)</text>
+<line x1="192" y1="322" x2="220" y2="322" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="224" y="300" width="92" height="44" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="270.0" y="326.55" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="600">softmax</text>
+<line x1="320" y1="322" x2="348" y2="322" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="352" y="300" width="130" height="44" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="417.0" y="326.375" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#4c1d95" text-anchor="middle" font-weight="600">α(t,1) … α(t,n)</text>
+<text x="417" y="362" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">모두 더하면 1</text>
+<line x1="486" y1="322" x2="514" y2="322" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="518" y="300" width="116" height="44" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="576.0" y="326.375" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#4c1d95" text-anchor="middle" font-weight="600">c(t) = Σ α·h</text>
+<line x1="638" y1="322" x2="666" y2="322" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="670" y="300" width="172" height="44" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="1.6"/>
+<text x="756.0" y="326.025" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#7c2d12" text-anchor="middle" font-weight="600">s(t) = f(s(t-1), y(t-1), c(t))</text>
+<text x="756" y="362" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11" fill="#68707d" text-anchor="middle" font-weight="400">context를 받아 다음 상태를 만든다</text>
+<text x="450" y="412" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#9aa2ad" text-anchor="middle" font-weight="400">인코더는 양방향 RNN을 쓰고, 정방향·역방향 상태를 이어 붙인 것을 h(j)로 쓴다</text>
+</svg>

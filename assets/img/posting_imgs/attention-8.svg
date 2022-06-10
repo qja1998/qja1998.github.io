@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-label="√dk로 나누는 이유: softmax가 한쪽으로 몰리는 것을 막는다">
+<title>√dk로 나누는 이유: softmax가 한쪽으로 몰리는 것을 막는다</title>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68707d"/></marker>
+  <marker id="ar_att" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+  <marker id="ar_enc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+  <marker id="ar_dec" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  <marker id="ar_bad" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+</defs>
+<rect width="900" height="500" rx="10" fill="#fcfcfd" stroke="#e4e7ec" stroke-width="1"/>
+<text x="450" y="38" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13.5" fill="#22272e" text-anchor="middle" font-weight="700">dk = 64, 성분이 평균 0 · 분산 1인 vector로 5000번 계산해 본 결과</text>
+<text x="450" y="62" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">q·k 의 분산은 dk 가 되므로 표준편차는 √64 = 8 이다 (측정값 7.98)</text>
+<rect x="58" y="92" width="380" height="336" rx="10" fill="#ffffff" stroke="#ef4444" stroke-width="1.5"/>
+<rect x="58" y="92" width="380" height="32" rx="10" fill="#fee2e2" stroke="none" stroke-width="1.6"/>
+<rect x="58" y="114" width="380" height="10" rx="0" fill="#fee2e2" stroke="none" stroke-width="1.6"/>
+<text x="248.0" y="113" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#7f1d1d" text-anchor="middle" font-weight="700">스케일 없이 softmax(q·k)</text>
+<rect x="84" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="84" y="159.02823243706166" width="30" height="144.97176756293834" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="99.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k1</text>
+<text x="99.0" y="153.02823243706166" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#7f1d1d" text-anchor="middle" font-weight="700">0.97</text>
+<rect x="126" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="126" y="302.5" width="30" height="1.5" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="141.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k2</text>
+<rect x="168" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="168" y="302.5" width="30" height="1.5" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="183.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k3</text>
+<rect x="210" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="210" y="302.5" width="30" height="1.5" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="225.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k4</text>
+<rect x="252" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="252" y="298.9732297771556" width="30" height="5.026770222844407" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="267.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k5</text>
+<text x="267.0" y="292.9732297771556" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#7f1d1d" text-anchor="middle" font-weight="700">0.03</text>
+<rect x="294" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="294" y="302.5" width="30" height="1.5" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="309.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k6</text>
+<rect x="336" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="336" y="302.5" width="30" height="1.5" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="351.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k7</text>
+<rect x="378" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="378" y="302.5" width="30" height="1.5" rx="3" fill="#ef4444" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="393.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k8</text>
+<line x1="78" y1="305" x2="418" y2="305" stroke="#e4e7ec" stroke-width="1.2" stroke-linecap="round"/>
+<text x="248.0" y="340" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#9aa2ad" text-anchor="middle" font-weight="400">대표 시행 1회의 attention weight</text>
+<line x1="78" y1="352" x2="418" y2="352" stroke="#e4e7ec" stroke-width="1.1" stroke-linecap="round"/>
+<text x="84" y="376" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">가장 큰 weight의 평균</text>
+<text x="412" y="376" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#7f1d1d" text-anchor="end" font-weight="700">0.879</text>
+<text x="84" y="398" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">한 칸이 0.99를 넘은 비율</text>
+<text x="412" y="398" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#7f1d1d" text-anchor="end" font-weight="700">38.0%</text>
+<text x="84" y="420" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">기울기 지표 Σ p(1−p) 평균</text>
+<text x="412" y="420" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#7f1d1d" text-anchor="end" font-weight="700">0.172</text>
+<rect x="462" y="92" width="380" height="336" rx="10" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/>
+<rect x="462" y="92" width="380" height="32" rx="10" fill="#dcfce7" stroke="none" stroke-width="1.6"/>
+<rect x="462" y="114" width="380" height="10" rx="0" fill="#dcfce7" stroke="none" stroke-width="1.6"/>
+<text x="652.0" y="113" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">√dk 로 나눈 뒤 softmax</text>
+<rect x="488" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="488" y="247.2628459610231" width="30" height="56.73715403897691" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="503.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k1</text>
+<text x="503.0" y="241.2628459610231" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.38</text>
+<rect x="530" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="530" y="295.84596784689614" width="30" height="8.154032153103833" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="545.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k2</text>
+<text x="545.0" y="289.84596784689614" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.05</text>
+<rect x="572" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="572" y="291.3264441368654" width="30" height="12.67355586313461" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="587.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k3</text>
+<text x="587.0" y="285.3264441368654" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.08</text>
+<rect x="614" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="614" y="296.88155226876984" width="30" height="7.1184477312301695" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="629.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k4</text>
+<text x="629.0" y="290.88155226876984" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.05</text>
+<rect x="656" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="656" y="266.7292400957935" width="30" height="37.27075990420651" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="671.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k5</text>
+<text x="671.0" y="260.7292400957935" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.25</text>
+<rect x="698" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="698" y="297.3757786301105" width="30" height="6.6242213698895" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="713.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k6</text>
+<text x="713.0" y="291.3757786301105" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.04</text>
+<rect x="740" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="740" y="293.9838314725442" width="30" height="10.01616852745583" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="755.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k7</text>
+<text x="755.0" y="287.9838314725442" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.07</text>
+<rect x="782" y="154" width="30" height="150" rx="3" fill="#f1f3f5" stroke="none" stroke-width="1.6" opacity="0.5"/>
+<rect x="782" y="292.59433958799735" width="30" height="11.405660412002652" rx="3" fill="#22c55e" stroke="none" stroke-width="1.6" opacity="0.85"/>
+<text x="797.0" y="319" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#68707d" text-anchor="middle" font-weight="400">k8</text>
+<text x="797.0" y="286.59433958799735" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" font-weight="700">0.08</text>
+<line x1="482" y1="305" x2="822" y2="305" stroke="#e4e7ec" stroke-width="1.2" stroke-linecap="round"/>
+<text x="652.0" y="340" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#9aa2ad" text-anchor="middle" font-weight="400">대표 시행 1회의 attention weight</text>
+<line x1="482" y1="352" x2="822" y2="352" stroke="#e4e7ec" stroke-width="1.1" stroke-linecap="round"/>
+<text x="488" y="376" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">가장 큰 weight의 평균</text>
+<text x="816" y="376" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#14532d" text-anchor="end" font-weight="700">0.361</text>
+<text x="488" y="398" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">한 칸이 0.99를 넘은 비율</text>
+<text x="816" y="398" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#14532d" text-anchor="end" font-weight="700">0.0%</text>
+<text x="488" y="420" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">기울기 지표 Σ p(1−p) 평균</text>
+<text x="816" y="420" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#14532d" text-anchor="end" font-weight="700">0.768</text>
+<text x="450" y="466" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#68707d" text-anchor="middle" font-weight="400">스케일을 하지 않으면 한 칸이 거의 전부를 가져가고 나머지는 0이 된다. 그 상태에서는 softmax의 기울기가 0에 가까워 학습 신호가 거의 흐르지 않는다.</text>
+</svg>

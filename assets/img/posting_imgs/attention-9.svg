@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-label="Multi-Head Attention: 512차원을 64차원짜리 8개로 나눠서 본다">
+<title>Multi-Head Attention: 512차원을 64차원짜리 8개로 나눠서 본다</title>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68707d"/></marker>
+  <marker id="ar_att" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+  <marker id="ar_enc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+  <marker id="ar_dec" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  <marker id="ar_bad" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+</defs>
+<rect width="900" height="430" rx="10" fill="#fcfcfd" stroke="#e4e7ec" stroke-width="1"/>
+<text x="450" y="38" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#22272e" text-anchor="middle" font-weight="700">한 번에 크게 보는 대신, 작게 나눠 여러 번 본다</text>
+<rect x="58" y="76" width="118" height="54" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="117.0" y="100.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#22272e" text-anchor="middle" font-weight="600">입력</text>
+<text x="117.0" y="116.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#22272e" text-anchor="middle" font-weight="400" opacity="0.75">d_model = 512</text>
+<rect x="210" y="76" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="243.0" y="100.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 1</text>
+<text x="243.0" y="116.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<rect x="294" y="76" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="327.0" y="100.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 2</text>
+<text x="327.0" y="116.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<rect x="378" y="76" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="411.0" y="100.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 3</text>
+<text x="411.0" y="116.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<rect x="462" y="76" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="495.0" y="100.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 4</text>
+<text x="495.0" y="116.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<rect x="210" y="164" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="243.0" y="188.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 5</text>
+<text x="243.0" y="204.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<rect x="294" y="164" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="327.0" y="188.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 6</text>
+<text x="327.0" y="204.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<rect x="378" y="164" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="411.0" y="188.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 7</text>
+<text x="411.0" y="204.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<rect x="462" y="164" width="66" height="54" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="495.0" y="188.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">head 8</text>
+<text x="495.0" y="204.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="400" opacity="0.75">64차원</text>
+<line x1="180" y1="103" x2="204" y2="103" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<line x1="180" y1="103" x2="180" y2="191" stroke="#68707d" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="180" y1="191" x2="204" y2="191" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<text x="552" y="96" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">각 head는 따로</text>
+<text x="552" y="113" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">Q, K, V 를 만들어</text>
+<text x="552" y="130" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">attention을 한 번 한다</text>
+<line x1="369.0" y1="250" x2="369.0" y2="268" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="250" y="272" width="240" height="50" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="370.0" y="301.55" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="600">Concat  (8 × 64 = 512)</text>
+<line x1="494" y1="297" x2="522" y2="297" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="526" y="272" width="96" height="50" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.6"/>
+<text x="560.69" y="302.95" font-family="Georgia,'Times New Roman',serif" font-size="17.0" fill="#22272e" text-anchor="start" font-style="italic" xml:space="preserve">W</text>
+<text x="578.27" y="295.47" font-family="Georgia,'Times New Roman',serif" font-size="11.9" fill="#22272e" text-anchor="start" font-style="normal" xml:space="preserve">O</text>
+<line x1="626" y1="297" x2="654" y2="297" stroke="#68707d" stroke-width="1.6" stroke-linecap="round" marker-end="url(#ar)"/>
+<rect x="658" y="272" width="184" height="50" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+<text x="750.0" y="294.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#14532d" text-anchor="middle" font-weight="600">출력</text>
+<text x="750.0" y="310.0" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#14532d" text-anchor="middle" font-weight="400" opacity="0.75">다시 512차원</text>
+<rect x="58" y="344" width="784" height="62" rx="8" fill="#f1f3f5" stroke="#c4cad2" stroke-width="1.1"/>
+<text x="78" y="366" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#22272e" text-anchor="start" font-weight="700">왜 나누는가</text>
+<text x="78" y="386" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12" fill="#22272e" text-anchor="start" font-weight="400">head 하나의 차원을 512 / 8 = 64로 줄였기 때문에 8개를 다 합쳐도 계산량은 512짜리 한 개일 때와 비슷하다. 대신 서로 다른 표현 공간에서 동시에 볼 수 있다.</text>
+</svg>

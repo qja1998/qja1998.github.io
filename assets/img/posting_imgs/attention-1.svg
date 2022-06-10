@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380" role="img" aria-label="Seq2Seq의 고정 길이 context vector 병목">
+<title>Seq2Seq의 고정 길이 context vector 병목</title>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68707d"/></marker>
+  <marker id="ar_att" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+  <marker id="ar_enc" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+  <marker id="ar_dec" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  <marker id="ar_bad" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+</defs>
+<rect width="900" height="380" rx="10" fill="#fcfcfd" stroke="#e4e7ec" stroke-width="1"/>
+<text x="58" y="42" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#17365d" text-anchor="start" font-weight="700">Encoder</text>
+<text x="58" y="60" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">입력을 순서대로 읽는다</text>
+<rect x="46" y="134" width="336" height="108" rx="10" fill="none" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.55"/>
+<rect x="58" y="150" width="66" height="52" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="91.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h1</text>
+<text x="91.0" y="230" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">I</text>
+<line x1="91.0" y1="216" x2="91.0" y2="206" stroke="#3b82f6" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_enc)"/>
+<rect x="140" y="150" width="66" height="52" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="173.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h2</text>
+<text x="173.0" y="230" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">feel</text>
+<line x1="124" y1="176.0" x2="136" y2="176.0" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" marker-end="url(#ar_enc)"/>
+<line x1="173.0" y1="216" x2="173.0" y2="206" stroke="#3b82f6" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_enc)"/>
+<rect x="222" y="150" width="66" height="52" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="255.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h3</text>
+<text x="255.0" y="230" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">hungry</text>
+<line x1="206" y1="176.0" x2="218" y2="176.0" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" marker-end="url(#ar_enc)"/>
+<line x1="255.0" y1="216" x2="255.0" y2="206" stroke="#3b82f6" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_enc)"/>
+<rect x="304" y="150" width="66" height="52" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="337.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#17365d" text-anchor="middle" font-weight="600">h4</text>
+<text x="337.0" y="230" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">.</text>
+<line x1="288" y1="176.0" x2="300" y2="176.0" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" marker-end="url(#ar_enc)"/>
+<line x1="337.0" y1="216" x2="337.0" y2="206" stroke="#3b82f6" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_enc)"/>
+<polygon points="386,136 428,140 428,212 386,242" fill="#ede9fe" stroke="none" stroke-width="1.6" opacity="0.45"/>
+<rect x="432" y="138" width="44" height="76" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.6"/>
+<text x="454.0" y="182.3" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" fill="#4c1d95" text-anchor="middle" font-weight="600">c</text>
+<text x="454.0" y="124" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="700">context vector</text>
+<text x="454.0" y="234" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#4c1d95" text-anchor="middle" font-weight="600">고정 길이</text>
+<text x="454.0" y="250" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="10.5" fill="#68707d" text-anchor="middle" font-weight="400">(예: 512차원)</text>
+<text x="454.0" y="280" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#7f1d1d" text-anchor="middle" font-weight="600">입력이 몇 단어든 크기가 같다</text>
+<text x="528" y="42" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="14" fill="#7c2d12" text-anchor="start" font-weight="700">Decoder</text>
+<text x="528" y="60" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="11.5" fill="#68707d" text-anchor="start" font-weight="400">c 하나만 보고 출력을 만든다</text>
+<rect x="528" y="150" width="66" height="52" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="1.6"/>
+<text x="561.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#7c2d12" text-anchor="middle" font-weight="600">s1</text>
+<text x="561.0" y="110" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">나는</text>
+<line x1="561.0" y1="146" x2="561.0" y2="122" stroke="#f97316" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<rect x="610" y="150" width="66" height="52" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="1.6"/>
+<text x="643.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#7c2d12" text-anchor="middle" font-weight="600">s2</text>
+<text x="643.0" y="110" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">배가</text>
+<line x1="594" y1="176.0" x2="606" y2="176.0" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<line x1="643.0" y1="146" x2="643.0" y2="122" stroke="#f97316" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<rect x="692" y="150" width="66" height="52" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="1.6"/>
+<text x="725.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#7c2d12" text-anchor="middle" font-weight="600">s3</text>
+<text x="725.0" y="110" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">고프다</text>
+<line x1="676" y1="176.0" x2="688" y2="176.0" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<line x1="725.0" y1="146" x2="725.0" y2="122" stroke="#f97316" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<rect x="774" y="150" width="66" height="52" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="1.6"/>
+<text x="807.0" y="181.25" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" fill="#7c2d12" text-anchor="middle" font-weight="600">s4</text>
+<text x="807.0" y="110" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="13" fill="#22272e" text-anchor="middle" font-weight="400">.</text>
+<line x1="758" y1="176.0" x2="770" y2="176.0" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<line x1="807.0" y1="146" x2="807.0" y2="122" stroke="#f97316" stroke-width="1.4" stroke-linecap="round" marker-end="url(#ar_dec)"/>
+<line x1="480" y1="176.0" x2="524" y2="176.0" stroke="#8b5cf6" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ar_att)"/>
+<rect x="58" y="302" width="784" height="54" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.2" opacity="0.85"/>
+<text x="78" y="324" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#7f1d1d" text-anchor="start" font-weight="700">문제</text>
+<text x="78" y="343" font-family="'Noto Sans KR','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="12.5" fill="#7f1d1d" text-anchor="start" font-weight="400">h1의 정보는 h2 → h3 → h4를 거쳐야만 c에 닿는다. 문장이 길어질수록 앞쪽 단어의 정보가 c에 남아 있기 어렵다.</text>
+</svg>
