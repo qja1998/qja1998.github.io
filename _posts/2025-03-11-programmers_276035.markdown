@@ -1,0 +1,42 @@
+---
+title: "[Programmers] FrontEnd 개발자 찾기 - 276035"
+author: kwon
+date: 2025-03-11T22:45:37 +0900
+categories: [programmers, sql]
+tags: [sql]
+math: false
+mermaid: false
+---
+
+# 문제
+[FrontEnd 개발자 찾기](https://school.programmers.co.kr/learn/courses/30/lessons/276035)
+
+# 풀이
+
+## 코드
+```sql
+SELECT DISTINCT DEVELOPERS.ID, DEVELOPERS.EMAIL, DEVELOPERS.FIRST_NAME, DEVELOPERS.LAST_NAME
+FROM DEVELOPERS, (SELECT CODE
+                 FROM SKILLCODES
+                 WHERE CATEGORY = 'Front End') as FRONTEND
+WHERE DEVELOPERS.SKILL_CODE | FRONTEND.CODE = DEVELOPERS.SKILL_CODE
+ORDER BY DEVELOPERS.ID
+
+# SELECT DEVELOPERS.SKILL_CODE, FRONTEND.CODE, DEVELOPERS.SKILL_CODE | FRONTEND.CODE
+# FROM DEVELOPERS, (SELECT CODE
+#                  FROM SKILLCODES
+#                  WHERE CATEGORY = 'Front End') as FRONTEND```
+
+## 설명
+이 문제는 SQL을 활용한 데이터 조회 문제다.
+
+### 접근 방법
+문제의 요구사항을 분석하여 적절한 SQL 쿼리를 작성했다.
+
+### 주요 포인트
+- 필요한 테이블 JOIN
+- WHERE 조건절을 통한 데이터 필터링
+- ORDER BY를 통한 정렬
+
+### 시간 복잡도
+데이터베이스 인덱스와 쿼리 최적화에 따라 성능이 결정된다.
