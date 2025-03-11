@@ -6,6 +6,7 @@ categories: [toubleshooting]
 tags: [docker, gitlab-ci-cd]
 math: true
 mermaid: false
+permalink: /posts/trouble-shooting-momoso-20250120/
 ---
 
 # 🚫 현상

@@ -6,6 +6,7 @@ categories: [toubleshooting]
 tags: [python, conda]
 math: true
 mermaid: false
+permalink: /posts/trouble-shooting-momoso-20250212/
 ---
 
 # 🚫 현상

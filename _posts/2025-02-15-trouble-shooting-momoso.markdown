@@ -6,6 +6,7 @@ categories: [toubleshooting]
 tags: [gitlab-ci-cd]
 math: true
 mermaid: false
+permalink: /posts/trouble-shooting-momoso-20250215/
 ---
 
 # 🚫 현상

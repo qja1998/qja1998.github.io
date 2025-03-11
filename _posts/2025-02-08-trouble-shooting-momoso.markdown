@@ -6,6 +6,7 @@ categories: [toubleshooting]
 tags: [ssl, docker]
 math: true
 mermaid: false
+permalink: /posts/trouble-shooting-momoso-20250208/
 ---
 
 # 🚫 현상

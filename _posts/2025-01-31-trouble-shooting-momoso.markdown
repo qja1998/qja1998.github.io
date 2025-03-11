@@ -6,6 +6,7 @@ categories: [toubleshooting]
 tags: [ssh, AWS]
 math: true
 mermaid: false
+permalink: /posts/trouble-shooting-momoso-20250131/
 ---
 
 # 🚫 현상

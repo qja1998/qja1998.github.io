@@ -6,6 +6,7 @@ categories: [toubleshooting]
 tags: [docker, npm]
 math: true
 mermaid: false
+permalink: /posts/trouble-shooting-momoso-20250119/
 ---
 
 # 🚫 현상
