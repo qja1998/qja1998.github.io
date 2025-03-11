@@ -153,4 +153,4 @@ Prediction:  8
 
 #### Image Source
 
-* Dropout: [http://jmlr.org/papers/volume15/srivastava14a.old/srivastava14a.pdf](http://jmlr.org/papers/volume15/srivastava14a.old/srivastava14a.pdf)
+* Dropout: [https://jmlr.org/papers/volume15/srivastava14a.old/srivastava14a.pdf](https://jmlr.org/papers/volume15/srivastava14a.old/srivastava14a.pdf)

@@ -63,7 +63,7 @@ pretraining 방식은 다음과 같다.
 
 noise를 추가하고 noise가 없는 원래 데이터와 error를 구하면서 manifold 상 같은 것이 뭔지 학습하는 구조이다.
 
-실제로 이렇게 noise를 추가하여 학습한 결과 이미지의 특징을 찾는 edge detection이 잘 된 모습을 확인할 수 있다. 자세한 것은 다음 [링크](http://videolectures.net/deeplearning2015_vincent_autoencoders/?q=vincent%20autoencoder)에서 확인할 수 있다.
+실제로 이렇게 noise를 추가하여 학습한 결과 이미지의 특징을 찾는 edge detection이 잘 된 모습을 확인할 수 있다. 자세한 것은 다음 [링크](https://videolectures.net/deeplearning2015_vincent_autoencoders/?q=vincent%20autoencoder)에서 확인할 수 있다.
 
 ![](/posting_imgs/dae-sample1.png" description="DAE와 다른 AE들과의 edge 비교" %}
 

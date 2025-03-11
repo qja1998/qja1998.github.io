@@ -517,4 +517,4 @@ layer의 `inplanes`도 (64, 128, 256, 512)에서 (16, 32, 64, 128)로 바꿔준�
 #### Image Source
 
 * 20-layer vs. 56-layer plain network, Residual Block, ResNet Models Table, Resnet-34 Architecture: [https://arxiv.org/pdf/1512.03385.pdf](https://arxiv.org/pdf/1512.03385.pdf)
-* Bottleneck Bock: [http://icml.cc/2016/tutorials/icml2016_tutorial_deep_residual_networks_kaiminghe.pdf](http://icml.cc/2016/tutorials/icml2016_tutorial_deep_residual_networks_kaiminghe.pdf)
+* Bottleneck Bock: [https://icml.cc/2016/tutorials/icml2016_tutorial_deep_residual_networks_kaiminghe.pdf](https://icml.cc/2016/tutorials/icml2016_tutorial_deep_residual_networks_kaiminghe.pdf)

@@ -136,4 +136,4 @@ tensor([[-0.0565,  0.0423, -0.0155,  ...,  0.1012,  0.0459, -0.0191],
 
 * RBM: [https://en.wikipedia.org/wiki/File:Restricted-boltzmann-machine.svg](https://en.wikipedia.org/wiki/File:Restricted-boltzmann-machine.svg)
 
-* DBN: [http://www.dmi.usherb.ca/~larocheh/publications/deep-nets-icml-07.pdf](http://www.dmi.usherb.ca/~larocheh/publications/deep-nets-icml-07.pdf)
+* DBN: [https://www.dmi.usherb.ca/~larocheh/publications/deep-nets-icml-07.pdf](https://www.dmi.usherb.ca/~larocheh/publications/deep-nets-icml-07.pdf)
