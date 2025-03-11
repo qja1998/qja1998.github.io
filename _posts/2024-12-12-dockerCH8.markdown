@@ -41,7 +41,7 @@ mermaid: false
 이렇게 마스터 노드와 워커 노드로 구성된 일군의 구버네티스 시스템을 **클러스터**라고 한다.
 클러스터는 사람이 개입하지 않아도 마스터 노드에 설정된 내용에 따라 워커 노드가 관리되며 자율적으로 동작한다.
 
-![](./images/kubernetes_cluster.png)
+<!-- ![](posting_imgs/kubernetes_cluster.png) -->
 
 쿠버네티스는 컨테이너 엔진과는 별개의 SW이므로 따로 설치가 필요하다.
 쿠버네티스 SW와 CNI(가상 네트워크 드라이버, Container Network Interface)를 설치해야 한다.
@@ -124,7 +124,7 @@ service는 로드 밸런서 역할을 한다. 각 service는 자동적으로 고
 여러 워크 노드 간의 분배는 실제 로드 밸런서 또는 인그레스가 담당한다.
 이들은 마스터 노드도 워커 노드도 아닌 별도의 노드에서 동작하거나 물리적 전용 하드웨어이다.
 
-![](./images/kube_service.png)
+<!-- ![](posting_imgs/kube_service.png) -->
 
 ### ReplicaSet, deployment
 
