@@ -1,0 +1,40 @@
+---
+title: "[Programmers] 즐겨찾기가 가장 많은 식당 정보 출력하기 - 131123"
+author: kwon
+date: 2025-03-11T22:45:37 +0900
+categories: [programmers, sql]
+tags: [sql]
+math: false
+mermaid: false
+---
+
+# 문제
+[즐겨찾기가 가장 많은 식당 정보 출력하기](https://school.programmers.co.kr/learn/courses/30/lessons/131123)
+
+# 풀이
+
+## 코드
+```sql
+SELECT FOOD_TYPE, REST_ID, REST_NAME, FAVORITES
+FROM REST_INFO
+WHERE (FOOD_TYPE, FAVORITES) 
+IN 
+(SELECT FOOD_TYPE, MAX(FAVORITES)
+FROM REST_INFO
+GROUP BY FOOD_TYPE ) -- 음식 종류, 즐찾 최대 개수
+
+ORDER BY FOOD_TYPE DESC```
+
+## 설명
+이 문제는 SQL을 활용한 데이터 조회 문제다.
+
+### 접근 방법
+문제의 요구사항을 분석하여 적절한 SQL 쿼리를 작성했다.
+
+### 주요 포인트
+- 필요한 테이블 JOIN
+- WHERE 조건절을 통한 데이터 필터링
+- ORDER BY를 통한 정렬
+
+### 시간 복잡도
+데이터베이스 인덱스와 쿼리 최적화에 따라 성능이 결정된다.
