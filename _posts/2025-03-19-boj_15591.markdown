@@ -1,0 +1,168 @@
+---
+title: "[BOJ] MooTube (Silver) - 15591 (G5)"
+author: kwon
+date: 2025-03-19T23:07:06 +0900
+categories: [boj, gold]
+tags: [graph theory, graph traversal, bfs, dfs]
+math: true
+mermaid: false
+---
+
+| 시간 제한 | 메모리 제한 |
+| --- | --- |
+| 2 초 | 512 MB |
+
+# 문제
+농부 존은 MooTube라는 동영상 공유 사이트를 만들었다. MooTube에는 N개의 동영상이 있으며, 1번부터 N번까지 번호가 매겨져 있다.
+
+MooTube의 각 동영상은 다른 동영상들과 "연관도"를 가지고 있다. 두 동영상을 연결하는 경로가 유일하다는 점에서, 동영상들은 트리 구조를 이룬다.
+
+임의의 두 동영상 사이의 연관도는 그 두 동영상을 연결하는 경로상에서 **가장 작은 연관도**로 정의된다.
+
+농부 존은 한 동영상에 대해 유사도가 K 이상인 모든 동영상의 개수를 알고 싶어한다. 각 질의에 대해 이를 계산하는 프로그램을 작성하시오.
+
+# 입력
+첫째 줄에 동영상의 개수 N (1 ≤ N ≤ 5,000)과 질문의 개수 Q (1 ≤ Q ≤ 5,000)가 주어진다.
+
+다음 N-1개의 줄에는 두 동영상을 연결하는 간선 정보 p, q, r이 주어진다. 이는 동영상 p와 동영상 q가 연관도 r로 연결되어 있음을 의미한다. (1 ≤ r ≤ 1,000,000,000)
+
+다음 Q개의 줄에는 k, v가 주어진다. 이는 유사도가 k 이상인 동영상을 동영상 v를 기준으로 찾는 질의이다.
+
+# 출력
+Q개의 줄에 각 질문에 대한 답변을 출력한다.
+
+# 풀이
+
+이 문제는 트리 구조에서 특정 노드로부터 도달 가능한 노드들 중 경로상의 최소 가중치가 특정 값 이상인 노드의 개수를 세는 문제이다.
+
+## 접근 방법
+
+### 핵심 아이디어
+
+두 동영상 간의 유사도는 경로상의 **최소 연관도**이다. 따라서 시작 노드에서 BFS/DFS를 수행하며, 각 노드까지의 경로에서의 최소값을 유지하면서 탐색한다.
+
+### 풀이 1: BFS를 이용한 방법
+
+각 쿼리마다 BFS를 수행하여 유사도가 k 이상인 노드를 센다.
+
+1. 시작 노드에서 BFS를 시작한다. 초기 최소값은 무한대(INF)로 설정한다.
+2. 인접 노드로 이동할 때마다 현재까지의 최소 연관도를 갱신한다.
+3. 갱신된 최소 연관도가 k 이상이면 카운트를 증가시킨다.
+4. 모든 노드를 탐색한 후 카운트를 반환한다.
+
+## 코드
+
+### BFS 풀이
+
+```python
+from collections import deque
+
+# 영상에 대해 유사도가 K 이상인 모든 동영상 추천
+
+N, Q = map(int, input().split())
+INF = float('inf')
+
+graph = [[] for _ in range(N + 1)]
+
+for _ in range(N - 1):
+    p, q, r = map(int, input().split())
+    graph[p].append((q, r))
+    graph[q].append((p, r))
+
+visited = [[False] * (N + 1) for _ in range(N + 1)]
+
+def get_relations(graph, start, k):
+    q = deque([(start, INF)])
+    visited = [False] * (N + 1)
+    visited[start] = True
+    cnt = 0
+
+    while q:
+        node, min_r = q.popleft()
+
+        for n_node, r in graph[node]:
+            if visited[n_node]:
+                continue
+            visited[n_node] = True
+            r = min(min_r, r)
+            if r >= k:
+                cnt += 1
+            q.append((n_node, r))
+    return cnt
+        
+        
+for _ in range(Q):
+    k, v = map(int, input().split())
+
+    print(get_relations(graph, v, k))
+```
+
+### 코드 설명
+
+#### 그래프 구성
+```python
+graph = [[] for _ in range(N + 1)]
+for _ in range(N - 1):
+    p, q, r = map(int, input().split())
+    graph[p].append((q, r))
+    graph[q].append((p, r))
+```
+- 양방향 그래프로 구성
+- 각 간선의 연관도를 함께 저장
+
+#### `get_relations` 함수
+```python
+q = deque([(start, INF)])
+visited = [False] * (N + 1)
+visited[start] = True
+cnt = 0
+
+while q:
+    node, min_r = q.popleft()
+    
+    for n_node, r in graph[node]:
+        if visited[n_node]:
+            continue
+        visited[n_node] = True
+        r = min(min_r, r)  # 경로상 최소 연관도 갱신
+        if r >= k:
+            cnt += 1
+        q.append((n_node, r))
+```
+- 큐에는 `(노드, 경로상 최소 연관도)` 쌍을 저장
+- 시작 노드의 최소값은 INF (아직 간선을 거치지 않음)
+- 인접 노드로 이동할 때마다 `min(현재 최소값, 간선 연관도)`로 갱신
+- 갱신된 값이 k 이상이면 추천 가능한 동영상으로 카운트
+
+## 시간 복잡도
+
+### BFS 풀이
+- 한 번의 BFS: O(N + E) = O(N) (트리이므로 E = N-1)
+- Q개의 쿼리: O(Q × N)
+- N, Q ≤ 5,000이므로 25,000,000번의 연산
+- 시간 제한 2초 내에 충분히 해결 가능
+
+## 최적화: Union-Find (DSU) 활용
+
+코드 하단에 주석 처리된 DSU 풀이도 있다. 이는 오프라인 쿼리 처리 방식으로, 모든 쿼리를 먼저 받아 정렬한 후 처리하는 방법이다.
+
+### DSU 풀이의 아이디어
+
+1. 간선을 연관도 기준 내림차순 정렬
+2. 쿼리를 k 값 기준 내림차순 정렬
+3. k가 큰 쿼리부터 처리하며, k 이상인 간선들을 Union으로 연결
+4. 각 쿼리의 시작 노드가 속한 컴포넌트의 크기 - 1이 답
+
+이 방법은 O(Q log Q + (N+Q)α(N))로 더 효율적이지만, 온라인 쿼리가 필요한 경우엔 BFS 방식을 사용해야 한다.
+
+## 주의 사항
+
+1. **경로상 최소값**: 두 노드 간 유사도는 경로의 최소 연관도임을 기억한다.
+2. **자기 자신 제외**: 시작 노드 자신은 카운트하지 않는다.
+3. **트리 구조**: N개의 노드와 N-1개의 간선으로 이루어진 트리이다.
+4. **방문 체크**: 각 쿼리마다 독립적인 방문 배열이 필요하다.
+
+## 다른 접근
+
+DFS를 사용해도 동일하게 해결할 수 있다. 재귀를 사용할 경우 파이썬의 재귀 깊이 제한을 고려해야 한다.
+
