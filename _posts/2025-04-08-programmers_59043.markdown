@@ -1,0 +1,38 @@
+---
+title: "[Programmers] 있었는데요 없었습니다 - 59043"
+author: kwon
+date: 2025-04-08T23:40:33 +0900
+categories: [programmers, sql]
+tags: [sql]
+math: false
+mermaid: false
+---
+
+# 문제
+[있었는데요 없었습니다](https://school.programmers.co.kr/learn/courses/30/lessons/59043)
+
+# 풀이
+
+## 코드
+```sql
+SELECT a_in.animal_id, a_in.name
+FROM animal_ins AS a_in
+JOIN 
+animal_outs AS a_out
+ON a_in.animal_id = a_out.animal_id
+where a_in.datetime > a_out.datetime
+ORDER BY a_in.datetime```
+
+## 설명
+이 문제는 SQL을 활용한 데이터 조회 문제다.
+
+### 접근 방법
+문제의 요구사항을 분석하여 적절한 SQL 쿼리를 작성했다.
+
+### 주요 포인트
+- 필요한 테이블 JOIN
+- WHERE 조건절을 통한 데이터 필터링
+- ORDER BY를 통한 정렬
+
+### 시간 복잡도
+데이터베이스 인덱스와 쿼리 최적화에 따라 성능이 결정된다.
