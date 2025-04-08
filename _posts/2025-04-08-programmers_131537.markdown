@@ -1,0 +1,39 @@
+---
+title: "[Programmers] 오프라인/온라인 판매 데이터 통합하기 - 131537"
+author: kwon
+date: 2025-04-08T23:40:24 +0900
+categories: [programmers, sql]
+tags: [sql]
+math: false
+mermaid: false
+---
+
+# 문제
+[오프라인/온라인 판매 데이터 통합하기](https://school.programmers.co.kr/learn/courses/30/lessons/131537)
+
+# 풀이
+
+## 코드
+```sql
+    SELECT DATE_FORMAT(sales_date,"%Y-%m-%d") AS sales_date, product_id, user_id, sales_amount
+    FROM online_sale
+    WHERE MONTH(sales_date) = 3
+UNION
+    SELECT DATE_FORMAT(sales_date,"%Y-%m-%d") AS sales_date, product_id, NULL AS user_id, sales_amount
+    FROM offline_sale
+    WHERE MONTH(sales_date) = 3
+ORDER BY sales_date, product_id, user_id```
+
+## 설명
+이 문제는 SQL을 활용한 데이터 조회 문제다.
+
+### 접근 방법
+문제의 요구사항을 분석하여 적절한 SQL 쿼리를 작성했다.
+
+### 주요 포인트
+- 필요한 테이블 JOIN
+- WHERE 조건절을 통한 데이터 필터링
+- ORDER BY를 통한 정렬
+
+### 시간 복잡도
+데이터베이스 인덱스와 쿼리 최적화에 따라 성능이 결정된다.
