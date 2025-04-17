@@ -1,0 +1,197 @@
+---
+title: "[BOJ] 숨바꼭질 3 - 13549 (G5)"
+author: kwon
+date: 2025-04-17T21:34:06 +0900
+categories: [boj, gold]
+tags: [graph theory, graph traversal, bfs, shortest path, dijkstra, 0-1 bfs]
+math: true
+mermaid: false
+---
+
+| 시간 제한 | 메모리 제한 |
+| --- | --- |
+| 2 초 | 512 MB |
+
+# 문제
+수빈이는 동생과 숨바꼭질을 하고 있다. 수빈이는 현재 점 N(0 ≤ N ≤ 100,000)에 있고, 동생은 점 K(0 ≤ K ≤ 100,000)에 있다. 수빈이는 걷거나 순간이동을 할 수 있다. 만약, 수빈이의 위치가 X일 때 걷는다면 1초 후에 X-1 또는 X+1로 이동하게 된다. 순간이동을 하는 경우에는 0초 후에 2*X의 위치로 이동하게 된다.
+
+수빈이와 동생의 위치가 주어졌을 때, 수빈이가 동생을 찾을 수 있는 가장 빠른 시간이 몇 초 후인지 구하는 프로그램을 작성하시오.
+
+# 입력
+첫 번째 줄에 수빈이가 있는 위치 N과 동생이 있는 위치 K가 주어진다. N과 K는 정수이다.
+
+# 출력
+수빈이가 동생을 찾는 가장 빠른 시간을 출력한다.
+
+# 풀이
+
+이 문제는 **가중치가 다른 간선**이 있는 그래프에서의 최단 경로 문제이다.
+
+- X → X+1, X → X-1: 비용 1
+- X → 2*X: 비용 0
+
+## 접근 방법
+
+### 다익스트라 알고리즘 사용
+
+가중치가 다른 간선이 있으므로 다익스트라 알고리즘을 사용한다. 일반 BFS는 모든 간선의 가중치가 1일 때만 최단 경로를 보장한다.
+
+### 핵심 아이디어
+
+1. 현재 위치에서 갈 수 있는 세 가지 선택지:
+   - X+1 (비용 1)
+   - X-1 (비용 1)
+   - 2*X (비용 0)
+
+2. 우선순위 큐를 사용하여 비용이 작은 경로부터 탐색
+
+3. 각 위치까지의 최소 비용을 갱신하며 탐색
+
+## 코드
+
+```python
+import heapq
+INF = float('inf')
+
+N, K = map(int, input().split())
+distance = [INF] * 100001
+
+def dijkstra(start):
+    distance[start] = 0
+    q = []
+    heapq.heappush(q, (0, start))
+
+    while q:
+        dist, c = heapq.heappop(q)
+        if distance[c] < dist:
+            continue
+        for n in (c+1, c-1, c*2):
+            if n < 0 or n > 100000:
+                continue
+
+            cost = dist
+            if n != c*2:
+                cost = dist + 1
+
+            if cost < distance[n]:
+                distance[n] = cost
+                q.append((cost, n))
+
+dijkstra(N)
+print(distance[K])
+```
+
+### 코드 설명
+
+#### 초기화
+```python
+INF = float('inf')
+distance = [INF] * 100001
+```
+- 각 위치까지의 최소 비용을 저장할 배열
+- 초기값은 무한대(INF)
+
+#### 다익스트라 함수
+```python
+def dijkstra(start):
+    distance[start] = 0
+    q = []
+    heapq.heappush(q, (0, start))
+```
+- 시작 위치의 비용은 0
+- 우선순위 큐에 (비용, 위치) 튜플 저장
+
+#### 탐색 과정
+```python
+while q:
+    dist, c = heapq.heappop(q)
+    if distance[c] < dist:
+        continue
+```
+- 우선순위 큐에서 비용이 가장 작은 위치를 꺼냄
+- 이미 처리된 경우(더 짧은 경로로 방문됨) 건너뜀
+
+#### 이동 처리
+```python
+for n in (c+1, c-1, c*2):
+    if n < 0 or n > 100000:
+        continue
+
+    cost = dist
+    if n != c*2:
+        cost = dist + 1
+
+    if cost < distance[n]:
+        distance[n] = cost
+        q.append((cost, n))
+```
+- 세 가지 이동 방법 확인
+- 범위 체크 (0 ≤ n ≤ 100,000)
+- 순간이동(2*X)은 비용 0, 걷기는 비용 1
+- 더 짧은 경로를 발견하면 갱신하고 큐에 추가
+
+## 시간 복잡도
+
+- 다익스트라 알고리즘: O((V + E) log V)
+- V = 100,001 (위치의 개수)
+- 각 위치에서 최대 3개의 간선: E ≤ 3V
+- 전체: O(V log V) ≈ O(100,000 × 17) = O(1,700,000)
+
+시간 제한 2초 내에 충분히 해결 가능하다.
+
+## 0-1 BFS를 이용한 최적화
+
+비용이 0 또는 1만 있는 경우 `deque`를 사용한 0-1 BFS로 더 효율적으로 해결할 수 있다:
+
+```python
+from collections import deque
+
+N, K = map(int, input().split())
+distance = [float('inf')] * 100001
+
+def bfs_01(start):
+    dq = deque([(0, start)])
+    distance[start] = 0
+    
+    while dq:
+        dist, c = dq.popleft()
+        
+        if distance[c] < dist:
+            continue
+            
+        # 비용 0인 간선 (순간이동)
+        n = c * 2
+        if 0 <= n <= 100000 and dist < distance[n]:
+            distance[n] = dist
+            dq.appendleft((dist, n))  # 앞에 추가
+        
+        # 비용 1인 간선 (걷기)
+        for n in (c + 1, c - 1):
+            if 0 <= n <= 100000 and dist + 1 < distance[n]:
+                distance[n] = dist + 1
+                dq.append((dist + 1, n))  # 뒤에 추가
+
+bfs_01(N)
+print(distance[K])
+```
+
+0-1 BFS의 핵심:
+- 비용 0인 간선: `appendleft()` (앞에 추가)
+- 비용 1인 간선: `append()` (뒤에 추가)
+- 이렇게 하면 큐가 항상 비용 순으로 정렬됨
+
+## 주의 사항
+
+1. **범위 체크**: 0 ≤ 위치 ≤ 100,000
+2. **순간이동 우선**: 순간이동(비용 0)을 먼저 처리하면 더 효율적
+3. **중복 방문 처리**: 이미 더 짧은 경로로 방문한 경우 건너뛰기
+4. **우선순위 큐**: 일반 큐가 아닌 우선순위 큐 사용 필수
+
+## 관련 문제
+
+- 백준 1697 숨바꼭질 (모든 이동 비용이 1)
+- 백준 12851 숨바꼭질 2 (경로의 개수도 구하기)
+- 백준 13913 숨바꼭질 4 (경로 복원)
+
+이 문제는 가중치가 다른 그래프에서의 최단 경로를 찾는 전형적인 다익스트라/0-1 BFS 문제이다.
+
