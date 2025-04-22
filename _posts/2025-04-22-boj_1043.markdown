@@ -1,0 +1,195 @@
+---
+title: "[BOJ] 거짓말 - 1043 (G4)"
+author: kwon
+date: 2025-04-22T23:14:47 +0900
+categories: [boj, gold]
+tags: [graph theory, data structures, graph traversal, disjoint set]
+math: true
+mermaid: false
+---
+
+| 시간 제한 | 메모리 제한 |
+| --- | --- |
+| 2 초 | 128 MB |
+
+# 문제
+지민이는 파티에 가서 이야기 하는 것을 좋아한다. 파티에 갈 때마다, 지민이는 지민이가 가장 좋아하는 이야기를 한다. 지민이는 그 이야기를 말할 때, 있는 그대로 진실로 말하거나 엄청나게 과장해서 말한다. 당연히 과장해서 이야기하는 것이 훨씬 더 재미있기 때문에, 되도록이면 과장해서 이야기하려고 한다. 하지만, 지민이는 거짓말쟁이로 알려지기는 싫어한다. 문제는 몇몇 사람들은 그 이야기의 진실을 안다는 것이다. 따라서 이런 사람들이 파티에 왔을 때는, 지민이는 진실을 이야기할 수 밖에 없다. 당연히, 어떤 사람이 어떤 파티에서는 진실을 듣고, 다른 파티에서는 과장된 이야기를 들었을 때도 지민이는 거짓말쟁이로 알려지게 된다. 지민이는 이런 일을 모두 피해야 한다.
+
+사람의 수 N이 주어진다. 그리고 각 파티마다 오는 사람들의 번호가 주어진다. 지민이는 모든 파티에 참가해야 한다. 이때, 지민이가 거짓말쟁이로 알려지지 않으면서, 과장된 이야기를 할 수 있는 파티 개수의 최댓값을 구하는 프로그램을 작성하시오.
+
+# 입력
+첫째 줄에 사람의 수 N과 파티의 수 M이 주어진다.
+
+둘째 줄에는 이야기의 진실을 아는 사람의 수와 번호가 주어진다. 진실을 아는 사람의 수가 먼저 주어지고 그 개수만큼 사람들의 번호가 주어진다. 사람들의 번호는 1부터 N까지의 수로 주어진다.
+
+셋째 줄부터 M개의 줄에는 각 파티마다 오는 사람의 수와 번호가 같은 형식으로 주어진다.
+
+N, M은 50 이하의 자연수이고, 진실을 아는 사람의 수는 0 이상 50 이하의 정수이다.
+
+# 출력
+첫째 줄에 문제의 정답을 출력한다.
+
+# 풀이
+
+이 문제는 그래프 탐색 또는 Union-Find를 이용하여 해결할 수 있다. 핵심은 진실을 아는 사람과 같은 파티에 참석한 사람도 결국 진실을 알게 된다는 점이다.
+
+## 접근 방법
+
+### 핵심 아이디어
+
+1. 진실을 아는 사람들로부터 BFS/DFS를 시작
+2. 같은 파티에 참석한 사람들은 모두 연결됨
+3. 진실을 아는 사람이 포함된 파티는 거짓말 불가
+4. 진실을 아는 사람과 연결되지 않은 파티만 거짓말 가능
+
+### 전파 과정
+
+- 진실을 아는 사람 A가 파티 P에 참석
+- 파티 P의 모든 참석자가 진실을 알게 됨
+- 그 참석자들이 가는 다른 파티에서도 전파
+- 이를 반복하여 진실이 전파되는 모든 파티 파악
+
+## 코드
+
+```python
+from collections import deque
+
+N, M = map(int, input().split())
+truth_num, *truth_list = list(map(int, input().split()))
+
+truth_set = set(truth_list)
+
+party_graph = [set(list(map(int, input().split()))[1:]) for _ in range(M)]
+
+result_set = set()
+
+def search_party():
+    q =  truth_set.copy()
+    visited = truth_set.copy()
+    while q:
+        cur = q.pop()
+        # 들어있으면 q에 모두 넣어버리기
+        for i, party in enumerate(party_graph):
+            if cur in party:
+                if i in result_set:
+                    continue
+                # print(party)
+                result_set.add(i)
+                # visited 제외
+                q.update(party - visited)
+
+search_party()
+
+print(M - len(result_set))
+```
+
+### 코드 설명
+
+#### 초기화
+```python
+N, M = map(int, input().split())
+truth_num, *truth_list = list(map(int, input().split()))
+truth_set = set(truth_list)
+```
+- 진실을 아는 사람들을 set으로 저장
+- `*truth_list`로 언패킹하여 사람 번호만 추출
+
+#### 파티 정보 저장
+```python
+party_graph = [set(list(map(int, input().split()))[1:]) for _ in range(M)]
+```
+- 각 파티의 참석자를 set으로 저장
+- `[1:]`로 참석자 수를 제외하고 번호만 저장
+
+#### BFS 탐색
+```python
+def search_party():
+    q = truth_set.copy()
+    visited = truth_set.copy()
+    while q:
+        cur = q.pop()
+        for i, party in enumerate(party_graph):
+            if cur in party:
+                if i in result_set:
+                    continue
+                result_set.add(i)
+                q.update(party - visited)
+```
+- 진실을 아는 사람부터 시작
+- 그 사람이 참석한 파티를 찾음
+- 해당 파티를 `result_set`에 추가 (거짓말 불가 파티)
+- 파티의 다른 참석자들도 진실을 알게 되므로 큐에 추가
+- `visited`를 사용하여 중복 방문 방지
+
+#### 결과 계산
+```python
+print(M - len(result_set))
+```
+- 전체 파티 수에서 거짓말 불가 파티 수를 뺌
+
+## 시간 복잡도
+
+- 최악의 경우 모든 파티를 확인: O(M)
+- 각 파티마다 참석자 확인: O(N)
+- 전체: O(M × N)
+- N, M ≤ 50이므로 2,500번의 연산으로 충분
+
+## Union-Find를 이용한 풀이
+
+Union-Find로도 해결 가능하다:
+
+```python
+def find(parent, x):
+    if parent[x] != x:
+        parent[x] = find(parent, parent[x])
+    return parent[x]
+
+def union(parent, a, b):
+    a = find(parent, a)
+    b = find(parent, b)
+    if a < b:
+        parent[b] = a
+    else:
+        parent[a] = b
+
+N, M = map(int, input().split())
+truth = list(map(int, input().split()))
+truth_num = truth[0]
+truth_people = set(truth[1:])
+
+parent = list(range(N + 1))
+parties = []
+
+for _ in range(M):
+    party = list(map(int, input().split()))
+    party_people = party[1:]
+    parties.append(party_people)
+    
+    # 같은 파티 사람들을 union
+    for i in range(len(party_people) - 1):
+        union(parent, party_people[i], party_people[i + 1])
+
+# 진실을 아는 사람들과 같은 그룹인지 확인
+result = 0
+for party in parties:
+    can_lie = True
+    for person in party:
+        for truth_person in truth_people:
+            if find(parent, person) == find(parent, truth_person):
+                can_lie = False
+                break
+        if not can_lie:
+            break
+    if can_lie:
+        result += 1
+
+print(result)
+```
+
+## 주의 사항
+
+1. **진실 전파**: 같은 파티에 있으면 모두 진실을 알게 됨
+2. **간접 전파**: A→B, B→C로 연결되면 A→C도 전파
+3. **초기 진실 보유자 0명**: 모든 파티에서 거짓말 가능
+4. **방문 처리**: 같은 사람/파티를 여러 번 방문하지 않도록 주의
+
