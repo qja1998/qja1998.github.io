@@ -1,0 +1,54 @@
+---
+title: "[BOJ] 머리 톡톡 - 1241 (G5)"
+author: kwon
+date: 2025-07-03T17:32:35 +0900
+categories: [boj, gold]
+tags: [math, number theory, primality test, harmonic number]
+math: true
+mermaid: false
+---
+
+| 시간 제한 | 메모리 제한 |
+| --- | --- |
+| 2 초 | 128 MB |
+
+# 문제
+N명의 학생이 일렬로 서 있다. 각 학생들의 머리 위에는 자신의 번호가 적혀있다. 
+
+주석이는 장난으로 학생들의 머리를 톡톡 친다. 주석이는 i번째 학생을 칠 때, 자신의 번호가 i번째 학생의 번호의 약수인 학생들의 머리를 모두 한 번씩 친다.
+
+각 학생이 머리를 몇 번 맞았는지 구하는 프로그램을 작성하시오.
+
+# 풀이
+
+에라토스테네스의 체와 유사한 방식으로 해결할 수 있다. 각 번호의 배수들을 미리 계산해 놓는다.
+
+## 코드
+
+```python
+import sys
+from collections import Counter, defaultdict
+
+input = sys.stdin.readline
+print = sys.stdout.write
+
+N = int(input())
+
+students = [int(input()) for _ in range(N)]
+MAX_STUDENT = max(students) + 1
+
+counter = Counter(students)
+toktok = defaultdict(int)
+
+for i in range(1, MAX_STUDENT):
+    for j in range(i, MAX_STUDENT, i):
+        if j in counter:
+            toktok[j] += counter[i]
+
+print("\n".join(str(toktok[s] - 1) for s in students) + "\n")
+```
+
+## 시간 복잡도
+
+O(N log N)
+
