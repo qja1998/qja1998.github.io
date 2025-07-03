@@ -1,0 +1,60 @@
+---
+title: "[Programmers] 연간 평가점수에 해당하는 평가 등급 및 성과금 조회하기 - 284528"
+author: kwon
+date: 2025-07-03T17:33:50 +0900
+categories: [programmers, sql]
+tags: [sql]
+math: false
+mermaid: false
+---
+
+# 문제
+[연간 평가점수에 해당하는 평가 등급 및 성과금 조회하기](https://school.programmers.co.kr/learn/courses/30/lessons/284528)
+
+# 풀이
+
+## 코드
+```sql
+-- 사번, 성명, 평가 등급, 성과금
+-- 부서 정보
+-- 사원 정보
+-- 사원 평가 정보
+WITH avg_emp AS (
+    SELECT he.emp_no, he.emp_name, he.sal,
+        CASE
+            WHEN AVG(hg.score) >= 96 THEN 'S'
+            WHEN AVG(hg.score) >= 90 THEN 'A'
+            WHEN AVG(hg.score) >= 80 THEN 'B'
+            ELSE 'C'
+    END AS grade
+    FROM hr_employees AS he
+        LEFT JOIN
+        hr_grade AS hg
+        ON he.emp_no = hg.emp_no
+    GROUP BY he.emp_no
+)
+
+SELECT emp_no, emp_name, grade,
+    CASE
+        WHEN grade = 'S' THEN sal * 0.2
+        WHEN grade = 'A' THEN sal * 0.15
+        WHEN grade = 'B' THEN sal * 0.1
+        WHEN grade = 'C' THEN 0
+        ELSE NULL
+    END AS bonus
+FROM avg_emp
+ORDER BY emp_no```
+
+## 설명
+이 문제는 SQL을 활용한 데이터 조회 문제다.
+
+### 접근 방법
+문제의 요구사항을 분석하여 적절한 SQL 쿼리를 작성했다.
+
+### 주요 포인트
+- 필요한 테이블 JOIN
+- WHERE 조건절을 통한 데이터 필터링
+- ORDER BY를 통한 정렬
+
+### 시간 복잡도
+데이터베이스 인덱스와 쿼리 최적화에 따라 성능이 결정된다.
