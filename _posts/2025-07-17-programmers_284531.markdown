@@ -1,0 +1,44 @@
+---
+title: "[Programmers] 노선별 평균 역 사이 거리 조회하기 - 284531"
+author: kwon
+date: 2025-07-17T18:20:14 +0900
+categories: [programmers, sql]
+tags: [sql]
+math: false
+mermaid: false
+---
+
+# 문제
+[노선별 평균 역 사이 거리 조회하기](https://school.programmers.co.kr/learn/courses/30/lessons/284531)
+
+# 풀이
+
+## 코드
+```sql
+SELECT route,
+    CONCAT(ROUND(SUM(d_between_dist), 1), 'km') AS total_distance,
+    CONCAT(ROUND(AVG(d_between_dist), 2), 'km') AS average_distance
+FROM subway_distance
+GROUP BY route
+ORDER BY ROUND(SUM(d_between_dist), 1) DESC;
+
+-- SELECT route,
+--     CONCAT(ROUND(SUM(d_between_dist), 1), 'km') AS total_distance,
+--     CONCAT(ROUND(AVG(d_between_dist), 2), 'km') AS average_distance
+-- FROM subway_distance
+-- GROUP BY route
+-- ORDER BY total_distance DESC;```
+
+## 설명
+이 문제는 SQL을 활용한 데이터 조회 문제다.
+
+### 접근 방법
+문제의 요구사항을 분석하여 적절한 SQL 쿼리를 작성했다.
+
+### 주요 포인트
+- 필요한 테이블 JOIN
+- WHERE 조건절을 통한 데이터 필터링
+- ORDER BY를 통한 정렬
+
+### 시간 복잡도
+데이터베이스 인덱스와 쿼리 최적화에 따라 성능이 결정된다.
