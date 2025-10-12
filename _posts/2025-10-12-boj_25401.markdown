@@ -1,0 +1,54 @@
+---
+title: "[BOJ] 카드 바꾸기 - 25401 (G5)"
+author: kwon
+date: 2025-10-12T14:28:49 +0900
+categories: [boj, gold]
+tags: [math, implementation, bruteforcing]
+math: true
+mermaid: false
+---
+
+| 시간 제한 | 메모리 제한 |
+| --- | --- |
+| 2 초 | 1024 MB |
+
+# 문제
+N장의 카드가 일렬로 놓여 있다. 카드를 바꿔서 등차수열을 만들려고 한다. 최소 몇 장을 바꿔야 하는지 구하는 프로그램을 작성하시오.
+
+# 풀이
+
+브루트포스 문제이다. 모든 두 카드 쌍에 대해 등차수열을 만들고, 최소 변경 횟수를 구한다.
+
+## 코드
+
+```python
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+cards = list(map(int, input().split()))
+
+ans = n - 2
+
+# 모든 가능한 두 카드 조합 (i, j)에 대해 확인
+for i in range(n):
+    for j in range(i + 1, n):
+        if (cards[j] - cards[i]) % (j - i) != 0:
+            continue
+        d = (cards[j] - cards[i]) // (j - i)
+        cnt = 0
+        
+        for k in range(n):
+            expected = cards[i] + (k - i) * d
+            if cards[k] != expected:
+                cnt += 1
+        
+        ans = min(ans, cnt)
+
+print(ans)
+```
+
+## 시간 복잡도
+
+O(N^3)
+
