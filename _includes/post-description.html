@@ -1,0 +1,21 @@
+<!--
+  Generate post description for HTML pages
+
+  v2.0
+  https://github.com/cotes2020/jekyll-theme-chirpy
+  © 2019 Cotes Chung
+  MIT Licensed
+-->
+
+{% if include.max_length %}
+  {% assign max_length = include.max_length %}
+{% else %}
+  {% assign max_length = 200 %}
+{% endif %}
+
+{% if post.description %}
+  {{ post.description | strip_html | normalize_whitespace | truncate: max_length }}
+{% else %}
+  {{ post.content | strip_html | normalize_whitespace | truncate: max_length }}
+{% endif %}
+
