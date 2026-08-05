@@ -4,9 +4,8 @@ author: kwon
 date: 2025-02-15T23:00:00 +0900
 categories: [troubleshooting]
 tags: [gitlab-ci-cd]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250215/
+description: 'gitlab ci 상에서 permission denied가 발생하는 문제 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

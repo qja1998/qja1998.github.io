@@ -4,8 +4,7 @@ author: kwon
 date: 2025-07-03T17:33:50 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''연간 평가점수에 해당하는 평가 등급 및 성과금 조회하기'' (284528번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

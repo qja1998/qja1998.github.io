@@ -5,7 +5,7 @@ date: 2024-08-06T14:00:00 +0900
 categories: [swea, 모의역량]
 tags: [combinatorics, backtracking]
 math: true
-mermaid: false
+description: 'SWEA 4012번 ''요리사'' (모의 역량 테스트) 문제 풀이. combinatorics, backtracking 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

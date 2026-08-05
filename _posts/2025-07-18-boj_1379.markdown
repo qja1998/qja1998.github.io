@@ -4,8 +4,7 @@ author: kwon
 date: 2025-07-18T15:30:11 +0900
 categories: [boj, gold]
 tags: [data structures, greedy algorithm, sort, priority queue]
-math: true
-mermaid: false
+description: '백준 1379번 ''강의실 2'' (골드 3) 문제 풀이. data structures, greedy algorithm, sort 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

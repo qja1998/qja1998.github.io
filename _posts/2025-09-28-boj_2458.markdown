@@ -4,8 +4,7 @@ author: kwon
 date: 2025-09-28T19:52:45 +0900
 categories: [boj, gold]
 tags: [graph theory, graph traversal, shortest path, dfs, floyd warshall]
-math: true
-mermaid: false
+description: '백준 2458번 ''키 순서'' (골드 4) 문제 풀이. graph theory, graph traversal, shortest path 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

@@ -5,7 +5,7 @@ date: 2022-05-07T23:00:00 +0900
 categories: [pytorch, study]
 tags: [mle, overfitting, regularization, learning-rate]
 math: true
-mermaid: false
+description: 'Probalility(확률)는 우리가 잘 알고 있듯이 어떤 관측값이 발생할 정도를 뜻하는데, 이는 다르게 말하면 한 확률분포에서 해당 관측값 또는 관측 구간이 얼마의 확률을 가지는가를 뜻한다. 이에 반해 Likelihood(우도, 가능도)는 이 관측값이 주어진 확률 분'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab7-1: Tips 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

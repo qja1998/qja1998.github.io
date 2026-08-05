@@ -4,8 +4,7 @@ author: kwon
 date: 2022-09-26T23:00:00 +0900
 categories: [boj, silver]
 tags: [implementation, bruteforcing]
-math: true
-mermaid: false
+description: '백준 7568번 ''덩치'' (실버 5) 문제 풀이. implementation, bruteforcing 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

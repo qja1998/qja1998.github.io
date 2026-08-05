@@ -4,8 +4,7 @@ author: kwon
 date: 2022-06-06T01:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn]
-math: true
-mermaid: false
+description: 'hihello 문제는 같은 문자들이 다음 문자가 다른 경우 이를 예측하는 문제를 말한다. hihello에서 ''h''와 ''l''은 2번씩 등장하지만 어디에 문자가 위치하느냐에 따라 다음에 올 문자가 달라진다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-2: RNN - hihello / charseq 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

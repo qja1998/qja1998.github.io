@@ -4,8 +4,7 @@ author: kwon
 date: 2025-06-26T18:38:56 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''업그레이드 된 아이템 구하기'' (273711번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

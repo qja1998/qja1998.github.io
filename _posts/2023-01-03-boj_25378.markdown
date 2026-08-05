@@ -5,7 +5,7 @@ date: 2022-12-16T23:00:00 +0900
 categories: [boj, gold]
 tags: [math, greedy algorithm, sort]
 math: true
-mermaid: false
+description: '백준 25378번 ''[KOI] 조약돌'' (골드 1) 문제 풀이. math, greedy algorithm, sort 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

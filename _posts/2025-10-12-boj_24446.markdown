@@ -4,8 +4,7 @@ author: kwon
 date: 2025-10-12T14:28:27 +0900
 categories: [boj, silver]
 tags: [graph theory, graph traversal, bfs]
-math: true
-mermaid: false
+description: '백준 24446번 ''알고리즘 수업 - 너비 우선 탐색 3'' (실버 2) 문제 풀이. graph theory, graph traversal, bfs 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

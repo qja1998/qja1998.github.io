@@ -4,8 +4,7 @@ author: kwon
 date: 2022-05-14T01:00:00 +0900
 categories: [pytorch, study]
 tags: [weight-init, rbm, dbn, xavier, he-init]
-math: true
-mermaid: false
+description: '초기 weight의 설정은 크게 중요하지 않아 보이지만 실제로는 큰 영향을 미친다. 위 그래프에서도 볼 수 있듯이 적절한 초기화 기법으로 초기화를 해준 경우(N이 붙어있는 곡선) 실제로 오차가 줄어든 것을 확인할 수 있다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab9-2:Weight Initialization 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

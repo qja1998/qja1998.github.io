@@ -5,7 +5,7 @@ date: 2022-04-26T14:40:00+0900
 categories: [background]
 tags: [entropy]
 math: true
-mermaid: false
+description: '오토인코더에 대한 공부를 하다가 entropy, cross entropy, KL divergence 등 모르는 용어들이 있어서 더 이상 미루지 않고 공부를 해 보기로 했다.'
 ---
 
 ### Related Post

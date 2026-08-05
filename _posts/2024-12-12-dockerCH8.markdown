@@ -4,8 +4,7 @@ author: kwon
 date: 2024-12-12T14:00:00 +0900
 categories: [docker]
 tags: [docker]
-math: true
-mermaid: false
+description: 'Kubernetes는 컨테이너 오케스트레이션 도구이다. 컨테이너 오케스트레이션이란 시스템 전체를 통괄하고 여러 개의 컨테이너를 관리하는 일을 말한다.'
 ---
 
 # SECTION 1. 쿠버네티스란?

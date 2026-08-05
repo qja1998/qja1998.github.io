@@ -4,8 +4,7 @@ author: kwon
 date: 2025-07-17T18:20:14 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''노선별 평균 역 사이 거리 조회하기'' (284531번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

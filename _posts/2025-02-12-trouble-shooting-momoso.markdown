@@ -4,9 +4,8 @@ author: kwon
 date: 2025-02-12T23:00:00 +0900
 categories: [troubleshooting]
 tags: [python, conda]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250212/
+description: 'conda 가상환경 상에서 pip install로 설치한 모듈을 찾을 수 없는 경우 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

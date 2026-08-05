@@ -5,7 +5,7 @@ date: 2022-04-29T14:00:00+0900
 categories: [pytorch, study]
 tags: [multivariate-linear-regression]
 math: true
-mermaid: false
+description: '이전 포스팅까지의 regression은 하나의 변수를 통해 예측을 하는 것이었다. 하지만 직관적으로 생각해 보더라도 여러 변수를 가지고 더 많은 정보를 통해 예측하면 더 좋은 결과가 나올 것 같다.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab 4_1: Multivariate Linear Regression 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 

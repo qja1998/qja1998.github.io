@@ -4,8 +4,7 @@ author: kwon
 date: 2022-06-07T00:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn]
-math: true
-mermaid: false
+description: '앞서 살펴보았던 RNN 예제들은 모두 한 단어나 짧은 문장에 대해 RNN을 학습시키는 내용들이었다. 하지만 우리가 다루고 싶은 데이터는 더 긴 문장이거나 내용을 가질 가능성이 높다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-3: RNN - hihello / charseq 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

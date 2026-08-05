@@ -4,8 +4,7 @@ author: kwon
 date: 2025-09-14T18:06:15 +0900
 categories: [boj, gold]
 tags: [implementation, simulation]
-math: true
-mermaid: false
+description: '백준 1091번 ''카드 섞기'' (골드 4) 문제 풀이. implementation, simulation 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

@@ -4,8 +4,7 @@ author: kwon
 date: 2023-02-02T23:00:00 +0900
 categories: [boj, silver]
 tags: [dynamic programming]
-math: true
-mermaid: false
+description: '백준 1003번 ''피보나치 함수'' (실버 3) 문제 풀이. dynamic programming 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

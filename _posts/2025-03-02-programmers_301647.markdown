@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-02T22:51:12 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''부모의 형질을 모두 가지는 대장균 찾기'' (301647번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

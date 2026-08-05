@@ -4,9 +4,8 @@ author: kwon
 date: 2025-01-22T23:00:00 +0900
 categories: [troubleshooting]
 tags: [gitlab-ci-cd, docker]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250122/
+description: 'gitlab-runner가 연결하려 할 때 403 error 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

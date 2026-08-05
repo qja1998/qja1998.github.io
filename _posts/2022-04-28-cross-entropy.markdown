@@ -5,7 +5,7 @@ date: 2022-04-28T00:10:00+0900
 categories: [background]
 tags: [entropy, kl-divergence, cross-entropy]
 math: true
-mermaid: false
+description: '교차 엔트로피의 의미는 이름에서 찾아볼 수 있다. 먼저 교차 엔트로피의 식을 한번 보자. 엔트로피 식에 와 의 밀도함수들이 교차해서 들어가 있다. 그런 의미에서 교차 엔트로피라는 이름이 붙은 것이다.'
 ---
 
 ### Related Post

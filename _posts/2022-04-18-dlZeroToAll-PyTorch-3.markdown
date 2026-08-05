@@ -5,7 +5,7 @@ date: 2022-04-18T14:00:00+0900
 categories: [pytorch, study]
 tags: [linear-regression, cost, gradient-descent]
 math: true
-mermaid: false
+description: '이번에는 Gradient descent에 대해 조금 더 집중적으로 알아보기 위해 Hypothesis를 조금 더 단순하게 로 바꾸어 살펴보자.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab 3: Minimizing Cost 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

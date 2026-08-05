@@ -5,7 +5,7 @@ date: 2022-05-04T00:00:00 +0900
 categories: [generative-model]
 tags: [autoencoder, dae, cae, scae]
 math: true
-mermaid: false
+description: '오토인코더는 인풋과 아웃풋이 같은 네트워크를 의미한다. Auto-associators, Diabolo networks, Sandglass-shaped net 등의 이명으로 불리기도 하며 가장 많이 불리는 이름은 역시 Autoencoder이다.'
 ---
 
 이활석님의 [오토인코더의 모든 것](https://www.youtube.com/watch?v=o_peo6U7IRM) 강의를 본 후 공부 및 정리를 목적으로 작성한 게시물임을 알려드립니다.

@@ -5,7 +5,7 @@ date: 2022-9-6T14:00:00 +0900
 categories: [boj, silver]
 tags: [data structures, stack, linked list]
 math: true
-mermaid: false
+description: '백준 1406번 ''에디터'' (실버 2) 문제 풀이. data structures, stack, linked list 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

@@ -5,7 +5,7 @@ date: 2022-11-22T23:00:00 +0900
 categories: [background]
 tags: [math, number theory, euclidean algorithm]
 math: true
-mermaid: false
+description: '유클리드 호제법은 2개의 자연수에 대해 최대공약수를 구하는 알고리즘이며 다음과 같은 성질을 통해 알고리즘을 진행한다.'
 ---
 
 유클리드 호제법은 2개의 자연수에 대해 최대공약수를 구하는 알고리즘이며 다음과 같은 성질을 통해 알고리즘을 진행한다.

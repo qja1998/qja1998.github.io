@@ -4,8 +4,7 @@ author: kwon
 date: 2024-12-12T14:00:00 +0900
 categories: [docker]
 tags: [docker]
-math: true
-mermaid: false
+description: '시스템 구축과 관련된 명령어를 하나의 텍스트 파일(정의 파일)에 기재해 명령어 한번에 시스템 전체를 실행하고 종료와 폐기까지 한번에 하도록 도와주는 도구이다.'
 ---
 
 # SECTION 1. 도커 컴포즈란?

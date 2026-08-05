@@ -4,8 +4,7 @@ author: kwon
 date: 2022-05-23T01:00:00 +0900
 categories: [pytorch, study]
 tags: [imagefolder, cnn, transform]
-math: true
-mermaid: false
+description: 'torchvision.datasets에 있는 ImageFolder는 directory에 따라 category를 자동으로 labeling 하여 데이터로 만들어 준다. 우리가 찍은 사진을 학습하는데 사용할 때 아주 좋은 기능이다.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-4: ImageFolder 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 

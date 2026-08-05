@@ -4,8 +4,7 @@ author: kwon
 date: 2024-11-06T14:00:00 +0900
 categories: [docker]
 tags: [docker]
-math: true
-mermaid: false
+description: '도커는 ''데이터 또는 프로그램을 격리시키는 기능''을 제공하는 소프트웨어다. 주로 서버에 사용되며, 다양한 프로그램과 데이터를 각각 독립된 환경에 격리하는 기능을 제공한다. 운영체제(비슷한 것) 통째로 격리하는 기능이다.'
 ---
 
 # SECTION 1. 도커란 무엇인가?

@@ -4,9 +4,8 @@ author: kwon
 date: 2025-01-21T23:00:01 +0900
 categories: [troubleshooting]
 tags: [gitlab-ci-cd, docker]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250121-2/
+description: 'gitlab-runner container에서 Command not found가 발생하는 문제 — 이 문제는 GitLab Runner 컨테이너가 실행될 때 entrypoint 스크립트에 의해 예상치 못한 명령어(tail 등)가 실행되면서 발생한 오류입니다. 이를 해결하기 위해 entrypoint'
 ---
 
 # 🚫 현상

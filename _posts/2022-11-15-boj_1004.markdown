@@ -5,7 +5,7 @@ date: 2022-11-15T23:00:00 +0900
 categories: [boj, silver]
 tags: [math, geometry]
 math: true
-mermaid: false
+description: '백준 1004번 ''어린 왕자'' (실버 3) 문제 풀이. math, geometry 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

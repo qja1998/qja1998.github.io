@@ -4,8 +4,7 @@ author: kwon
 date: 2025-09-28T19:12:03 +0900
 categories: [boj, gold]
 tags: [graph theory, graph traversal, bfs]
-math: true
-mermaid: false
+description: '백준 27211번 ''도넛 행성'' (골드 5) 문제 풀이. graph theory, graph traversal, bfs 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

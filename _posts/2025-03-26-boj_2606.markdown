@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-26T20:36:10 +0900
 categories: [boj, silver]
 tags: [graph theory, graph traversal, bfs, dfs]
-math: true
-mermaid: false
+description: '백준 2606번 ''바이러스'' (실버 3) 문제 풀이. graph theory, graph traversal, bfs 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

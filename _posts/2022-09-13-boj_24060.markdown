@@ -4,8 +4,7 @@ author: kwon
 date: 2022-09-13T23:00:00 +0900
 categories: [boj, silver]
 tags: [implementation, sort, recursion]
-math: true
-mermaid: false
+description: '백준 24060번 ''병합 정렬 1'' (실버 3) 문제 풀이. implementation, sort, recursion 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

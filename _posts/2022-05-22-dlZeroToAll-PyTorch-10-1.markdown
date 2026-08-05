@@ -5,7 +5,7 @@ date: 2022-05-22T00:00:00 +0900
 categories: [pytorch, study]
 tags: [convolution, padding, pooling, cnn]
 math: true
-mermaid: false
+description: '강의 자료에서는 ''이미지(2차원 매트릭스) 위에서 stride 만큼 filter(kernel)을 이동시키면서 겹쳐지는 부분의 각 원소의 값을 곱해서 더한 값을 출력으로 하는 연산''이라고 나와있다. 자세히 어떤 과정의 연산인지 확인해 보자.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-1: Convolution, Lab10-2: MNIST CNN 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 

@@ -5,7 +5,7 @@ date: 2022-05-13T00:00:00 +0900
 categories: [background]
 tags: [backpropagation]
 math: true
-mermaid: false
+description: '데이터를 레이어의 노드들을 통과시키면서 설정된 weight에 따라 예측 결과값을 계산하는 것을 forward pass라고 한다.'
 ---
 
 ***

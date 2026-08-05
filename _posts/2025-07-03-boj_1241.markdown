@@ -4,8 +4,7 @@ author: kwon
 date: 2025-07-03T17:32:35 +0900
 categories: [boj, gold]
 tags: [math, number theory, primality test, harmonic number]
-math: true
-mermaid: false
+description: '백준 1241번 ''머리 톡톡'' (골드 5) 문제 풀이. math, number theory, primality test 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-19T23:07:06 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''연도별 대장균 크기의 편차 구하기'' (299310번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

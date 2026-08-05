@@ -4,9 +4,8 @@ author: kwon
 date: 2025-01-23T23:00:00 +0900
 categories: [troubleshooting]
 tags: [gitlab-ci-cd, docker]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250123/
+description: 'docker 안에서 gitlab-runner exec가 작동하지 않는 문제 — 아래와 같이 잘 작동하는 것을 확인'
 ---
 
 # 🚫 현상

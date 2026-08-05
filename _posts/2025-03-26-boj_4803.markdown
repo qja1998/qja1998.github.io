@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-26T00:46:42 +0900
 categories: [boj, gold]
 tags: [graph theory, data structures, graph traversal, trees, dfs, disjoint set]
-math: true
-mermaid: false
+description: '백준 4803번 ''트리'' (골드 4) 문제 풀이. graph theory, data structures, graph traversal 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

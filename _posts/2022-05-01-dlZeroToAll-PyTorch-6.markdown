@@ -5,7 +5,7 @@ date: 2022-05-01T23:00:00 +0900
 categories: [pytorch, study]
 tags: [softmax-classification, multinomial-classification, cross-entropy]
 math: true
-mermaid: false
+description: '이전 포스팅에서는 이진 분류 문제에 대해 알아봤다. 이번에는 분류해야 할 범주가 2개(0, 1)가 아니라 여러개인 다중 분류에 대해 알아보려 한다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab 6: Softmax Classification 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

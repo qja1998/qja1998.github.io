@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-19T23:07:06 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''자동차 대여 기록 별 대여 금액 구하기'' (151141번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

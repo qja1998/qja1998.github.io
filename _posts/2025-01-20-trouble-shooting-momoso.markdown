@@ -4,9 +4,8 @@ author: kwon
 date: 2025-01-20T23:00:00 +0900
 categories: [troubleshooting]
 tags: [docker, gitlab-ci-cd]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250120/
+description: 'gitlab-runner 상에서 docker 빌드가 안되는 문제 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

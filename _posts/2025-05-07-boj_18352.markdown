@@ -4,8 +4,7 @@ author: kwon
 date: 2025-05-07T09:39:54 +0900
 categories: [boj, silver]
 tags: [graph theory, graph traversal, bfs, shortest path, dijkstra]
-math: true
-mermaid: false
+description: '백준 18352번 ''특정 거리의 도시 찾기'' (실버 2) 문제 풀이. graph theory, graph traversal, bfs 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

@@ -4,8 +4,7 @@ author: kwon
 date: 2025-09-28T19:51:29 +0900
 categories: [boj, gold]
 tags: [implementation, graph theory, graph traversal, simulation, bfs]
-math: true
-mermaid: false
+description: '백준 11559번 ''Puyo Puyo'' (골드 4) 문제 풀이. implementation, graph theory, graph traversal 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

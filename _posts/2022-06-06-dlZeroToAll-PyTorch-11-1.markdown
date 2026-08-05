@@ -4,8 +4,7 @@ author: kwon
 date: 2022-06-06T00:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn]
-math: true
-mermaid: false
+description: 'PyTorch에서 RNN은 in/output size만 잘 맞춰주면 바로 사용이 가능하다. "h, e, l, o" 4개의 알파벳으로 이루어진 데이터셋을 통해 2차원의 output(class가 2개)을 내는 RNN을 만들어볼 것이다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-1: RNN Basics 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

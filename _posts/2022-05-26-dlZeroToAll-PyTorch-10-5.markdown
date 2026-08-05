@@ -5,7 +5,7 @@ date: 2022-05-26T00:00:00 +0900
 categories: [pytorch, study]
 tags: [cnn, vgg]
 math: true
-mermaid: false
+description: 'VGG-net(이하 VGG)은 14년도 ILSVRC(Imagenet 이미지 인식 대회)에 나온 네트워크로 옥스포드의 Visual Geometry Group에서 만든 모델이다.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-5: Advanced CNN(VGG) 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 

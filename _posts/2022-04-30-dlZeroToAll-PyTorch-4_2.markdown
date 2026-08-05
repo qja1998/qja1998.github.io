@@ -5,7 +5,7 @@ date: 2022-04-30T00:00:00 +0900
 categories: [pytorch, study]
 tags: [multivariate-linear-regression]
 math: true
-mermaid: false
+description: 'lab41에서 다루었던 Multivariate Linear Regression에서는 학습 데이터로 3개의 차원을 가진 5개의 샘플을 사용했었다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab 4_2: Loading Data 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

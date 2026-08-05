@@ -4,8 +4,7 @@ author: kwon
 date: 2024-08-10T14:00:00 +0900
 categories: [swea, 모의역량]
 tags: [dfs, subset, dynamic programming]
-math: true
-mermaid: false
+description: 'SWEA 2115번 ''벌꿀 채취'' (모의 역량 테스트) 문제 풀이. dfs, subset, dynamic programming 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

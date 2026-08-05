@@ -5,7 +5,7 @@ date: 2022-05-15T01:00:00 +0900
 categories: [pytorch, study]
 tags: [batch-normalization, gradient-vanishing, gradient-exploding, internal-covariate-shift]
 math: true
-mermaid: false
+description: 'Gradient Vanishing(기울기 소실)과 Gradient Exploding(기울기 폭주)는 정상적인 학습을 할 수 없게 만드는 요인들이다.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab9-4: Batch Normalization 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 

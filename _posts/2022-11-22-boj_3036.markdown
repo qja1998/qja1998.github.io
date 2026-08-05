@@ -4,8 +4,7 @@ author: kwon
 date: 2022-11-22T23:00:00 +0900
 categories: [boj, silver]
 tags: [math, number theory, euclidean algorithm]
-math: true
-mermaid: false
+description: '백준 3036번 ''링'' (실버 4) 문제 풀이. math, number theory, euclidean algorithm 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

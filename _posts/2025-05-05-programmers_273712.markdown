@@ -4,8 +4,7 @@ author: kwon
 date: 2025-05-05T20:05:52 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''업그레이드 할 수 없는 아이템 구하기'' (273712번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

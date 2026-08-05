@@ -4,9 +4,8 @@ author: kwon
 date: 2025-03-28T23:00:00 +0900
 categories: [troubleshooting]
 tags: [pytorch]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-kidsnomy-20250328/
+description: 'pytorch의 IndexError: index out of range in self 에러 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

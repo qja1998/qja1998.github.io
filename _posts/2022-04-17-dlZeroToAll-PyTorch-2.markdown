@@ -5,7 +5,7 @@ date: 2022-04-17T16:00:00+0900
 categories: [pytorch, study]
 tags: [linear-regression]
 math: true
-mermaid: false
+description: '선형 회귀에서 사용하는 1차 방정식을 말한다. weight와 bias를 계속 바꿔가면거 마지막 학습이 끝난 뒤의 최종값을 사용하여 데이터를 예측한다. 수식은 다음과 같다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab 2: Linear regression 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

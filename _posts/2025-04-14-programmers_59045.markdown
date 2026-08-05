@@ -4,8 +4,7 @@ author: kwon
 date: 2025-04-14T17:01:44 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''보호소에서 중성화한 동물'' (59045번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

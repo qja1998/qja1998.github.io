@@ -5,7 +5,7 @@ date: 2022-04-30T00:00:00 +0900
 categories: [pytorch, study]
 tags: [logistic-classification, binary-cross-entropy]
 math: true
-mermaid: false
+description: 'Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔히 Binary classification problem에 많이 사용하는데, 이 경우 왜 선형 회귀 대신 로지스틱 회귀를 사용하는지에 대해 먼저 알아보자'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab 5: Logistic Classification 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

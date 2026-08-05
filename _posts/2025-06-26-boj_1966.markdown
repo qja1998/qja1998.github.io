@@ -4,8 +4,7 @@ author: kwon
 date: 2025-06-26T20:34:52 +0900
 categories: [boj, silver]
 tags: [implementation, data structures, simulation, queue]
-math: true
-mermaid: false
+description: '백준 1966번 ''프린터 큐'' (실버 3) 문제 풀이. implementation, data structures, simulation 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

@@ -5,7 +5,7 @@ date: 2022-06-10T00:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn, timeseries]
 math: true
-mermaid: false
+description: 'timeseries(시게열) data는 일정 시간 간격으로 배치된 data를 말한다. 매장의 시간별 매출, 요일별 주식 시가/종가 등이 여기에 속할 수 있다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-4: Timeseries 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

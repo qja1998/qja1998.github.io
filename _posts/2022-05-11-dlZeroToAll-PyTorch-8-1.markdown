@@ -4,8 +4,7 @@ author: kwon
 date: 2022-05-11T23:00:00 +0900
 categories: [pytorch, study]
 tags: [perceptron]
-math: true
-mermaid: false
+description: '먼저 퍼셉트론의 컨셉이 된 뉴런에 대해 알아보자. 뉴런은 동물의 신경계를 구성하는 세포로 다음과 같은 형태이다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab8-1: Perceptron 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-24T23:00:00 +0900
 categories: [troubleshooting]
 tags: [jenkins]
-math: true
-mermaid: false
+description: 'jenkins에서 git pull 사용시 발생하는 문제 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

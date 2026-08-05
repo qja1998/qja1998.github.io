@@ -5,7 +5,7 @@ date: 2022-03-10T14:00:00 +0900
 categories: [boj, silver]
 tags: [divide and conquer, recursion]
 math: true
-mermaid: false
+description: '백준 1074번 ''Z'' (실버 1) 문제 풀이. divide and conquer, recursion 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

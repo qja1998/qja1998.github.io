@@ -4,8 +4,7 @@ author: kwon
 date: 2022-12-03T23:00:00 +0900
 categories: [boj, gold]
 tags: [prime number, sieve of eratosthenes]
-math: true
-mermaid: false
+description: '백준 1016번 ''제곱 ㄴㄴ수'' (골드 1) 문제 풀이. prime number, sieve of eratosthenes 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

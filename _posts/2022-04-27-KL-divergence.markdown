@@ -5,7 +5,7 @@ date: 2022-04-27T00:00:00+0900
 categories: [background]
 tags: [entropy, kl-divergence]
 math: true
-mermaid: false
+description: '이번에는 엔트로피에 이어 쿨백-라이블러 발산(Kullback-Leibler divergence)에 대해 알아보려 한다.'
 ---
 
 ### Related Post

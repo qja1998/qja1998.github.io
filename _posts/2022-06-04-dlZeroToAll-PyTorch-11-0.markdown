@@ -5,7 +5,7 @@ date: 2022-06-04T00:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn]
 math: true
-mermaid: false
+description: 'RNN은 sequential data를 잘 학습하기 위해 고안된 모델이다. Sequential data란 단어, 문장이나 시게열 데이터와 같이 데이터의 순서도 데이터의 일부인 데이터들을 말한다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-0: RNN intro 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

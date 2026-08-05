@@ -4,9 +4,8 @@ author: kwon
 date: 2025-02-16T23:00:00 +0900
 categories: [troubleshooting]
 tags: [docker]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250216-1/
+description: 'docker에서 volume을 연결해도 파일이 보이지 않는 문제 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

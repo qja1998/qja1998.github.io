@@ -4,8 +4,7 @@ author: kwon
 date: 2022-12-12T23:00:00 +0900
 categories: [boj, silver]
 tags: [math, string, greedy algorithm, parsing]
-math: true
-mermaid: false
+description: '백준 1541번 ''잃어버린 괄호'' (실버 2) 문제 풀이. math, string, greedy algorithm 로 접근했다.'
 ---
 | 시간 제한 | 메모리 제한 |
 | --- | --- |

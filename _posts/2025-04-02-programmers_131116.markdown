@@ -4,8 +4,7 @@ author: kwon
 date: 2025-04-02T23:10:42 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''식품분류별 가장 비싼 식품의 정보 조회하기'' (131116번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

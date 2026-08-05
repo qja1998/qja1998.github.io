@@ -4,8 +4,7 @@ author: kwon
 date: 2022-12-13T23:00:00 +0900
 categories: [boj, silver]
 tags: [greedy algorithm, sort]
-math: true
-mermaid: false
+description: '백준 1946번 ''신입 사원'' (실버 1) 문제 풀이. greedy algorithm, sort 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

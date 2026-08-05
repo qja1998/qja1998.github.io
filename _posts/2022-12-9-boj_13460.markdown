@@ -4,8 +4,7 @@ author: kwon
 date: 2022-12-9T23:00:00 +0900
 categories: [boj, gold]
 tags: [implementation, graph theory, bfs, simulation]
-math: true
-mermaid: false
+description: '백준 13460번 ''구슬 탈출 2'' (골드 1) 문제 풀이. implementation, graph theory, bfs 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

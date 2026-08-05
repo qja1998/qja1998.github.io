@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-04T15:02:38 +0900
 categories: [boj, silver]
 tags: [implementation, data structures, bruteforcing, stack]
-math: true
-mermaid: false
+description: '백준 2304번 ''창고 다각형'' (실버 2) 문제 풀이. implementation, data structures, bruteforcing 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

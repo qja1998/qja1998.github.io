@@ -4,8 +4,7 @@ author: kwon
 date: 2022-05-23T00:00:00 +0900
 categories: [pytorch, study]
 tags: [visdom, visualization]
-math: true
-mermaid: false
+description: 'Visdom은 Meta 사(facebook)에서 제공하는 PyTorch에서 사용할 수 있는 시각화 도구이다. 실시간으로 데이터를 시각화하면서 바뀌는 점을 확인할 수 있다는 장점이 있다.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-3: Visdom 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 

@@ -5,7 +5,7 @@ date: 2022-06-11T01:00:00 +0900
 categories: [background]
 tags: [attention, seq2seq, transformer, self-attention, multi-head, rnn]
 math: true
-mermaid: false
+description: 'Lab11-5에서 Seq2Seq model을 공부하면서 입력 문장 전체를 vector 하나로 압축한다는 점이 계속 걸렸다.'
 ---
 
 ### Related Post

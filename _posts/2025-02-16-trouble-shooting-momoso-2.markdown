@@ -4,9 +4,8 @@ author: kwon
 date: 2025-02-16T23:01:00 +0900
 categories: [troubleshooting]
 tags: [docker, redis]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250216-2/
+description: 'docker 상에서 redis가 정상적으로 연결되지 않는 문제 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

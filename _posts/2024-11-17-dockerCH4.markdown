@@ -4,8 +4,7 @@ author: kwon
 date: 2024-11-17T14:00:00 +0900
 categories: [docker]
 tags: [docker]
-math: true
-mermaid: false
+description: '컨테이너를 다루는 모든 명령은 docker 명령어로 시작한다 docker 명령어 뒤에 ''무엇을'', ''어떻게'', ''대상'' 순으로 지정하여 명령어를 작성한다.'
 ---
 
 # SECTION 1. 도커 엔진 시작하기/종료하기

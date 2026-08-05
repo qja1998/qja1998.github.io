@@ -4,8 +4,7 @@ author: kwon
 date: 2025-06-12T03:16:44 +0900
 categories: [boj, gold]
 tags: [graph theory, shortest path, floyd warshall]
-math: true
-mermaid: false
+description: '백준 11404번 ''플로이드'' (골드 4) 문제 풀이. graph theory, shortest path, floyd warshall 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

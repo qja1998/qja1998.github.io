@@ -4,8 +4,7 @@ author: kwon
 date: 2025-06-12T03:18:34 +0900
 categories: [boj, gold]
 tags: [implementation, bruteforcing]
-math: true
-mermaid: false
+description: '백준 17281번 ''⚾'' (골드 4) 문제 풀이. implementation, bruteforcing 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

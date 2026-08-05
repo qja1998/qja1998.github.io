@@ -4,9 +4,8 @@ author: kwon
 date: 2025-02-08T23:00:00 +0900
 categories: [troubleshooting]
 tags: [ssl, docker]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250208/
+description: 'SSL 발급 억까 탐방기 문제를 만난 상황과 해결 과정 기록.'
 ---
 
 # 🚫 현상

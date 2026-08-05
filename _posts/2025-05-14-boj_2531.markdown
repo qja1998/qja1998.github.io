@@ -4,8 +4,7 @@ author: kwon
 date: 2025-05-14T23:52:37 +0900
 categories: [boj, silver]
 tags: [bruteforcing, two pointer, sliding window]
-math: true
-mermaid: false
+description: '백준 2531번 ''회전 초밥'' (실버 1) 문제 풀이. bruteforcing, two pointer, sliding window 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

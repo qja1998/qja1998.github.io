@@ -4,8 +4,7 @@ author: kwon
 date: 2022-04-14T16:50:00+0900
 categories: [pytorch, study]
 tags: [basic, tensor-manipulation]
-math: true
-mermaid: false
+description: 'Vector, Matrix, Tensor의 표현은 위 그림과 같이 나타낼 수 있다. 각 구조들의 크기는 차원들의 크기의 곱으로 구할 수 있는데'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab 1: Tensor Manipulation 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

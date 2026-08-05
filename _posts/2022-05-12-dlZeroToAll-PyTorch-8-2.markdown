@@ -4,8 +4,7 @@ author: kwon
 date: 2022-05-12T23:00:00 +0900
 categories: [pytorch, study]
 tags: [perceptron]
-math: true
-mermaid: false
+description: 'MLP는 단일 퍼셉트론을 여러개 쌓은 것으로 단일 퍼셉트론으로 해결하지 못한 XOR과 같은 문제를 해결하기 위해 제안된 구조이다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab8-2: Multi Layer Perceptron 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

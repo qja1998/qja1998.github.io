@@ -5,7 +5,7 @@ date: 2024-07-31T14:00:00 +0900
 categories: [swea, d3]
 tags: [dfs, greedy algorithm]
 math: true
-mermaid: false
+description: 'SWEA 5215번 ''햄버거 다이어트'' (D3) 문제 풀이. dfs, greedy algorithm 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

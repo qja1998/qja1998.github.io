@@ -4,8 +4,7 @@ author: kwon
 date: 2024-12-12T14:00:00 +0900
 categories: [docker]
 tags: [docker]
-math: true
-mermaid: false
+description: '프로그램만으로 구성된 시스템은 그리 많지 않다. 5장에서도 나왔듯이 프로그램 외에도 프로그래밍 언어의 런타임이나 웹 서버, 데이터베이스 등이 함께 시스템을 구성한다.'
 ---
 
 # SECTION 2. 컨테이너와 호스트 간에 파일 복사하기

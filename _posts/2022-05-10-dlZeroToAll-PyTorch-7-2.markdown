@@ -4,8 +4,7 @@ author: kwon
 date: 2022-05-10T23:00:00 +0900
 categories: [pytorch, study]
 tags: [mnist]
-math: true
-mermaid: false
+description: 'MNIST 데이터 셋은 숫자 손글씨를 모아놓은 데이터 셋이다. 사람들이 적은 숫자들을 우체국에서 자동으로 처리하기 위해 만들어진 것이 이 셋의 시작점이라고 한다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab7-2: MNIST Introduction 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

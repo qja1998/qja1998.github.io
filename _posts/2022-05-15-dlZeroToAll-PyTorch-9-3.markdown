@@ -4,8 +4,7 @@ author: kwon
 date: 2022-05-15T00:00:00 +0900
 categories: [pytorch, study]
 tags: [dropout, overfitting]
-math: true
-mermaid: false
+description: 'lab7-1에서 알아본 것처럼 학습을 하다보면 train set에 너무 과적합(overfitting)되는 경우가 발생한다.'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab9-3: Dropout 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

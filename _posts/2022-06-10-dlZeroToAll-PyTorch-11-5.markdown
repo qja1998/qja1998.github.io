@@ -4,8 +4,7 @@ author: kwon
 date: 2022-06-10T01:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn]
-math: true
-mermaid: false
+description: 'Seq2Seq model은 아래와 같은 구조를 가지고 있다. 일종의 Encoder-Decoder 구조라고도 할 수 있는데 모든 입력을 다 받은 후에 출력을 생성하는 구조이다.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-5: Seq2Seq 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 

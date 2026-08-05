@@ -4,8 +4,7 @@ author: kwon
 date: 2025-10-12T00:09:13 +0900
 categories: [boj, gold]
 tags: [implementation]
-math: true
-mermaid: false
+description: '백준 1756번 ''피자 굽기'' (골드 5) 문제 풀이. implementation 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

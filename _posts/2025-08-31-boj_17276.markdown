@@ -4,8 +4,7 @@ author: kwon
 date: 2025-08-31T19:50:48 +0900
 categories: [boj, silver]
 tags: [implementation]
-math: true
-mermaid: false
+description: '백준 17276번 ''배열 돌리기'' (실버 1) 문제 풀이. implementation 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

@@ -4,9 +4,8 @@ author: kwon
 date: 2025-01-21T23:00:00 +0900
 categories: [troubleshooting]
 tags: [gitlab-ci-cd, docker]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250121-1/
+description: 'gitlab-runner에서 panic: EOF [recovered]가 발생하는 문제 — 이 문제는 GitLab Runner 컨테이너가 실행되는 동안 사용자 입력을 요구하지만, 컨테이너의 표준 입력(stdin)과 터미널 연결(tty)이 활성화되지 않아 발생합니다. 이를 해결하기 위해 s'
 ---
 
 # 🚫 현상

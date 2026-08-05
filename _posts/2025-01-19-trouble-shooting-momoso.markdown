@@ -4,9 +4,8 @@ author: kwon
 date: 2025-01-19T23:00:00 +0900
 categories: [troubleshooting]
 tags: [docker, npm]
-math: true
-mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250119/
+description: 'docker 빌드 시 권한 문제로 install이 안되는 문제 — docker-compose build로 빌드를 진행할 때 아래와 같은 문제가 발생'
 ---
 
 # 🚫 현상

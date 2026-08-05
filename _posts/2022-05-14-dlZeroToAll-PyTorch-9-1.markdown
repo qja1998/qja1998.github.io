@@ -5,7 +5,7 @@ date: 2022-05-14T00:00:00 +0900
 categories: [pytorch, study]
 tags: [relu, activation, optimizer, gradient-vanishing]
 math: true
-mermaid: false
+description: '시그모이드 함수의 문제는 backpropagation과정에서 발생한다. backpropagation을 수행할 때 activation의 미분값 곱해가면서 사용하게 되는데 이때 기울기가 소실되는 gradient vanishing문제가 발생한다. 다음 그림은 시그모이드 함수'
 ---
 
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab9-1: ReLU 강의를 본 후 공부를 목적으로 작성한 게시물입니다.

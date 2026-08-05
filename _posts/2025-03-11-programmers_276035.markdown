@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-11T22:45:37 +0900
 categories: [programmers, sql]
 tags: [sql]
-math: false
-mermaid: false
+description: '프로그래머스 ''FrontEnd 개발자 찾기'' (276035번) SQL 문제 풀이와 쿼리 설명.'
 ---
 
 # 문제

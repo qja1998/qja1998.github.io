@@ -4,8 +4,7 @@ author: kwon
 date: 2025-03-19T23:07:06 +0900
 categories: [boj, gold]
 tags: [graph theory, graph traversal, bfs, dfs]
-math: true
-mermaid: false
+description: '백준 15591번 ''MooTube (Silver)'' (골드 5) 문제 풀이. graph theory, graph traversal, bfs 로 접근했다.'
 ---
 
 | 시간 제한 | 메모리 제한 |

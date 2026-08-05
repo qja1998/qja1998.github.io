@@ -5,7 +5,7 @@ date: 2022-05-27T00:00:00 +0900
 categories: [pytorch, study]
 tags: [cnn, resnet, skip-connection]
 math: true
-mermaid: false
+description: 'Plain network는 skip connection을 사용하지 않은 일반적인 CNN 신경망을 의미한다. 이러한 plain net이 깊어지면 깊어질수록 backpropagation을 할 때 기울기 소실이나 폭발이 발생할 확률이 높아진다.'
 ---
 [모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-6: Advanced CNN(ResNet) 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 
