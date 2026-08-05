@@ -2,7 +2,7 @@
 title: "[Troubleshooting] gitlab ci 상에서 permission denied가 발생하는 문제"
 author: kwon
 date: 2025-02-15T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [gitlab-ci-cd]
 math: true
 mermaid: false

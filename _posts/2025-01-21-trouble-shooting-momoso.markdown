@@ -2,7 +2,7 @@
 title: "[Troubleshooting] gitlab-runner에서 panic: EOF [recovered]가 발생하는 문제"
 author: kwon
 date: 2025-01-21T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [gitlab-ci-cd, docker]
 math: true
 mermaid: false

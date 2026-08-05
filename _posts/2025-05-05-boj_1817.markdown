@@ -3,7 +3,7 @@ title: "[BOJ] 짐 챙기는 숌 - 1817 (S5)"
 author: kwon
 date: 2025-05-05T19:35:50 +0900
 categories: [boj, silver]
-tags: [implementation, greedy, simulation]
+tags: [implementation, greedy algorithm, simulation]
 math: true
 mermaid: false
 ---

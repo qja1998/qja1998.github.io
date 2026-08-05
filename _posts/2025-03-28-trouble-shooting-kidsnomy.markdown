@@ -2,7 +2,7 @@
 title: "[Troubleshooting] pytorch의 IndexError: index out of range in self 에러"
 author: kwon
 date: 2025-03-28T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [pytorch]
 math: true
 mermaid: false

@@ -3,7 +3,7 @@ title: "[BOJ]넴모넴모 (Easy) - 14712 (G5)"
 author: kwon
 date: 2024-09-09T14:00:00 +0900
 categories: [boj, gold]
-tags: [brute-force, backtracking]
+tags: [bruteforcing, backtracking]
 math: true
 mermaid: false
 ---

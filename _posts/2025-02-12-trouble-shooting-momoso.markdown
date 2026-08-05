@@ -2,7 +2,7 @@
 title: "[Troubleshooting] conda 가상환경 상에서 pip install로 설치한 모듈을 찾을 수 없는 경우"
 author: kwon
 date: 2025-02-12T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [python, conda]
 math: true
 mermaid: false

@@ -3,7 +3,7 @@ title: "[BOJ] 제곱 ㄴㄴ수 - 1016 (G1)"
 author: kwon
 date: 2022-12-03T23:00:00 +0900
 categories: [boj, gold]
-tags: [prime number, sieve of Eratosthenes]
+tags: [prime number, sieve of eratosthenes]
 math: true
 mermaid: false
 ---

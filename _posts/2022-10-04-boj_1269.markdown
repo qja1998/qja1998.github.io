@@ -3,7 +3,7 @@ title: "[BOJ] 대칭 차집합 - 1269 (S4)"
 author: kwon
 date: 2022-10-4T14:00:00 +0900
 categories: [boj, silver]
-tags: [data structure, set / map by hashing, set / map by tree]
+tags: [data structures, set / map by hashing, set / map by tree]
 math: true
 mermaid: false
 ---

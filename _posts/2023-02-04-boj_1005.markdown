@@ -3,7 +3,7 @@ title: "[BOJ]ACM Craft - 1005 (G3)"
 author: kwon
 date: 2023-02-04T14:00:00 +0900
 categories: [boj, gold]
-tags: [dynamic programing, graph theory, topological sort]
+tags: [dynamic programming, graph theory, topological sort]
 math: true
 mermaid: false
 ---

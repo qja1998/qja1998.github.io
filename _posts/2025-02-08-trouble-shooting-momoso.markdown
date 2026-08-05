@@ -2,7 +2,7 @@
 title: "[Troubleshooting] SSL 발급 억까 탐방기"
 author: kwon
 date: 2025-02-08T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [ssl, docker]
 math: true
 mermaid: false

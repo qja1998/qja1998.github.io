@@ -2,7 +2,7 @@
 title: "CH8. 쿠버네티스를 익히자 [그림으로 배우는 도커 & 쿠버네티스]"
 author: kwon
 date: 2024-12-12T14:00:00 +0900
-categories: [도커]
+categories: [docker]
 tags: [docker]
 math: true
 mermaid: false

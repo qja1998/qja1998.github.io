@@ -3,7 +3,7 @@ title: "[BOJ] 도시와 비트코인 - 31575 (S3)"
 author: kwon
 date: 2025-04-16T00:57:43 +0900
 categories: [boj, silver]
-tags: [dp, graph theory, graph traversal, bfs, dfs, grid graph]
+tags: [dynamic programming, graph theory, graph traversal, bfs, dfs, grid graph]
 math: true
 mermaid: false
 ---

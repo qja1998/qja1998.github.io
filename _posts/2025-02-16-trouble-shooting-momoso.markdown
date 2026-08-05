@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker에서 volume을 연결해도 파일이 보이지 않는 문제"
 author: kwon
 date: 2025-02-16T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [docker]
 math: true
 mermaid: false

@@ -3,7 +3,7 @@ title: "[BOJ] 강의실 2 - 1379 (G3)"
 author: kwon
 date: 2025-07-18T15:30:11 +0900
 categories: [boj, gold]
-tags: [data structures, greedy, sorting, priority queue]
+tags: [data structures, greedy algorithm, sort, priority queue]
 math: true
 mermaid: false
 ---

@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker 빌드 시 권한 문제로 install이 안되는 문제"
 author: kwon
 date: 2025-01-19T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [docker, npm]
 math: true
 mermaid: false

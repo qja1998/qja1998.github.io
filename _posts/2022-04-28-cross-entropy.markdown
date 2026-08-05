@@ -2,7 +2,7 @@
 title: "Cross Entropy(교차 엔트로피)"
 author: kwon
 date: 2022-04-28T00:10:00+0900
-categories: [background, loss]
+categories: [background]
 tags: [entropy, kl-divergence, cross-entropy]
 math: true
 mermaid: false

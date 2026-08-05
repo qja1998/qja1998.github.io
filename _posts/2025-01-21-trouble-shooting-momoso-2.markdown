@@ -2,7 +2,7 @@
 title: "gitlab-runner container에서 Command not found가 발생하는 문제"
 author: kwon
 date: 2025-01-21T23:00:01 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [gitlab-ci-cd, docker]
 math: true
 mermaid: false

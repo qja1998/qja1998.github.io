@@ -3,7 +3,7 @@ title: "[BOJ] 구슬 탈출 2 - 13460 (G1)"
 author: kwon
 date: 2022-12-9T23:00:00 +0900
 categories: [boj, gold]
-tags: [implementation, graph, bfs, simulation]
+tags: [implementation, graph theory, bfs, simulation]
 math: true
 mermaid: false
 ---

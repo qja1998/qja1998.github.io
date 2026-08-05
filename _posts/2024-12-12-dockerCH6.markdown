@@ -2,7 +2,7 @@
 title: "CH6. 컨테이너와 호스트 간에 파일 복사하기 [그림으로 배우는 도커 & 쿠버네티스]"
 author: kwon
 date: 2024-12-12T14:00:00 +0900
-categories: [도커]
+categories: [docker]
 tags: [docker]
 math: true
 mermaid: false

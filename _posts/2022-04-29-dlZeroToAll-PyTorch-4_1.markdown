@@ -3,7 +3,7 @@ title: "모두를 위한 딥러닝 2 - Lab4_1: Multivariate Linear Regression"
 author: kwon
 date: 2022-04-29T14:00:00+0900
 categories: [pytorch, study]
-tags: [multivariate-linear-regressoin]
+tags: [multivariate-linear-regression]
 math: true
 mermaid: false
 ---

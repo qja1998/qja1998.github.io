@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker 안에서 gitlab-runner exec가 작동하지 않는 문제"
 author: kwon
 date: 2025-01-23T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [gitlab-ci-cd, docker]
 math: true
 mermaid: false

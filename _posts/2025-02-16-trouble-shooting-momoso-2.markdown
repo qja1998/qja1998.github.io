@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker 상에서 redis가 정상적으로 연결되지 않는 문제"
 author: kwon
 date: 2025-02-16T23:01:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [docker, redis]
 math: true
 mermaid: false

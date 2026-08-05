@@ -2,8 +2,8 @@
 title: "유클리드 호제법 (Euclidean algorithm)"
 author: kwon
 date: 2022-11-22T23:00:00 +0900
-categories: [background, math]
-tags: [math, number theory, Euclidean algorithm]
+categories: [background]
+tags: [math, number theory, euclidean algorithm]
 math: true
 mermaid: false
 ---

@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker에서 react-scripts를 찾지 못하는 문제"
 author: kwon
 date: 2025-02-03T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [docker, react]
 math: true
 mermaid: false

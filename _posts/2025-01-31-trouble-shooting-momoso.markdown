@@ -2,8 +2,8 @@
 title: "[Troubleshooting] pem 키로 ssh 접근 시 권한 문제가 발생하는 경우"
 author: kwon
 date: 2025-01-31T23:00:00 +0900
-categories: [toubleshooting]
-tags: [ssh, AWS]
+categories: [troubleshooting]
+tags: [ssh, aws]
 math: true
 mermaid: false
 permalink: /posts/trouble-shooting-momoso-20250131/

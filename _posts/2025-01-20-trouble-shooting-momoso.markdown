@@ -2,7 +2,7 @@
 title: "[Troubleshooting] gitlab-runner 상에서 docker 빌드가 안되는 문제"
 author: kwon
 date: 2025-01-20T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [docker, gitlab-ci-cd]
 math: true
 mermaid: false

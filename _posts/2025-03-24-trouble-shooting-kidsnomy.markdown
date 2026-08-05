@@ -2,7 +2,7 @@
 title: "[Troubleshooting] jenkins에서 git pull 사용시 발생하는 문제"
 author: kwon
 date: 2025-03-24T23:00:00 +0900
-categories: [toubleshooting]
+categories: [troubleshooting]
 tags: [jenkins]
 math: true
 mermaid: false
