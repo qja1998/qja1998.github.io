@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab1: Tensor Manipulation"
-author: Kwon
+author: kwon
 date: 2022-04-14T16:50:00+0900
 categories: [pytorch, study]
 tags: [basic, tensor-manipulation]

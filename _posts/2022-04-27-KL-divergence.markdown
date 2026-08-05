@@ -1,6 +1,6 @@
 ---
 title: "KL divergence(쿨백-라이블러 발산)"
-author: Kwon
+author: kwon
 date: 2022-04-27T00:00:00+0900
 categories: [background]
 tags: [entropy, kl-divergence]

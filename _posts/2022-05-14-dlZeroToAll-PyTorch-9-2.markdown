@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab9-2:Weight Initialization"
-author: Kwon
+author: kwon
 date: 2022-05-14T01:00:00 +0900
 categories: [pytorch, study]
 tags: [weight-init, rbm, dbn, xavier, he-init]

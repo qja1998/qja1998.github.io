@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab9-4:Batch Normalization"
-author: Kwon
+author: kwon
 date: 2022-05-15T01:00:00 +0900
 categories: [pytorch, study]
 tags: [batch-normalization, gradient-vanishing, gradient-exploding, internal-covariate-shift]

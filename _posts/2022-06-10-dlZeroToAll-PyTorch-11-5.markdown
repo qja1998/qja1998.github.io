@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab11-5: Seq2Seq"
-author: Kwon
+author: kwon
 date: 2022-06-10T01:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn]

@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab7-1: Tips"
-author: Kwon
+author: kwon
 date: 2022-05-07T23:00:00 +0900
 categories: [pytorch, study]
 tags: [mle, overfitting, regularization, learning-rate]

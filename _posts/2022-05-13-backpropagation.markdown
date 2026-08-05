@@ -1,6 +1,6 @@
 ---
 title: "Backpropagation"
-author: Kwon
+author: kwon
 date: 2022-05-13T00:00:00 +0900
 categories: [background]
 tags: [backpropagation]

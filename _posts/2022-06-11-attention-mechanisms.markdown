@@ -1,6 +1,6 @@
 ---
 title: "Attention 메커니즘 정리 - Seq2Seq에서 Transformer까지"
-author: Kwon
+author: kwon
 date: 2022-06-11T01:00:00 +0900
 categories: [background]
 tags: [attention, seq2seq, transformer, self-attention, multi-head, rnn]

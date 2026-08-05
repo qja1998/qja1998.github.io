@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab6: Softmax Classification"
-author: Kwon
+author: kwon
 date: 2022-05-01T23:00:00 +0900
 categories: [pytorch, study]
 tags: [softmax-classification, multinomial-classification, cross-entropy]

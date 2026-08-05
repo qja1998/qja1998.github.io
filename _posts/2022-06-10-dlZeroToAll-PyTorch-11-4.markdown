@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab11-4: Timeseries"
-author: Kwon
+author: kwon
 date: 2022-06-10T00:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn, timeseries]

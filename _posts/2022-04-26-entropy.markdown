@@ -1,6 +1,6 @@
 ---
 title: "Entropy(엔트로피)란?"
-author: Kwon
+author: kwon
 date: 2022-04-26T14:40:00+0900
 categories: [background]
 tags: [entropy]

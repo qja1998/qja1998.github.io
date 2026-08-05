@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab2: Linear regression"
-author: Kwon
+author: kwon
 date: 2022-04-17T16:00:00+0900
 categories: [pytorch, study]
 tags: [linear-regressoin]

@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab5: Logistic Classification"
-author: Kwon
+author: kwon
 date: 2022-04-30T00:00:00 +0900
 categories: [pytorch, study]
 tags: [logistic-classification, binary-cross-entropy]

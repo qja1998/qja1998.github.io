@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab11-2: RNN - hihello / charseq"
-author: Kwon
+author: kwon
 date: 2022-06-06T01:00:00 +0900
 categories: [pytorch, study]
 tags: [rnn]

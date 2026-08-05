@@ -1,6 +1,6 @@
 ---
 title: "오토인코더의 모든 것 - 3. Autoencoders"
-author: Kwon
+author: kwon
 date: 2022-05-04T00:00:00 +0900
 categories: [generative-model]
 tags: [autoencoder, dae, cae, scae]

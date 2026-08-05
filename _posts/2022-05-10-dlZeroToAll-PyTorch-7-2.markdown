@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab7-2: MNIST Intoduction"
-author: Kwon
+author: kwon
 date: 2022-05-10T23:00:00 +0900
 categories: [pytorch, study]
 tags: [mnist]

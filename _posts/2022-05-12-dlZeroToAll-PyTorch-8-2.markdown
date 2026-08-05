@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab8-2: Multi Layer Perceptron"
-author: Kwon
+author: kwon
 date: 2022-05-12T23:00:00 +0900
 categories: [pytorch, study]
 tags: [perceptron]

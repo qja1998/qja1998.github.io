@@ -1,6 +1,6 @@
 ---
 title: "Cross Entropy(교차 엔트로피)"
-author: Kwon
+author: kwon
 date: 2022-04-28T00:10:00+0900
 categories: [background, loss]
 tags: [entropy, kl-divergence, cross-entropy]

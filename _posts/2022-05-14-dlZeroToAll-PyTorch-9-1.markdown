@@ -1,6 +1,6 @@
 ---
 title: "모두를 위한 딥러닝 2 - Lab9-1:ReLU"
-author: Kwon
+author: kwon
 date: 2022-05-14T00:00:00 +0900
 categories: [pytorch, study]
 tags: [relu, activation, optimizer, gradient-vanishing]
