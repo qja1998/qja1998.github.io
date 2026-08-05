@@ -12,9 +12,325 @@
 {%- endif -%}
 ';
 
-/* append your custom style below */
+/* ==========================================================================
+   커스텀 스타일 레이어
 
-/* 사이드바와 본문 경계선 (기존 커스터마이즈 유지) */
+   테마(gem)는 손대지 않고 이 파일에서만 덮어쓴다.
+   테마를 올려도 이 파일만 확인하면 되도록 유지할 것.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 한국어 타이포그래피
+
+   테마 기본 스택은 'Source Sans Pro', 'Microsoft Yahei', sans-serif 인데
+   앞의 둘은 한글 글리프가 없다(뒤는 간체 중국어용). 결국 한글이 OS 기본
+   글꼴로 떨어져 방문자마다 다르게 보이고, 한 문장 안에서 영문(웹폰트)과
+   한글(시스템 글꼴)의 크기·굵기 인상이 어긋난다.
+   Pretendard 는 한글과 라틴을 한 벌로 덮는다.
+   -------------------------------------------------------------------------- */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css');
+
+$ko-sans:
+  'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+  'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', system-ui, sans-serif;
+$ko-mono:
+  ui-monospace, SFMono-Regular, 'SF Mono', 'JetBrains Mono', Menlo, Consolas,
+  'D2Coding', 'Noto Sans KR', monospace;
+
+body,
+.site-title,
+.site-subtitle,
+h1, h2, h3, h4, h5, h6,
+input, button, select, textarea {
+  font-family: $ko-sans;
+}
+
+/* 숫자 폭을 고정해 표·날짜·코드 줄번호가 흔들리지 않게 한다 */
+body {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.003em;
+}
+
+.content {
+  /* 한국어는 기본값(normal)에서 음절 단위 어디서나 끊긴다.
+     keep-all 로 어절 단위 줄바꿈을 만들고, 긴 URL·영단어만
+     overflow-wrap 으로 예외 처리한다. 둘은 짝으로 써야 한다. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.82;
+
+  p {
+    margin-bottom: 1.15rem;
+  }
+
+  /* 한글 본문에서 굵은 글씨는 600 이 700 보다 덜 뭉갠다 */
+  strong {
+    font-weight: 600;
+  }
+}
+
+main {
+  line-height: 1.82;
+}
+
+/* 제목: 한글은 전각을 꽉 채워 라틴보다 빽빽해 보이므로 자간을 살짝 좁히고
+   위쪽 여백을 넉넉히 준다 */
+.content {
+  h1, h2, h3, h4 {
+    font-weight: 700;
+    letter-spacing: -0.017em;
+    line-height: 1.42;
+  }
+
+  h2 {
+    margin-top: 3rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--main-border-color);
+  }
+
+  h3 {
+    margin-top: 2.2rem;
+  }
+
+  h4 {
+    margin-top: 1.7rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. 접근성 — 색 대비 보정
+
+   테마 기본값이 WCAG AA(4.5:1) 에 못 미치는 두 곳을 올린다.
+   코드블록 언어 라벨 2.37:1, 줄번호 2.52:1 이었다.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --code-header-text-color: #6b6b6b; /* 4.72:1 */
+  --highlight-lineno-color: #767676; /* 4.54:1 */
+}
+
+:root[data-bs-theme='dark'] {
+  --code-header-text-color: #9aa4b2;
+  --highlight-lineno-color: #8d97a5;
+}
+
+/* 키보드 사용자를 위한 또렷한 포커스 링 (마우스 클릭 시에는 나오지 않음) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* 움직임을 줄이도록 설정한 사용자에게는 애니메이션을 끈다 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. 목록 카드
+   -------------------------------------------------------------------------- */
+
+.card-wrapper.card {
+  border-radius: 12px;
+  border: 1px solid var(--main-border-color);
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--link-color) 35%, transparent);
+    box-shadow: 0 6px 20px -8px rgb(0 0 0 / 18%);
+  }
+
+  .card-title {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.45;
+  }
+
+  .card-text.content p {
+    /* 미리보기는 세 줄에서 자른다. 한 줄 요약이 길어도 카드 높이가 들쭉날쭉해지지 않는다 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.7;
+    margin-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-wrapper.card:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. 사이드바
+   -------------------------------------------------------------------------- */
+
 #sidebar {
   border-right: 1px solid var(--sidebar-border-color);
+
+  .site-title a,
+  .site-title {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .site-subtitle {
+    font-style: normal !important; /* 한글은 기울임꼴이 인위적으로 기울어져 읽기 나쁘다 */
+    letter-spacing: -0.01em;
+    opacity: 0.85;
+  }
+
+  .nav-item {
+    .nav-link {
+      border-radius: 8px;
+      transition: background-color 0.15s ease;
+    }
+
+    &:not(.active) .nav-link:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--sidebar-active-color) 12%,
+        transparent
+      );
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. 본문 요소 다듬기
+   -------------------------------------------------------------------------- */
+
+.content {
+  /* 인용문 */
+  blockquote {
+    border-left-width: 3px;
+    padding-left: 1rem;
+  }
+
+  /* 표: 가로 스크롤은 테마의 .table-wrapper 가 이미 처리한다.
+     여기서는 읽기 편하도록 헤더와 행 구분만 또렷하게 만든다. */
+  table {
+    font-size: 0.94rem;
+
+    thead th {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    td, th {
+      word-break: keep-all;
+    }
+  }
+
+  /* 코드 */
+  code {
+    font-family: $ko-mono;
+    font-size: 0.88em;
+  }
+
+  .highlight {
+    border-radius: 10px;
+
+    pre {
+      font-family: $ko-mono;
+      font-size: 0.86rem;
+      line-height: 1.62;
+    }
+  }
+
+  /* 이미지: 도식이 본문과 구분되도록 아주 옅은 테두리만 준다 */
+  img {
+    border-radius: 8px;
+  }
+
+  /* 링크 밑줄을 글자에 너무 붙지 않게 */
+  a {
+    text-underline-offset: 0.18em;
+  }
+}
+
+/* 코드블록 헤더의 언어 라벨 */
+.highlight .code-header {
+  span[data-label-text]::after {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. 다크 모드에서의 본문 이미지
+
+   기존 포스팅 이미지 121개 중 98개(81%)가 흰 배경이다. 다크 배경 위에
+   그대로 두면 밝은 판이 튀어 눈이 부시다. 원본을 다시 만들지 않고
+   밝기만 낮춰 자극을 줄인다. 완전한 해결은 아니지만 비용이 거의 없다.
+   -------------------------------------------------------------------------- */
+
+:root[data-bs-theme='dark'] {
+  .content img:not([src$='.svg']) {
+    filter: brightness(0.82) contrast(1.04);
+    transition: filter 0.2s ease;
+  }
+
+  .content img:hover {
+    filter: none; /* 자세히 볼 때는 원본 그대로 */
+  }
+
+  /* 도식 SVG 는 흰 카드 배경이 하드코딩돼 있어 살짝 더 낮춘다 */
+  .content img[src$='.svg'] {
+    filter: brightness(0.86);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. 태그·카테고리 알약
+   -------------------------------------------------------------------------- */
+
+.post-tag,
+#tags .tag {
+  border-radius: 999px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* --------------------------------------------------------------------------
+   8. 인쇄
+
+   문제 풀이를 종이로 보는 경우가 있어 최소한만 정리한다.
+   -------------------------------------------------------------------------- */
+
+@media print {
+  #sidebar,
+  #topbar-wrapper,
+  #panel-wrapper,
+  footer,
+  .post-tail-wrapper,
+  #back-to-top {
+    display: none !important;
+  }
+
+  #main-wrapper,
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .content {
+    font-size: 11pt;
+  }
 }
