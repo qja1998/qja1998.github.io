@@ -1,6 +1,11 @@
 ---
 ---
 
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+/* prettier-ignore */
 @use 'main
 {%- if jekyll.environment == 'production' -%}
   .bundle
@@ -8,3 +13,8 @@
 ';
 
 /* append your custom style below */
+
+/* 사이드바와 본문 경계선 (기존 커스터마이즈 유지) */
+#sidebar {
+  border-right: 1px solid var(--sidebar-border-color);
+}
