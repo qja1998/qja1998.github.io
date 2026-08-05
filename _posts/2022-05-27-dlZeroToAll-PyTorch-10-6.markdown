@@ -59,7 +59,7 @@ identity가 다음 output으로 가는 지름길(shortcut)을 만들어 주었�
 
 Residual block애서 중간 layer를 1x1 -> 3x3 -> 1x1 의 bottleneck 구조를 만들어 demension redeuction을 통해 연산 시간을 줄인 구조이다.
 
-![](/posting_imgs/lab10-6-3.png" description="Bottleneck Block" %}
+![Bottleneck Block](/posting_imgs/lab10-6-3.png)
 
 ResNet 18/34에서는 일반적인 residual block을 사용하고 ResNet 50/101/152에서는 bottleneck block을 사용한다고 한다.
 

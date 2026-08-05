@@ -45,7 +45,7 @@ import torch.optim as optim
 {:.inner-borders}
 
 {% highlight python %}
-x1_train = torch.FloatTnsor([[73], [93], [89], [96], [73]])
+x1_train = torch.FloatTensor([[73], [93], [89], [96], [73]])
 x2_train = torch.FloatTensor([[80], [88], [91], [98], [66]])
 x3_train = torch.FloatTensor([[75], [93], [90], [100], [70]])
 

@@ -12,13 +12,13 @@ mermaid: false
 
 ***
 ## 1. Vector, Matrix and Tensor
-![](/posting_imgs/lab1-2.jpg)
+![1D Vector부터 6D까지 차원별 표현](/posting_imgs/lab1-1.jpg)
 <br><br>
 Vector, Matrix, Tensor의 표현은 위 그림과 같이 나타낼 수 있다.
 
 각 구조들의 크기는 차원들의 크기의 곱으로 구할 수 있는데
 <br><br>
-![](/posting_imgs/lab1-2.jpg)
+![batch size와 dim으로 나타낸 tensor의 크기](/posting_imgs/lab1-2.jpg)
 <br><br>
 Metrix와 Tonsor의 크기(t)는 위와 같이 구할 수 있다.
  

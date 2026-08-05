@@ -91,6 +91,7 @@ tensor([[1., 0., 0., 0., 0.],
 
 tensor(1.4689, grad_fn=<MeanBackward0>)
 '''
+```
 
 아니면 softmax처럼 미리 구현되어 있는 것을 사용해도 된다.
 

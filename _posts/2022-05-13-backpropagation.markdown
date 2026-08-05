@@ -27,7 +27,7 @@ MLP의 결과값을 만들어 주는 필수적인 과정이지만 이것만으�
 
 \\[W:=W-\alpha\nabla W\\]
 
-자세한 내용은 [관련 포스팅](/posts//dlZeroToAll-PyTorch-3/)을 참고하자
+자세한 내용은 [관련 포스팅](/posts/dlZeroToAll-PyTorch-3/)을 참고하자
 
 위에서 나왔던 네트워크의 일부분을 떼서 역전파가 어떻게 적용되는지 확인해 보자.
 

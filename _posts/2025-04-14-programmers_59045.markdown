@@ -22,7 +22,8 @@ animal_outs AS outs
 ON ins.animal_id = outs.animal_id
 WHERE ins.sex_upon_intake REGEXP 'Intact' 
     AND outs.sex_upon_outcome REGEXP 'Spayed|Neutered'
-ORDER BY ins.animal_id```
+ORDER BY ins.animal_id
+```
 
 ## 설명
 이 문제는 SQL을 활용한 데이터 조회 문제다.

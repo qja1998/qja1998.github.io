@@ -28,7 +28,7 @@ mermaid: false
 
 DBN을 알기 전에 먼저 RBM을 알고 가야 한다.
 
-![](/posting_imgs/lab9-2-2.png" description="RBM의 구조" %}
+![RBM의 구조](/posting_imgs/lab9-2-2.png)
 
 RBM은 레이어 안에서는 연결이 없는(restricted) 레이어들의 전연결 구조이다. 일종의 encode(위쪽 방향으로 진행), decode(아래쪽 방향으로 진행)를 수행한다고 볼 수도 있다.
 

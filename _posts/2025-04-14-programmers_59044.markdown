@@ -22,7 +22,8 @@ WHERE ins.animal_id NOT IN (
     FROM animal_outs
 )
 ORDER BY ins.datetime
-LIMIT 3```
+LIMIT 3
+```
 
 ## 설명
 이 문제는 SQL을 활용한 데이터 조회 문제다.

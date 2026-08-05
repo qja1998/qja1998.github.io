@@ -23,7 +23,8 @@ IN
 FROM REST_INFO
 GROUP BY FOOD_TYPE ) -- 음식 종류, 즐찾 최대 개수
 
-ORDER BY FOOD_TYPE DESC```
+ORDER BY FOOD_TYPE DESC
+```
 
 ## 설명
 이 문제는 SQL을 활용한 데이터 조회 문제다.

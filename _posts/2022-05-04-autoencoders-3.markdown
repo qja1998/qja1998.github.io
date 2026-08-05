@@ -59,21 +59,21 @@ pretraining 방식은 다음과 같다.
 
 이런 식으로 학습을 하면 사람이 봤을 때 같은 것(manifold상 거의 같은 것)이 무엇인지 학습할 수 있게 된다는 concept이다.
 
-![](/posting_imgs/dae.png" description="Denoising Autoencoder" %}
+![Denoising Autoencoder](/posting_imgs/dae.png)
 
 noise를 추가하고 noise가 없는 원래 데이터와 error를 구하면서 manifold 상 같은 것이 뭔지 학습하는 구조이다.
 
 실제로 이렇게 noise를 추가하여 학습한 결과 이미지의 특징을 찾는 edge detection이 잘 된 모습을 확인할 수 있다. 자세한 것은 다음 [링크](https://videolectures.net/deeplearning2015_vincent_autoencoders/?q=vincent%20autoencoder)에서 확인할 수 있다.
 
-![](/posting_imgs/dae-sample1.png" description="DAE와 다른 AE들과의 edge 비교" %}
+![DAE와 다른 AE들과의 edge 비교](/posting_imgs/dae-sample1.png)
 
 또한 noise를 추가할수록 edge가 강하게 나타나는 것도 확인할 수 있다.
 
-![](/posting_imgs/dae-sample2.png" description="noise 정도에 따른 edge 비교" %}
+![noise 정도에 따른 edge 비교](/posting_imgs/dae-sample2.png)
 
 다만 noise 추가가 너무 심해 원본의 데이터와 manifold 상에서 차이가 많이 나게 되면, noise를 추가한 의미가 퇴색되기 때문에 일정 noise 이상에서는 error가 다시 높아지는 것을 볼 수 있다.
 
-![](/posting_imgs/dae-graph.png" description="noise-error graph" %}
+![noise-error graph](/posting_imgs/dae-graph.png)
 
 ***
 ## CAE(Cntractive AE)

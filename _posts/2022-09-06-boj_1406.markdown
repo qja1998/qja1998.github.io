@@ -1,6 +1,5 @@
 ---
-title: "[BOJ] 에디터 - 1406 (S2)
-)"
+title: "[BOJ] 에디터 - 1406 (S2)"
 author: kwon
 date: 2022-9-6T14:00:00 +0900
 categories: [boj, silver]
