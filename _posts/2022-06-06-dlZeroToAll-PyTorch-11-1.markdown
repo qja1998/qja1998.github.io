@@ -1,5 +1,5 @@
 ---
-title: "모두를 위한 딥러닝 2 - Lab11-1: RNN Baisics"
+title: "모두를 위한 딥러닝 2 - Lab11-1: RNN Basics"
 author: kwon
 date: 2022-06-06T00:00:00 +0900
 categories: [pytorch, study]
@@ -8,7 +8,7 @@ math: true
 mermaid: false
 ---
 
-[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-1: RNN Baisics 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
+[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab11-1: RNN Basics 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 
 ***
 

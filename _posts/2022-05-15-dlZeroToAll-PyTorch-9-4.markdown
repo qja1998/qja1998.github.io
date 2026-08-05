@@ -42,7 +42,7 @@ Batch normalization을 제시할 때 주장했던 기울기 소실과 폭주에 
 
 ## Internal Covariate Shift
 
-이런 Covariate Shift가 네트워크 내부에서 발생하는 것이 Inteanal Covariate Shift이다.
+이런 Covariate Shift가 네트워크 내부에서 발생하는 것이 Internal Covariate Shift이다.
 
 이전까지는 모델 단위의 분포 문제라고 생각하고 첫 입력에만 normalization을 했지만, 실제로는 아래와 같이 스탭마다 레이어 단위로 Covariate Shift가 발생한다는 것이다.
 

@@ -60,9 +60,9 @@ tensor([0.0900, 0.2447, 0.6652])
 
 ### Cost(Cross Entropy)
 
-hHypothesis까지 모두 정의했으니, 이제 그에 맞는 cost를 정의해야 한다. 다중 분류에서는 cross entropy를 cost로 사용하는데, 이는 간단히 말해서 예측한 확률이 실제 분포의 확률과 얼마나 차이가 나는지 계산한 값이다.
+Hypothesis까지 모두 정의했으니, 이제 그에 맞는 cost를 정의해야 한다. 다중 분류에서는 cross entropy를 cost로 사용하는데, 이는 간단히 말해서 예측한 확률이 실제 분포의 확률과 얼마나 차이가 나는지 계산한 값이다.
 
-자세한 내용은 이미 [cross entropy 포스팅](/posts/cross-entropy/)에서 다루었기 때문에 여기로 돌리고 바로 코드로 넘아가자. 실제 값을 원핫 인코딩 한 것에, softmax에 log를 취한 값을 원소별로 곱한 뒤에, 0이 아닌 값들은 평균내어 전체적인 cross entropy를 구할 수 있다.
+자세한 내용은 이미 [cross entropy 포스팅](/posts/cross-entropy/)에서 다루었기 때문에 여기로 돌리고 바로 코드로 넘어가자. 실제 값을 원핫 인코딩 한 것에, softmax에 log를 취한 값을 원소별로 곱한 뒤에, 0이 아닌 값들은 평균내어 전체적인 cross entropy를 구할 수 있다.
 
 ```python
 z = torch.rand(3, 5, requires_grad=True)

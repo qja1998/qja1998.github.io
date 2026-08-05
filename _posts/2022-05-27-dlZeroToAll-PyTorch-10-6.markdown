@@ -7,7 +7,7 @@ tags: [cnn, resnet, skip-connection]
 math: true
 mermaid: false
 ---
-[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-6: Advence CNN(ResNet) 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
+[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-6: Advanced CNN(ResNet) 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 
 ***
 
@@ -69,7 +69,7 @@ ResNet은 아래와 같이 5개의 깊이를 가진 구조가 존재한다.
 
 ![ResNet Models](/posting_imgs/lab10-6-4.png)
 
-고정된 layer들을 제외하면 크게 4개의 layer가 있는 것을 볼 수 있는데, VGG와 비슷하게 3x3 conv에 padding 1을 적용하여 하나의 큰 layer안에서는 ourput size가 고정되는 것을 볼 수 있다.
+고정된 layer들을 제외하면 크게 4개의 layer가 있는 것을 볼 수 있는데, VGG와 비슷하게 3x3 conv에 padding 1을 적용하여 하나의 큰 layer안에서는 output size가 고정되는 것을 볼 수 있다.
 
 ![위부터 순서대로 Resnet-34, 34-layer plain, VGG-19](/posting_imgs/lab10-6-5.png)
 
@@ -321,7 +321,7 @@ import torchvision.models.resnet as resnet
 res = resnet.resnet50()
 res
 
-'''ourput
+'''output
 ResNet(
   (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
   (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)

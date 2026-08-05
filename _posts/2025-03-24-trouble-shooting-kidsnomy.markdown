@@ -52,7 +52,7 @@ remote: HTTP Basic: Access denied. If a password was provided for Git authentica
 # 🤔 회고
 
 - pull이 인증 관련 문제를 일으킬 수 있다는 것을 알게 되었다.
-- 앤간하면 framework 내장 기능을 사용하자
+- 웬만하면 framework 내장 기능을 사용하자
 ---
 
 

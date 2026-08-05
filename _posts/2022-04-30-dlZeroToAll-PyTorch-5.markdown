@@ -12,7 +12,7 @@ mermaid: false
 
 ***
 ## Logistic Regression(Binary Classification)
-Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔히 Binary classification ploblem에 많이 사용하는데, 이 경우 왜 선형 회귀 대신 로지스틱 회귀를 사용하는지에 대해 먼저 알아보자
+Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔히 Binary classification problem에 많이 사용하는데, 이 경우 왜 선형 회귀 대신 로지스틱 회귀를 사용하는지에 대해 먼저 알아보자
 
 ### Hypothesis
 공부 시간에 따른 시험 합격 여부 데이터 셋을 생각해 보자($y=1$: 합격, $y=0$: 불합격).
@@ -54,7 +54,7 @@ Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔�
 <br><br>
 
 ### Cost(Binary Cross Entropy)
-Hpothesis도 정의했으니 cost를 정의할 차례이다. 시그모이드 함수의 경우 선형 회귀에서 썼던 MSE를 사용하면 local minimun이 있을 수 있기 때문에 제대로 된 학습이 되지 않을 수 있다.
+Hypothesis도 정의했으니 cost를 정의할 차례이다. 시그모이드 함수의 경우 선형 회귀에서 썼던 MSE를 사용하면 local minimum이 있을 수 있기 때문에 제대로 된 학습이 되지 않을 수 있다.
 
 말로 하기보다 그래프로 한번 확인해 보자.
 ```python
@@ -288,7 +288,7 @@ Epoch 1000/1000 Cost: 0.019852
 '''
 ```
 
-마잔가지로 hypothesis와 cost만 달라지고 기본적인 틀은 같다. 학습도 잘 되는 모습이다.
+마찬가지로 hypothesis와 cost만 달라지고 기본적인 틀은 같다. 학습도 잘 되는 모습이다.
 
 ***
 ## Evaluation
@@ -361,7 +361,7 @@ tensor([[1],
 ## Higher Implementation with Class
 Bynary Classification 문제에서 Sigmoid Reggression을 사용하려고 할 때 [lab4_1](/posts/dlZeroToAll-PyTorch-4_1/)에서 나왔건 것처럼 `Module`을 사용하여 calss를 만들어 진행할 수 있다.
 
-이번에 사용한 데이터 셋은 모두를 위한 딥러닝 코드와 함께 제공되는 당뇨병 데이터셋이며 8개 차원의 인폿과 당뇨병 여부에 따른 0, 1의 값으로 데이터가 구성되어 있다.
+이번에 사용한 데이터 셋은 모두를 위한 딥러닝 코드와 함께 제공되는 당뇨병 데이터셋이며 8개 차원의 인풋과 당뇨병 여부에 따른 0, 1의 값으로 데이터가 구성되어 있다.
 
 ### Loading Real Data
 ```python

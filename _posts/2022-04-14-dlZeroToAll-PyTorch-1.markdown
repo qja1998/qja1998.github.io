@@ -20,7 +20,7 @@ Vector, Matrix, Tensor의 표현은 위 그림과 같이 나타낼 수 있다.
 <br><br>
 ![batch size와 dim으로 나타낸 tensor의 크기](/posting_imgs/lab1-2.jpg)
 <br><br>
-Metrix와 Tonsor의 크기(t)는 위와 같이 구할 수 있다.
+Matrix와 Tensor의 크기(t)는 위와 같이 구할 수 있다.
  
 또한 위 그림의 차원의 순서는 파이토치에서 차원을 표현할 때의 순서와 같다.
 즉, 아래와 같은 순서대로 표현하면 된다.
@@ -190,7 +190,7 @@ tensor([[1., 2.],
 '''
 {% endhighlight %}
 
-`matmul`의 경우 broadcasting 없이 행렬 곱셈을 한다. 그러므로 각 tonsor의 shape 변화 없이 그대로 곱한다. 
+`matmul`의 경우 broadcasting 없이 행렬 곱셈을 한다. 그러므로 각 tensor의 shape 변화 없이 그대로 곱한다. 
 
 반면 `mul`은 broadcasting을 하고 행렬의 각 원소들을 곱한다. 이 때문에 `m2`의 shape이 2 x 1에서 2 x 2로 `m1`의 shape에 맞춰진 후에 각 자리의 원소끼리 곱셈이 계산된 것을 확인할 수 있다.
 <br><br>
@@ -219,7 +219,7 @@ tensor([1.5000, 3.5000])
 '''
 {% endhighlight %}
 
-매개변수로 `dim`을 입력할 수 있다. 아무것도 입력하지 않은 경우에는 tonsor에 포함된 값 전체를, 차원을 지정해 준 경우 그 차원의 값들로 평균을 계산하여 tensor를 반환한다.
+매개변수로 `dim`을 입력할 수 있다. 아무것도 입력하지 않은 경우에는 tensor에 포함된 값 전체를, 차원을 지정해 준 경우 그 차원의 값들로 평균을 계산하여 tensor를 반환한다.
 
 `dim=0`이면 첫 번째 차원(세로)을 기준으로 평균을 계산하고, `dim=1`이면 두 번째 차원(가로)을, `dim=-1`이면 마지막 차원(여기선 두 번째 차원)을 기준으로 평균을 계산한다.
 <br><br>
@@ -498,7 +498,7 @@ tensor([[1., 2., 5., 6.],
 <br><br>
 
 ### Stacking
-`cat`과 비슷하지만 데이터의 차원은 유지하면서 쌓는다는 개념이 `cat`의 이어븥인다는 개념과는 조금 다르다.
+`cat`과 비슷하지만 데이터의 차원은 유지하면서 쌓는다는 개념이 `cat`의 이어붙인다는 개념과는 조금 다르다.
 
 {% highlight python %}
 x = torch.FloatTensor([1, 4])

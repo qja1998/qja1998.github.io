@@ -109,7 +109,7 @@ Accuracy:  0.5
 
 모든 hypothesis 결과가 0.5로 나오는 것을 확인할 수 있다. 이처럼 단일 퍼셉트론으로는 XOR을 제대로 분류할 수 없다.
 
-다음 포스팅에서는 XOR을 해결한 Multi Layer Percetron에 대해 알아보겠다.
+다음 포스팅에서는 XOR을 해결한 Multi Layer Perceptron에 대해 알아보겠다.
 
 ***
 

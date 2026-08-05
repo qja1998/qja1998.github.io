@@ -52,7 +52,7 @@ Probalility(확률)는 우리가 잘 알고 있듯이 어떤 관측값이 발생
 
 * Early Stoping: valid set의 loss가 줄어들지 않을 때 학습을 중지한다.
 * Reducing Network Size
-* Weight Decay: weight가 너무 커지지 않도록 wight가 커질수록 함께 커지는 penalty를 부여한다.
+* Weight Decay: weight가 너무 커지지 않도록 weight가 커질수록 함께 커지는 penalty를 부여한다.
 * Dropout: node의 일부를 꺼서 학습하는 node를 줄인다.
 * Batch Normalization: 학습 중에 배치 단위로 정규화 하는 것
 

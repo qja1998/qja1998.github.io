@@ -12,7 +12,7 @@ mermaid: false
 
 ***
 ## Theoretical Overview
-이번에는 Grdient descent에 대해 조금 더 집중적으로 알아보기 위해 Hypothesis를 조금 더 단순하게 $ H(x) = Wx $로 바꾸어 살펴보자.
+이번에는 Gradient descent에 대해 조금 더 집중적으로 알아보기 위해 Hypothesis를 조금 더 단순하게 $ H(x) = Wx $로 바꾸어 살펴보자.
 
 cost는 똑같이 MSE(Mean Square Error)를 사용하고 데이터도 이전과 같은 공부 시간 - 성적 데이터를 사용한다. ([Lab2 포스팅 참조](/posts/dlZeroToAll-PyTorch-2/))
 

@@ -1,5 +1,5 @@
 ---
-title: "모두를 위한 딥러닝 2 - Lab7-2: MNIST Intoduction"
+title: "모두를 위한 딥러닝 2 - Lab7-2: MNIST Introduction"
 author: kwon
 date: 2022-05-10T23:00:00 +0900
 categories: [pytorch, study]
@@ -8,7 +8,7 @@ math: true
 mermaid: false
 ---
 
-[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab7-2: MNIST Intoduction 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
+[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab7-2: MNIST Introduction 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 
 ***
 
@@ -22,7 +22,7 @@ MNIST는 다음과 같이 28x28 크기의 픽셀, 1개의 gray channel 그리고
 
 ### torchvision
 
-minist는 torchvision 모듈을 통해 불러온다. torchvision은 여러 데이터 셋이나 아키텍처, 전처리를 할 수 있는 기능들을 내장하고 있는 모듈이다.
+mnist는 torchvision 모듈을 통해 불러온다. torchvision은 여러 데이터 셋이나 아키텍처, 전처리를 할 수 있는 기능들을 내장하고 있는 모듈이다.
 
 ```python
 import torch
@@ -49,7 +49,7 @@ mnist_test = dsets.MNIST(root='MNIST_data/',
 data_loader - torch.utils.DataLoader(DataLoader=mnist_train, batch_size=batch_size, shuffle=True, drop_last=True)
 ```
 
-mnist는 60000개의 train set과 10000개의 test set으로 구성되어 있고, train prameter에 boolean 값을 넣어 각 셋을 불러올 수 있다.
+mnist는 60000개의 train set과 10000개의 test set으로 구성되어 있고, train parameter에 boolean 값을 넣어 각 셋을 불러올 수 있다.
 
 다른 데이터 셋들과 마찬가지로 `DataLoader`를 통해 미니배치를 나누어 학습할 수 있다.
 
@@ -159,4 +159,4 @@ Prediction:  3
 
 한 데이터에 대한 출력값은 싶다면 test_data와 label을 슬라이싱 하여 모델에 넣어서 결과값을 출력하는 것으로 확인할 수 있다.
 
-그 데이터에 대한 이미지는 `plt.imshow`를 통해 롹인할 수 있다. cmap(color map)을 grey로 설정하고, interpolation(보간)을 nearest로 하면 mnist 이미지를 얻을 수 있다.
+그 데이터에 대한 이미지는 `plt.imshow`를 통해 확인할 수 있다. cmap(color map)을 grey로 설정하고, interpolation(보간)을 nearest로 하면 mnist 이미지를 얻을 수 있다.

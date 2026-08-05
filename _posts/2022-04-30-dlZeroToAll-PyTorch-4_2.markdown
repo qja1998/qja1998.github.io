@@ -20,14 +20,14 @@ mermaid: false
 
 ***
 ## Minibatch Gradient Descent
-앞에서 잠간 언급한 것처럼, 대용량 데이터를 균일하게 나눠 gradient dscent를 하는 것을 Minibatch Gradient Descent라고 한다.
+앞에서 잠깐 언급한 것처럼, 대용량 데이터를 균일하게 나눠 gradient descent를 하는 것을 Minibatch Gradient Descent라고 한다.
 이렇게 학습을 하는 경우 업데이트가 빠르고 하드웨어적인 부담도 덜 수 있다.
 하지만 어디까지나 전체가 아닌 일부 데이터를 써서 학습하는 것이기 때문에 잘못된 방향으로 학습이 될 수도 있고,
 결과적으로 어느정도 수렴하더라도 그 과정이 아래 그림과 같이 좀 거칠게 Gradient descent 될 수도 있다. (아래 그림은 이해를 위한 임의의 그래프이며, 실제 loss의 그래프가 아닙니다.)
 
-![Minibatch Gradient Decsent](/posting_imgs/lab4_2-1.png)
+![Minibatch Gradient Descent](/posting_imgs/lab4_2-1.png)
 
-![Gradient Decsent](/posting_imgs/lab4_2-2.png)
+![Gradient Descent](/posting_imgs/lab4_2-2.png)
 
 ***
 ## Dataset

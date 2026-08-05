@@ -135,8 +135,8 @@ X = torch.FloatTensor(x_one_hot)
 Y = torch.LongTensor(y_data)
 ```
 
-one-hot encodeng을 identity matrix(단위행렬)를 통해 진행한다. `np.eye(size)`를 통해 만들 수 있는 단위행렬은 주대각선(좌상우하)의 원소가 모두 1이고 나머지는 모두 0인 정사각 행렬이다.
-앞서 뽑아냈던 문자들의 index를 사용하여 단위행렬의 한 줄을 뽑아내면 그것이 곧 해당 문자의 one-hot vetor가 되기 때문에 손쉽게 one-hot encodeng을 할 수 있다.
+one-hot encoding을 identity matrix(단위행렬)를 통해 진행한다. `np.eye(size)`를 통해 만들 수 있는 단위행렬은 주대각선(좌상우하)의 원소가 모두 1이고 나머지는 모두 0인 정사각 행렬이다.
+앞서 뽑아냈던 문자들의 index를 사용하여 단위행렬의 한 줄을 뽑아내면 그것이 곧 해당 문자의 one-hot vector가 되기 때문에 손쉽게 one-hot encoding을 할 수 있다.
 
 이후 데이터의 길이에 맞춰 각 size를 정의하고 x에서는 맨 뒤 문자, y에서는 맨 앞 문자를 빼서 학습할 수 있도록 한다.
 그리고 만들어진 데이터를 Tensor로 바꿔준다.

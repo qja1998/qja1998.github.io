@@ -50,7 +50,7 @@ react_frontend exited with code 127
     ```
     
     - 효과는 없었음
-- docke-compose에 volume을 명시하여 node_modules가 contianer에서 독립적으로 관리될 수 있도록 수정
+- docker-compose에 volume을 명시하여 node_modules가 container에서 독립적으로 관리될 수 있도록 수정
     
     ```yaml
     ...

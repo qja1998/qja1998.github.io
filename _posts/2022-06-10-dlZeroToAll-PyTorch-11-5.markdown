@@ -20,13 +20,13 @@ Seq2Seq model은 아래와 같은 구조를 가지고 있다.
 일종의 Encoder-Decoder 구조라고도 할 수 있는데 모든 입력을 다 받은 후에 출력을 생성하는 구조이다.
 
 왼쪽(파란색)에서는 입력 받은 정보들을 순차적으로 학습하여 정보를 vector로 압축하는 역할을 하고,
-오른쪽(주황색)에서는 압축한 정보를 전달받아 start flag(Start Of Sentence, SOS)와 함께 다음에 등장할 데이터를 예측하면서 순차적으로 output을 내고 마지막에는 end flag(Etart Of Sentence, EOS)를 출력하여 데이터의 끝이라는 것을 알려준다.
+오른쪽(주황색)에서는 압축한 정보를 전달받아 start flag(Start Of Sentence, SOS)와 함께 다음에 등장할 데이터를 예측하면서 순차적으로 output을 내고 마지막에는 end flag(End Of Sentence, EOS)를 출력하여 데이터의 끝이라는 것을 알려준다.
 
-간단한 문장에 대한 대답을 에로 들면 다음과 같다. 내부 layer는 LSTM나 GRU를 사용한다.
+간단한 문장에 대한 대답을 예로 들면 다음과 같다. 내부 layer는 LSTM나 GRU를 사용한다.
 
 ![](/posting_imgs/lab11-5-2.png)
 
-이를 사용하는 에로는 chatbot이 있을 수 있는데 chatbot은 사용자의 입력(문장)을 다 듣기 전에 답변을 만들 경우 실제 문장과 상관없는 답변을 생성할 수도 있다.
+이를 사용하는 예로는 chatbot이 있을 수 있는데 chatbot은 사용자의 입력(문장)을 다 듣기 전에 답변을 만들 경우 실제 문장과 상관없는 답변을 생성할 수도 있다.
 이런 경우 처럼 input sequence의 전체를 다 확인하고 출력이 있어야 하는 경우에 Seq2Seq model을 사용하게 된다.
 
 ***
@@ -49,7 +49,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 ### Data
 
-아래 data를 처리하여 사용할 것이다. data는 같은 뜻의 영어와 한국어로 구성되어 있고 각 영어와 하눆어는 tab으로 구분되어 있다.
+아래 data를 처리하여 사용할 것이다. data는 같은 뜻의 영어와 한국어로 구성되어 있고 각 영어와 한국어는 tab으로 구분되어 있다.
 
 ```py
 raw = ["I feel hungry.	나는 배가 고프다.",

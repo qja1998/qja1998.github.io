@@ -7,7 +7,7 @@ tags: [cnn, vgg]
 math: true
 mermaid: false
 ---
-[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-5: Advence CNN(VGG) 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
+[모두를 위한 딥러닝](https://deeplearningzerotoall.github.io/season2/lec_pytorch.html) Lab10-5: Advanced CNN(VGG) 강의를 본 후 공부를 목적으로 작성한 게시물입니다.
 
 ***
 
@@ -324,7 +324,7 @@ vgg16= VGG(vgg.make_layers(cfg),10,True).to(device)
 ```
 
 앞서 정의했던 VGG16은 `'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M']`의 형태였는데 위의 모델은 조금 달라보인다.
-이건 CIFAR10의 이미지가 32x32로 imgagenet의 것보다 작기 때문이다. 기존대로 pooling을 모두 진행하면 데이터의 크기가 너무 작아지므로 그것을 방지하기 위함이다.
+이건 CIFAR10의 이미지가 32x32로 imagenet의 것보다 작기 때문이다. 기존대로 pooling을 모두 진행하면 데이터의 크기가 너무 작아지므로 그것을 방지하기 위함이다.
 
 같은 이유로 `avgpool` layer도 빠졌는데 기존의 max pooling만 해도 이미 7x7보다 크기가 작기 때문이다.
 

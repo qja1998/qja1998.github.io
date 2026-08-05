@@ -136,7 +136,7 @@ net = Net(dic_size, hidden_size, 2)
 ```
 
 `torch.nn.RNN`을 이용하여 RNN을 생성할 때 `num_layers`를 layer 수만큼 설정해 주는 것으로 원하는 층의 RNN을 생성할 수 있다.
-RNN과 FC를 정의하고 foward에서 연결시켜주는 모습이다.
+RNN과 FC를 정의하고 forward에서 연결시켜주는 모습이다.
 
 ### Train
 

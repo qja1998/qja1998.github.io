@@ -32,7 +32,7 @@ failed to solve: archive/tar: unknown file mode ?rwxr-xr-x
 failed to solve: archive/tar: unknown file mode ?rwxr-xr-x
 ```
 
-- 위 메세지에서 권한 관련 문제라는 것을 추측하였고, `frontend internal` 에서 발생한 문제이므로 frontend contianer의 문제라고 생각하여 이에 대해 비슷한 문제가 있는 경우를 탐색
+- 위 메세지에서 권한 관련 문제라는 것을 추측하였고, `frontend internal` 에서 발생한 문제이므로 frontend container의 문제라고 생각하여 이에 대해 비슷한 문제가 있는 경우를 탐색
 - 자료가 많이 있지는 않았지만 `.dockerignore` 에서 `node_modules`를 추가하고 정상적으로 빌드가 가능했다는 사례에 착안하여 `node_modules` 내부의 파일을 함께 이미지로 build 하려고 했을 때 권한 문제가 있다고 판단.
 ---
 

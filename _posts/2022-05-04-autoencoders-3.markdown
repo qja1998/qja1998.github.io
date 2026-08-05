@@ -13,7 +13,7 @@ mermaid: false
 ***
 ## Introduction
 ### Autoencoder
-오토인코더는 인폿과 아웃풋이 같은 네트워크를 의미한다. Auto-associators, Diabolo nerworks, Sandglass-shaped net 등의 이명으로 불리기도 하며 가장 많이 불리는 이름은 역시 **Autoencoder**이다.
+오토인코더는 인풋과 아웃풋이 같은 네트워크를 의미한다. Auto-associators, Diabolo networks, Sandglass-shaped net 등의 이명으로 불리기도 하며 가장 많이 불리는 이름은 역시 **Autoencoder**이다.
 
 ![Autoencoder의 모습과 비슷한 Diabolo의 모습](/posting_imgs/diabolo.jpg)
 
@@ -38,7 +38,7 @@ General AE를 조금 더 자세히 보자. 위에 나왔던 그림을 자세히 
 이렇게 구한 error를 재구축(reconstruct) 한 것에 대한 error라는 의미로 **Reconstruction Error**라고 한다.
 
 Linear AE는 기본적인 오토인코더의 구조에서 은닉층을 활성화 함수 없이 선형 함수를 그대로 사용한 것을 말한다.
-PCA(Principle Component Analysis)와 baisis는 다르지만 선형적으로 차원 축소를 진행하기 때문에 결과적으로 PCA와 같은 mainifold를 학습한다는 특징이 있다.
+PCA(Principle Component Analysis)와 basis는 다르지만 선형적으로 차원 축소를 진행하기 때문에 결과적으로 PCA와 같은 manifold를 학습한다는 특징이 있다.
 
 ***
 ## Pretraining
@@ -49,9 +49,9 @@ pretraining 방식은 다음과 같다.
 ![Stacking Autoencoder](/posting_imgs/stacking-autoencoder.png)
 
 먼저 원하는 차원으로 보낸 후, 원래 레이어로 돌아와서 제대로 복구가 되는지 확인한다. 이 과정에서 오토인코더 구조가 사용된다.
-적어도 input layer의 값들을 복구할 수 있는 prameter를 사용하자는 것이다. 이 과정을 모든 레이어에 대해 진행하면서 prameter를 고정한다.
+적어도 input layer의 값들을 복구할 수 있는 parameter를 사용하자는 것이다. 이 과정을 모든 레이어에 대해 진행하면서 parameter를 고정한다.
 
-학습이 모두 끝난 뒤에는 random inintialization으로 backpropagation한다.
+학습이 모두 끝난 뒤에는 random initialization으로 backpropagation한다.
 
 ***
 ## DAE(Denoising AE)
@@ -76,7 +76,7 @@ noise를 추가하고 noise가 없는 원래 데이터와 error를 구하면서 
 ![noise-error graph](/posting_imgs/dae-graph.png)
 
 ***
-## CAE(Cntractive AE)
+## CAE(Contractive AE)
 ### Stochastic Contractive AE(SCAE)
 DAE에서 loss의 의미를 해석하여 다르게 표현한 것이다. DAE의 loss를 생각해 보면 $g$, $h$중 $h$는 특히 데이터가 조금만 바뀌1어도 manifold 상에서 같은 smaple로 매칭이 되게 학습을 해야 한다고 볼 수 있다.
 이 의미를 재구성 해보면 다음과 같이 적을 수 있다.
