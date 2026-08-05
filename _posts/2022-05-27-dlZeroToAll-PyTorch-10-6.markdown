@@ -16,7 +16,7 @@ description: 'Plain network는 skip connection을 사용하지 않은 일반적�
 Plain network는 skip connection을 사용하지 않은 일반적인 CNN 신경망을 의미한다.
 이러한 plain net이 깊어지면 깊어질수록 backpropagation을 할 때 기울기 소실이나 폭발이 발생할 확률이 높아진다.
 
-![20-layer vs. 56-layer plain network](/posting_imgs/lab10-6-1.png)
+![20-layer vs. 56-layer plain network](/posting_imgs/lab10-6-1.webp)
 
 위 그래프에서도 확인할 수 있듯이 plain network를 깊게 쌓은 것이 오히려 학습이 잘 안 된 것을 볼 수 있다.
 이는 너무 깊은 plain network에서 기울기 소실 혹은 폭발이 발생하여 원래 원하던 방향으로 학습이 안되었기 때문이다.
@@ -51,7 +51,7 @@ ResNet은 skip connection을 적용한 network로 기울기 소실을 해결하�
 이런 network를 구성하기 위해 아래의 구조와 같이 여러 layer를 건너뛰어(skip) 한 layer의 output을 다음 layer의 input에 더해주는 구조를 만들었다.
 identity가 다음 output으로 가는 지름길(shortcut)을 만들어 주었다고 해서 **shortcut connection**이라고도 한다.
 
-![Skip Connection(Residual learning)](/posting_imgs/lab10-6-2.png)
+![Skip Connection(Residual learning)](/posting_imgs/lab10-6-2.webp)
 
 이렇게 skip connection이 적용된 부분을 **residual block**이라고 한다.
 
@@ -59,7 +59,7 @@ identity가 다음 output으로 가는 지름길(shortcut)을 만들어 주었�
 
 Residual block애서 중간 layer를 1x1 -> 3x3 -> 1x1 의 bottleneck 구조를 만들어 demension redeuction을 통해 연산 시간을 줄인 구조이다.
 
-![Bottleneck Block](/posting_imgs/lab10-6-3.png)
+![Bottleneck Block](/posting_imgs/lab10-6-3.webp)
 
 ResNet 18/34에서는 일반적인 residual block을 사용하고 ResNet 50/101/152에서는 bottleneck block을 사용한다고 한다.
 
@@ -67,11 +67,11 @@ ResNet 18/34에서는 일반적인 residual block을 사용하고 ResNet 50/101/
 
 ResNet은 아래와 같이 5개의 깊이를 가진 구조가 존재한다.
 
-![ResNet Models](/posting_imgs/lab10-6-4.png)
+![ResNet Models](/posting_imgs/lab10-6-4.webp)
 
 고정된 layer들을 제외하면 크게 4개의 layer가 있는 것을 볼 수 있는데, VGG와 비슷하게 3x3 conv에 padding 1을 적용하여 하나의 큰 layer안에서는 output size가 고정되는 것을 볼 수 있다.
 
-![위부터 순서대로 Resnet-34, 34-layer plain, VGG-19](/posting_imgs/lab10-6-5.png)
+![위부터 순서대로 Resnet-34, 34-layer plain, VGG-19](/posting_imgs/lab10-6-5.webp)
 
 그림으로 보면 위와 같은 구조를 지니고 있다. VGG 구조보다 확실히 깊은 구조인 것을 확인할 수 있다.
 
@@ -512,7 +512,7 @@ layer의 `inplanes`도 (64, 128, 256, 512)에서 (16, 32, 64, 128)로 바꿔준�
 
 이후로 다른 점은 크게 없어 visdom을 통한 결과만 한 번 확인해 보면 다음과 같이 80%의 정확도까지 학습이 된 것을 확인할 수 있다.(20 epoch 진행)
 
-![Loss(좌), Accuracy(우)](/posting_imgs/lab10-6-6.png)
+![Loss(좌), Accuracy(우)](/posting_imgs/lab10-6-6.webp)
 
 #### Image Source
 

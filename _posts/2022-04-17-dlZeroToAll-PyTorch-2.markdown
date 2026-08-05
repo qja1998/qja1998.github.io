@@ -56,7 +56,7 @@ y_train = torch.FloatTensor([[1], [2], [3]])
 
 이런 데이터셋일 때 가장 이상적인 회귀선을 한번 생각해 보자.
 
-![](/posting_imgs/lab2-1.png)
+![Data 설명 그림](/posting_imgs/lab2-1.webp)
 
 위와 같은 $ y = x $ 꼴의 직선이 가장 이상적일 것이다. 그러므로 이후 학습을 진행할 때 weight=1, bias=0에 가까워 지는지 확인하면 학습이 잘 이루어지고 있는지 알 수 있을 것이다.
 

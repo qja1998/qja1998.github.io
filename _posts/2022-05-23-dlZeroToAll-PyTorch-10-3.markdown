@@ -42,7 +42,7 @@ conda install -c conda-forge brotlipy
 vis.text("Hello, world!",env="main")
 ```
 
-![](/posting_imgs/lab10-3-1.png)
+![Text 설명 그림](/posting_imgs/lab10-3-1.webp)
 
 위와같이 새로운 창에 Hello, world가 출력되는 것을 확인할 수 있다.
 
@@ -58,7 +58,7 @@ vis.image(a)
 vis.images(torch.Tensor(3,3,28,28))
 ```
 
-![](/posting_imgs/lab10-3-2.png)
+![Image 설명 그림](/posting_imgs/lab10-3-2.webp)
 
 다음은 조금 더 이미지 다운 데이터인 mnist와 CIFAR10를 출력하려 한다.
 
@@ -77,7 +77,7 @@ print(data[0].shape)
 vis.images(data[0],env="main")
 ```
 
-![](/posting_imgs/lab10-3-3.png)
+![MNIST 설명 그림](/posting_imgs/lab10-3-3.webp)
 
 두꺼비(?)와 숫자 5가 잘 나온다. 또한 이런 이미지들도 당연히 `vis.images()`를 통해 한번에 많은 이미지도 출력할 수 있다.
 
@@ -92,7 +92,7 @@ for num, value in enumerate(data_loader):
     break
 ```
 
-![](/posting_imgs/lab10-3-4.png)
+![MNIST 설명 그림 2](/posting_imgs/lab10-3-4.webp)
 
 굳이 for문을 쓰지 않고도 다음과 같이 iter 객체를 사용하여 출력할 수도 있다.
 
@@ -121,7 +121,7 @@ X_data = torch.Tensor([1,2,3,4,5])
 plt = vis.line(Y=Y_data, X=X_data)
 ```
 
-![](/posting_imgs/lab10-3-5.png)
+![Line Plot 설명 그림](/posting_imgs/lab10-3-5.webp)
 
 가장 간단한 예제로 Y 데이터만 설정해 준 것인데, 이 경우에 X축은 무조건 0과 1 사이를 나눠 point를 생성한다.
 만약 X 값들을 다르게 만들어주고 싶으면 새로운 tensor를 만들어 넣어주면 된다.
@@ -134,7 +134,7 @@ X_append = torch.Tensor([6])
 
 vis.line(Y=Y_append, X=X_append, win=plt, update='append')
 ```
-![](/posting_imgs/lab10-3-6.png)
+![Line Plot 설명 그림 2](/posting_imgs/lab10-3-6.webp)
 
 두개의 다른 그래프를 비교하기 위해 겹쳐 그리고 싶으면 (n, 2) shape의 데이터와 그에 맞는 X 데이터를 넣어주면 된다.
 
@@ -146,7 +146,7 @@ num = torch.cat((num,num),dim=1)
 plt = vis.line(Y=torch.randn(10,2), X = num)
 ```
 
-![](/posting_imgs/lab10-3-7.png)
+![Line Plot 설명 그림 3](/posting_imgs/lab10-3-7.webp)
 
 X는 0-9이 2줄 저장되어있는 데이터, Y는 (10,2)의 랜덤 데이터이다.
 
@@ -158,7 +158,7 @@ plt = vis.line(Y=Y_data, X=X_data, opts = dict(title='Test', legend = ['1번'],s
 plt = vis.line(Y=torch.randn(10,2), X = num, opts=dict(title='Test', legend=['1번','2번'],showlegend=True))
 ```
 
-![](/posting_imgs/lab10-3-8.png)
+![Line Plot 설명 그림 4](/posting_imgs/lab10-3-8.webp)
 
 <br>
 
@@ -180,7 +180,7 @@ for i in range(500):
     loss_tracker(plt, loss, torch.Tensor([i]))
 ```
 
-![](/posting_imgs/lab10-3-9.gif)
+![Line Plot 설명 그림 5](/posting_imgs/lab10-3-9.gif)
 
 실제로 학습할 때 loss를 넣어 학습을 모니터링하는데 유용하게 쓸 수 있다.
 
@@ -211,6 +211,6 @@ for epoch in range(training_epochs):
 print('Learning Finished!')
 ```
 
-![](/posting_imgs/lab10-3-10.gif)
+![Line Plot 설명 그림 6](/posting_imgs/lab10-3-10.gif)
 
 loss가 어떻게 변하고 있는지 확인하는데 매우 적합한 기능인것 같다.

@@ -116,7 +116,7 @@ Y = torch.LongTensor(y_data)
 
 문장이 더 길고 복잡하기 때문에 기존 한 층의 RNN으로는 학습이 잘 안 될 수 있다. 그래서 RNN 층을 더 쌓고 마지막에 fully connected layer를 연결하여 더 복잡한 모델을 만들어 사용해 볼 것이다.
 
-![](/posting_imgs/lab11-3-1.png)
+![Model 설명 그림](/posting_imgs/lab11-3-1.webp)
 
 ```py
 # declare RNN + FC

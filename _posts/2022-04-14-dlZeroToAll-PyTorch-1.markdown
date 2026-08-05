@@ -11,20 +11,20 @@ description: 'Vector, Matrix, Tensor의 표현은 위 그림과 같이 나타낼
 
 ***
 ## 1. Vector, Matrix and Tensor
-![1D Vector부터 6D까지 차원별 표현](/posting_imgs/lab1-1.jpg)
+![1D Vector부터 6D까지 차원별 표현](/posting_imgs/lab1-1.webp)
 <br><br>
 Vector, Matrix, Tensor의 표현은 위 그림과 같이 나타낼 수 있다.
 
 각 구조들의 크기는 차원들의 크기의 곱으로 구할 수 있는데
 <br><br>
-![batch size와 dim으로 나타낸 tensor의 크기](/posting_imgs/lab1-2.jpg)
+![batch size와 dim으로 나타낸 tensor의 크기](/posting_imgs/lab1-2.webp)
 <br><br>
 Matrix와 Tensor의 크기(t)는 위와 같이 구할 수 있다.
  
 또한 위 그림의 차원의 순서는 파이토치에서 차원을 표현할 때의 순서와 같다.
 즉, 아래와 같은 순서대로 표현하면 된다.
 <br><br>
-![](/posting_imgs/lab1-3.jpg)
+![Vector, Matrix and Tensor 설명 그림](/posting_imgs/lab1-3.webp)
 <br><br>
 크기를 구할 때 봤던 순서를 다시 확인해 보면 Vector는 (batch size, dim)순, Tensor는 (batch size, length, dim)순으로 위 그림과 같은 순서로 표현한 것을 볼 수 있다.
 <br><br>
@@ -564,7 +564,7 @@ torch.Size([2, 3])
 '''
 {% endhighlight %}
 
-![](/posting_imgs/lab1-4.jpg)
+![cat vs. stack 설명 그림](/posting_imgs/lab1-4.webp)
 
 코드의 결과와 그림을 함께 보자.
 

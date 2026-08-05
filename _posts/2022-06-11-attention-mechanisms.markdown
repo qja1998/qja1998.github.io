@@ -27,7 +27,7 @@ Lab11-5에서 Seq2Seq model을 공부하면서 입력 문장 전체를 vector �
 
 Seq2Seq는 encoder가 입력을 순서대로 읽어 마지막에 context vector $c$ 하나를 만들고, decoder는 그 $c$만 보고 출력을 만든다.
 
-![](/posting_imgs/attention-1.svg)
+![왜 attention이 필요했나 설명 그림](/posting_imgs/attention-1.svg)
 
 여기서 문제가 하나 생긴다. 입력이 4단어여도 40단어여도 $c$의 크기는 똑같다.
 게다가 첫 단어의 정보가 $c$까지 가려면 $h_1 \rightarrow h_2 \rightarrow h_3 \rightarrow h_4$를 전부 거쳐야 한다.
@@ -46,7 +46,7 @@ Seq2Seq는 encoder가 입력을 순서대로 읽어 마지막에 context vector 
 
 해결책은 의외로 단순하다. encoder의 hidden state를 마지막 하나만 남기지 말고 **전부 보관해 두었다가**, decoder가 출력을 하나 만들 때마다 **그때그때 필요한 만큼 섞어서 쓰는** 것이다.
 
-![](/posting_imgs/attention-2.svg)
+![Attention의 기본 아이디어 설명 그림](/posting_imgs/attention-2.svg)
 
 “고프다”라는 단어를 만들 때는 “hungry”에 해당하는 $h_3$를 크게 보고, 나머지는 조금만 본다.
 이렇게 하면 decoder 시점마다 서로 다른 context vector $c_1, c_2, c_3, \dots$ 가 만들어진다.
@@ -70,7 +70,7 @@ Seq2Seq는 encoder가 입력을 순서대로 읽어 마지막에 context vector 
 
 $\alpha_{ij}$를 표로 늘어놓으면 어떤 출력 단어가 어떤 입력 단어를 봤는지가 한눈에 보인다. 이것을 alignment matrix라고 부른다.
 
-![](/posting_imgs/attention-3.svg)
+![Attention의 기본 아이디어 설명 그림 2](/posting_imgs/attention-3.svg)
 
 ***
 
@@ -80,7 +80,7 @@ $\alpha_{ij}$를 표로 늘어놓으면 어떤 출력 단어가 어떤 입력 �
 
 \\[ e_{ij} = a(s_{i-1}, h_j) = v_a^\top \tanh(W_a s_{i-1} + U_a h_j) \\]
 
-![](/posting_imgs/attention-4.svg)
+![Bahdanau attention (additive attention) 설명 그림](/posting_imgs/attention-4.svg)
 
 $s_{i-1}$과 $h_j$를 각각 행렬로 변환한 뒤 **더하고**, $\tanh$를 통과시킨 다음, vector $v_a$와 내적해서 숫자 하나로 만든다.
 두 vector를 더해서 점수를 낸다고 해서 **additive attention**이라고 부른다.
@@ -100,7 +100,7 @@ Luong의 논문은 “점수를 꼭 그렇게 복잡하게 매겨야 하는가�
 
 \\[ \text{score}(h_t, \bar{h}_s) = \begin{cases} h_t^\top \bar{h}_s & \textit{dot} \\\\ h_t^\top W_a \bar{h}_s & \textit{general} \\\\ v_a^\top \tanh(W_a [h_t ; \bar{h}_s]) & \textit{concat} \end{cases} \\]
 
-![](/posting_imgs/attention-5.svg)
+![Luong attention 설명 그림](/posting_imgs/attention-5.svg)
 
 - **dot**은 두 vector를 그냥 내적한다. 학습되는 파라미터가 아예 없어서 가장 싸지만, 두 vector가 같은 차원·같은 의미 공간에 있어야 말이 된다.
 - **general**은 가운데에 학습되는 행렬 $W_a$를 끼운다. 두 공간이 달라도 맞춰 줄 수 있어서 dot의 자연스러운 일반화다.
@@ -113,7 +113,7 @@ Luong의 논문은 “점수를 꼭 그렇게 복잡하게 매겨야 하는가�
 
 context $c_t$와 현재 상태 $h_t$를 이어 붙여 한 번 더 변환한 $\tilde{h}_t$를 만들고, 이것으로 다음 단어를 예측한다.
 
-![](/posting_imgs/attention-6.svg)
+![Luong attention 설명 그림 2](/posting_imgs/attention-6.svg)
 
 > 위 그림에서 `h_att(t)`로 적은 것이 $\tilde{h}_t$ 이다. 그림에서는 읽기 쉽도록 이름을 풀어 썼다.
 {: .prompt-info }
@@ -143,7 +143,7 @@ context $c_t$와 현재 상태 $h_t$를 이어 붙여 한 번 더 변환한 $\ti
 
 Transformer는 attention을 세 가지 역할로 나눠서 정리했다.
 
-![](/posting_imgs/attention-7.svg)
+![Query, Key, Value 설명 그림](/posting_imgs/attention-7.svg)
 
 - **Query** - 지금 내가 찾고 있는 것 (질문)
 - **Key** - 각 자리에 붙어 있는 이름표 (색인)
@@ -171,7 +171,7 @@ $d_k = 64$면 표준편차가 8쯤 되고, 점수들이 그만큼 벌어지면 s
 
 말로만 들으면 잘 와닿지 않아서 직접 계산해 봤다. $d_k = 64$, key 8개로 5000번 뽑아 본 결과다.
 
-![](/posting_imgs/attention-8.svg)
+![스케일 유무에 따른 softmax 분포 비교](/posting_imgs/attention-8.svg)
 
 | | 스케일 없음 | $\sqrt{d_k}$로 나눔 |
 |---|---|---|
@@ -188,7 +188,7 @@ softmax의 출력이 0 또는 1에 붙으면 $p(1-p)$가 0에 가까워지므로
 
 attention을 512차원에서 한 번 하는 대신, 64차원짜리로 8번 나눠서 한다.
 
-![](/posting_imgs/attention-9.svg)
+![Multi-Head Attention 설명 그림](/posting_imgs/attention-9.svg)
 
 \\[ \text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O \\]
 
@@ -206,7 +206,7 @@ head를 8개로 늘렸는데 계산량이 8배가 되지 않는 이유는 차원
 
 Transformer는 같은 Multi-Head Attention을 세 자리에 쓴다. 계산 방법은 완전히 같고, **Q·K·V를 어디에서 가져오는지**만 다르다.
 
-![](/posting_imgs/attention-10.svg)
+![Transformer 안에서 attention이 쓰이는 세 자리 설명 그림](/posting_imgs/attention-10.svg)
 
 1. **Encoder self-attention** - Q, K, V 모두 encoder의 이전 층에서 온다. 입력 문장 안에서 단어끼리 서로를 본다.
 2. **Decoder masked self-attention** - Q, K, V 모두 decoder의 이전 층에서 오지만, 뒤쪽 자리를 가린다.
@@ -218,7 +218,7 @@ decoder는 문장을 앞에서부터 한 단어씩 만든다. 그런데 학습�
 
 그래서 softmax에 넣기 **전에** 뒤쪽에 해당하는 점수를 $-\infty$로 바꿔 버린다.
 
-![](/posting_imgs/attention-11.svg)
+![masking은 어떻게 하는가 설명 그림](/posting_imgs/attention-11.svg)
 
 $\exp(-\infty) = 0$ 이므로 가려진 칸의 attention weight는 정확히 0이 되고, 남은 칸끼리만 합이 1이 된다.
 논문은 이를 "masking out (setting to $-\infty$) all values in the input of the softmax which correspond to illegal connections"라고 표현한다.

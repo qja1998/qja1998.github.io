@@ -15,7 +15,7 @@ description: '초기 weight의 설정은 크게 중요하지 않아 보이지만
 
 초기 weight의 설정은 크게 중요하지 않아 보이지만 실제로는 큰 영향을 미친다.
 
-![초기 설정에 따른 error의 차이](/posting_imgs/lab9-2-1.png)
+![초기 설정에 따른 error의 차이](/posting_imgs/lab9-2-1.webp)
 
 위 그래프에서도 볼 수 있듯이 적절한 초기화 기법으로 초기화를 해준 경우(N이 붙어있는 곡선) 실제로 오차가 줄어든 것을 확인할 수 있다.
 
@@ -27,7 +27,7 @@ description: '초기 weight의 설정은 크게 중요하지 않아 보이지만
 
 DBN을 알기 전에 먼저 RBM을 알고 가야 한다.
 
-![RBM의 구조](/posting_imgs/lab9-2-2.png)
+![RBM의 구조](/posting_imgs/lab9-2-2.webp)
 
 RBM은 레이어 안에서는 연결이 없는(restricted) 레이어들의 전연결 구조이다. 일종의 encode(위쪽 방향으로 진행), decode(아래쪽 방향으로 진행)를 수행한다고 볼 수도 있다.
 
@@ -35,7 +35,7 @@ RBM은 레이어 안에서는 연결이 없는(restricted) 레이어들의 전�
 
 DBN은 RBM을 통해 적절한 weight를 찾아 초기화한다.
 
-![DBN의 구조](/posting_imgs/lab9-2-3.png)
+![DBN의 구조](/posting_imgs/lab9-2-3.webp)
 
 위와 같이 각 레이어마다 RBM을 구성하여 다음 레이어로 한 번 갔다가 다시 돌아와 봐서 잘 복원이 되는 weight를 찾아 그것으로 초기화하여 학습에 사용한다.
 이전의 포스트에서 알아봤던 [Stacking Autoencoder](/posts/autoencoders-3/)도 이 DBN의 한 종류이다.
@@ -50,7 +50,7 @@ DBN은 RBM을 통해 적절한 weight를 찾아 초기화한다.
 
 단순히 분포에 따라 아래 공식을 적용하여 in/out의 node 수를 통해 계산한 값을 이용하여 초기화한다.
 
-![](/posting_imgs/lab9-2-4.png)
+![Xavier / He Initialization 설명 그림](/posting_imgs/lab9-2-4.webp)
 
 ```python
 def xavier_uniform_(tensor, gain=1):

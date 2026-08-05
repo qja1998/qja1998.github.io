@@ -14,7 +14,7 @@ description: 'Seq2Seq model은 아래와 같은 구조를 가지고 있다. 일�
 
 Seq2Seq model은 아래와 같은 구조를 가지고 있다.
 
-![](/posting_imgs/lab11-5-1.png)
+![Seq2Seq Model 설명 그림](/posting_imgs/lab11-5-1.webp)
 
 일종의 Encoder-Decoder 구조라고도 할 수 있는데 모든 입력을 다 받은 후에 출력을 생성하는 구조이다.
 
@@ -23,7 +23,7 @@ Seq2Seq model은 아래와 같은 구조를 가지고 있다.
 
 간단한 문장에 대한 대답을 예로 들면 다음과 같다. 내부 layer는 LSTM나 GRU를 사용한다.
 
-![](/posting_imgs/lab11-5-2.png)
+![Seq2Seq Model 설명 그림 2](/posting_imgs/lab11-5-2.webp)
 
 이를 사용하는 예로는 chatbot이 있을 수 있는데 chatbot은 사용자의 입력(문장)을 다 듣기 전에 답변을 만들 경우 실제 문장과 상관없는 답변을 생성할 수도 있다.
 이런 경우 처럼 input sequence의 전체를 다 확인하고 출력이 있어야 하는 경우에 Seq2Seq model을 사용하게 된다.

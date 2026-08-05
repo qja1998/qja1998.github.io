@@ -17,7 +17,7 @@ description: '시그모이드 함수의 문제는 backpropagation과정에서 �
 시그모이드 함수의 문제는 [backpropagation](/posts/backpropagation/)과정에서 발생한다.
 backpropagation을 수행할 때 activation의 미분값 곱해가면서 사용하게 되는데 이때 기울기가 소실되는 **gradient vanishing**문제가 발생한다. 다음 그림은 시그모이드 함수와 그 미분 함수의 그래프이다.
 
-![시그모이드 함수의 미분](/posting_imgs/lab9-1-1.png)
+![시그모이드 함수의 미분](/posting_imgs/lab9-1-1.webp)
 
 $x$ 값이 0에서 멀어질수록 미분값이 0에 수렴하는 것을 확인할 수 있다. 한두번의 곱으로 0이 되지는 않을지라도 여러번 반복하면서 수행하게 되면 곱이 여러번 중첩되어 0으로 수렴하게 될 것이다.
 
@@ -31,7 +31,7 @@ ReLU의 식과 모습은 다음과 같이 간단히 주어진다.
 
 \\[f(x)=max(0,x)\\]]
 
-![ReLU activation](/posting_imgs/lab9-1-2.png)
+![ReLU activation](/posting_imgs/lab9-1-2.webp)
 
 이렇게 activation을 구성할 경우 0 이상의 값들에 대해서는 미분값이 1이 나와 기울기 소실을 막을 수 있다.
 

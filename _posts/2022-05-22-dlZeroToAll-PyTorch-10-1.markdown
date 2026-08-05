@@ -17,7 +17,7 @@ description: '강의 자료에서는 ''이미지(2차원 매트릭스) 위에서
 
 아래와 같이 차례대로 input, filter, output 행렬이 있다고 해보자.
 
-![](/posting_imgs/lab10-1-1.png)
+![Convolution 설명 그림](/posting_imgs/lab10-1-1.webp)
 
 input, filter의 진한 부분을 각 자리끼리 곱해서 더해주는 것으로 output의 진한 부분의 결과를 낸다. 이 예제의 stride는 1이기 때문에 한 칸씩 커널을 이동하면서 이 과정을 진행하여 최종적으로 새로운 3x3 output을 만들어낸다.
 
@@ -27,7 +27,7 @@ input, filter의 진한 부분을 각 자리끼리 곱해서 더해주는 것으
 
 Convolution 연산에 쓰이는 데이터에 **padding**이라는 처리를 할 수 있는데, 이것은 input를 일정한 수로 감싼다는 뜻으로 1의 zero-padding을 한다는 것은 다음과 같은 입력으로 연산을 진행하겠다는 뜻이다.
 
-![](/posting_imgs/lab10-1-2.png){: width="40%"}
+![Padding 설명 그림](/posting_imgs/lab10-1-2.webp){: width="40%"}
 
 ### Output Size
 
@@ -47,7 +47,7 @@ PyTorch에서 `torch.nn.Conv2d`을 이용하여 convolution을 연산할 때 inp
 
 위에서 size를 게산했던 예제를 실제로 코드로 실행하여 확인하려면 다음과 같이 작성하면 된다.
 
-![](/posting_imgs/lab10-1-3.png){: width="40%"}
+![Input Type in PyTorch 설명 그림](/posting_imgs/lab10-1-3.png){: width="40%"}
 
 실제로도 계산 결과와 같은 shape이 나오는 것을 확인할 수 있다.
 
@@ -55,7 +55,7 @@ PyTorch에서 `torch.nn.Conv2d`을 이용하여 convolution을 연산할 때 inp
 
 convolution을 다음과 같이 perceptron으로 나타낼 수도 있다.
 
-![](/posting_imgs/lab10-1-4.png)
+![Convolution and Perceptron 설명 그림](/posting_imgs/lab10-1-4.webp)
 
 filter의 값을 weight로 가지고 있는 perceptron에 stride만큼 움직이면서 매트릭스를 통과시키면 output의 각 자리 결과값들이 계산된다.
 
@@ -65,7 +65,7 @@ filter의 값을 weight로 가지고 있는 perceptron에 stride만큼 움직이
 
 Pooling은 주어진 kernel size만큼의 구역을 대표하는 값들을 찾아서 그 대표값으로 새로운 매트릭스를 구성하는 것을 말한다.
 
-![](/posting_imgs/lab10-1-5.png)
+![Pooling 설명 그림](/posting_imgs/lab10-1-5.webp)
 
 위 그림은 kernel size가 2인 max pooling과 average pooling을 나타낸 것이다.
 

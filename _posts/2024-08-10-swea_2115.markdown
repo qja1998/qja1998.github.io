@@ -185,4 +185,4 @@ for t in range(test_case):
 
 근데 생각보다 실행 시간이 **Dynamic**하게 줄어들지 않아 살짝 김샜다.
 
-![](/posting_imgs/swea2115.png)
+![DP를 통한 풀이 설명 그림](/posting_imgs/swea2115.webp)

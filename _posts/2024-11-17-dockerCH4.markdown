@@ -31,7 +31,7 @@ docker ~
 
 `docker` 명령어 뒤에 '무엇을', '어떻게', '대상' 순으로 지정하여 명령어를 작성한다.
 
-![](/posting_imgs/docker-command1.png)
+![명령어와 대상 설명 그림](/posting_imgs/docker-command1.webp)
 
 '무엇을', 어떻게 부분을 커맨드라고 하고, 상위 커맨드가 '무엇을', 하위 커맨드가 '어떻게'에 해당하는 내용을 지정한다.
 
@@ -47,7 +47,7 @@ docker container start penguin
 
 필요에 따라 '옵션'이나 '인자'를 붙여 사용하는 경우도 있다
 
-![](/posting_imgs/docker-command2.png)
+![옵션과 인자 설명 그림](/posting_imgs/docker-command2.webp)
 
 위 명령어는 penguin container를 백그라운드로(`-d`), mode 1로(`--mode=1`) 실행하라는 의미이다.
 
@@ -119,7 +119,7 @@ docker container start penguin
 
 도커 커맨드에는 컨테이너를 생성하는 `docker (container) create`, 실행하는 `docker (container) start`, 이미지를 내려받는 `docker (container) pull` 이 따로 존재하지만 이를 한 번에 수행할 수 있는 `docker (container) run`을 사용하는 것이 일반적이다.
 
-![](/posting_imgs/docker-lifecycle.png)
+![SECTION 3. 컨테이너의 생성과 삭제, 실행, 정지 설명 그림](/posting_imgs/docker-lifecycle.webp)
 
 2장에서 나왔던 생애주기에 따라 컨테이너는 쓰고 버리는 방식으로 사용한다. 동작 중인 컨테이너를 그대로 삭제할 수 없으므로 정지하는 방법과 삭제하는 방법을 함께 알아야 한다.
 
@@ -356,7 +356,7 @@ client가 직접 server에 요청하는 것이 아니라 proxy server(중계 서
 reverse proxy는 server가 반환해주는 data를 proxy server가 대신 해주는 것이다. 그러므로 client는 server의 정보를 알 수 없다.
 보안상 이점이 있으며, 서버 부담을 분산할 수 있다.
 
-![](/posting_imgs/proxy.png)
+![Reverse Proxy 설명 그림](/posting_imgs/proxy.webp)
 
 reverse proxy를 활용하면 여러 대의 서버에 proxy가 요청을 전달 하게 할 수 있다. 그러므로 같은 포트로 요청이 들어왔을 때 proxy가 서버를 구분하는 방식으로 알맞은 컨테이너에 요청을 보낼 수 있다.
 
@@ -380,7 +380,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 PS C:\Users\Kwon>
 ```
 
-![실습 실행 화면](/posting_imgs/net_test.png)
+![실습 실행 화면](/posting_imgs/net_test.webp)
 
 위와 같은 실행 화면을 얻을 수 있다.
 

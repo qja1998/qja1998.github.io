@@ -46,7 +46,7 @@ Batch normalization을 제시할 때 주장했던 기울기 소실과 폭주에 
 
 이전까지는 모델 단위의 분포 문제라고 생각하고 첫 입력에만 normalization을 했지만, 실제로는 아래와 같이 스탭마다 레이어 단위로 Covariate Shift가 발생한다는 것이다.
 
-![Internal Covariate Shift](/posting_imgs/lab9-4-1.png)
+![Internal Covariate Shift](/posting_imgs/lab9-4-1.webp)
 
 그러므로 각 레이어 학습마다 각 minibatch를 normalization을 해야 하며 이를 Batch normalization이라고 한다.
 
@@ -56,7 +56,7 @@ Batch normalization을 제시할 때 주장했던 기울기 소실과 폭주에 
 
 Batch normalization은 다음과 같은 알고리즘으로 진행된다.
 
-![Batch Normalization Algorithm](/posting_imgs/lab9-4-2.png)
+![Batch Normalization Algorithm](/posting_imgs/lab9-4-2.webp)
 
 $\mu_\mathcal{B}$와 $\sigma^2_\mathcal{B}$는 minibatch를 통해 게산된 평균과 분산이며 sample mean/variance라고도 불린다. 이들을 이용해서 normalize 하게 되는데 이때 $\epsilon$은 0으로 나누는 것을 방지하는 아주 작은 값이다.
 
@@ -108,7 +108,7 @@ nn_optimizer = torch.optim.Adam(nn_model.parameters(), lr=learning_rate)
 
 model은 위에서 말한 것처럼 이와같이 구현할 수 있고, 학습은 dropout과 동일하게 `model.train()`을 먼저 해 주고 진행하면 된다.
 
-![](/posting_imgs/lab9-4-3.png)
+![define cost/loss & optimizer 설명 그림](/posting_imgs/lab9-4-3.webp)
 
 실제로 Batch normalization을 적용한 경우가 더 학습이 잘 된것을 확인할 수 있다.
 

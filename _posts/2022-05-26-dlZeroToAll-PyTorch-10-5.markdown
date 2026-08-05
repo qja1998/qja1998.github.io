@@ -17,7 +17,7 @@ VGG-net(이하 VGG)은 14년도 ILSVRC(Imagenet 이미지 인식 대회)에 나�
 
 먼저 논문에서 발표한 VGG모델들의 구조를 보자.
 
-![](/posting_imgs/lab10-5-1.png)
+![VGG-net(Visual Geometry Group-network) 설명 그림](/posting_imgs/lab10-5-1.webp)
 
 총 6개의 구조를 만들어 성능을 비교하였는데 E로 갈 수록 깊은 모델이며 모델이 깊어질수록 좋은 성능을 보였다고 한다.
 
@@ -41,7 +41,7 @@ VGG는 여러 층에 따라 이름을 붙여주는데 예를 들면 E의 경우 
 
 또 다른 VGG의 특징으로는 conv마다 padding=1을 해줘서 conv 전후의 size를 같게 만들어준다는 것이다. 이런 특성들을 확인하고 VGG16의 구조를 살펴보자.
 
-![VGG16 Architecture](/posting_imgs/lab10-5-2.png)
+![VGG16 Architecture](/posting_imgs/lab10-5-2.webp)
 
 앞서 언급했듯이 3x3 conv를 padding=1로 2~3번 적용하고 max plooing(kernel size=2, stride=2)을 하여 크기를 줄여 다음 conv로 넘겨준다. (이때 activation은 ReLU)
 
@@ -271,7 +271,7 @@ truck   dog horse truck
 '''
 ```
 
-![](/posting_imgs/lab10-5-3.png)
+![print labels 설명 그림](/posting_imgs/lab10-5-3.webp)
 
 class와 이미지가 잘 받아진 것을 확인할 수 있다.
 
@@ -424,7 +424,7 @@ Finished Training
 '''
 ```
 
-![](/posting_imgs/lab10-5-4.png)
+![Train 설명 그림](/posting_imgs/lab10-5-4.webp)
 
 `lr_sche.step()`이 추가된 것 말고 크게 다른 점은 없다.
 

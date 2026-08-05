@@ -20,13 +20,13 @@ Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔�
 먼저 이 데이터 셋의 예측 문제를 선형 회귀를 통해 접근해 볼 것이다. 기존의 선형 회귀식의 hypothesis는 $H(x_1, x_2, x_3) = xw + b$로 주어졌었다.
 학습 초기에는 2.5시간(초록색 점선)을 기준으로 합격이 결정되었다고 가정해 보자
 
-![](/posting_imgs/lab5-1.png)
+![Hypothesis 설명 그림](/posting_imgs/lab5-1.webp)
 
 위와 같이 회귀 함수를 학습하면 x(공부 시간)가 주어졌을 때 y가 0.5를 넘었는가 여부에 따라 분류가 가능할 것이다(0.5를 넘으면 합격으로 처리하면 된다).
 
 하지만 이 회귀식의 범위를 넘어서는 값 즉, 학습된 hypothesis에 넣었을 때 prediction이 $[0, 1]$를 벗어나는 값이 있다면 그에 맞춰 회귀선을 다시 학습해야 한다.
 
-![](/posting_imgs/lab5-2.png)
+![Hypothesis 설명 그림 2](/posting_imgs/lab5-2.webp)
 
 위처럼 9시간(빨간 O) 공부한 사람에 맞춰 학습을 다시 하면 2.5시간에서 5시간 사이의 범위에 있는 사람들은 모델이 불합격한 것으로 판단하게 된다.
 
@@ -39,7 +39,7 @@ Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔�
 
 이를 그래프로 그려보면 아래와 같은 형태를 띈다.
 
-![](/posting_imgs/lab5-3.png){: height="60%"}
+![Hypothesis 설명 그림 3](/posting_imgs/lab5-3.webp){: height="60%"}
 
 그림으로도 확인할 수 있는 것처럼 시그모이드 함수는 항상 0과 1 사이에 값이 존재하여 앞서 언급한 선형 회귀의 문제점을 해결할 수 있다.
 선형 회귀식을 시그모이드 함수의 인풋으로 넣으면 선형 회귀식에서 어떤 값이 나오든 0과 1사이의 범위를 넘어 생기는 문제가 일어나지 않을 것이다.
@@ -80,7 +80,7 @@ plt.ylabel('Cost')
 plt.show()
 ```
 
-![](/posting_imgs/lab5-4.png)
+![Cost(Binary Cross Entropy) 설명 그림](/posting_imgs/lab5-4.webp)
 
 우리가 생각하기에 `W`가 0 근처의 값으로 수렴하는 것이 맞아 보인다. 하지만 gradient descent를 시작하는 점이 -1 부근, 혹은 더 작은 값이라면 우리가 원하는 방향과 반대로 극소점을 찾아갈 것이다. 그 방향에도 극소점이 있을 수 있겠지만 그건 우리가 원하는 global minimum이 아니다.
 
@@ -92,7 +92,7 @@ plt.show()
 
 log를 사용하여 지수함수를 다루기 좋은 형태로 만들어 주고, 정답에 따라 적절한 cost를 사용할 수 있도록 만들었는데 그 cost의 형태는 다음과 같다.
 
-![](/posting_imgs/lab5-5.png){: height="50%" aligncenter}
+![Cost(Binary Cross Entropy) 설명 그림 2](/posting_imgs/lab5-5.webp){: height="50%" aligncenter}
 
 답이 1인 경우(초록색) 0에 가까울 때 cost가 올라가고 1일 때 0이도록, 답이 0인 경우 그 반대로 작동하게 cost를 정의하였다.
 덕분에 시그모이드를 이용해서 학습하기에 적절한 cost의 형태가 되었다.

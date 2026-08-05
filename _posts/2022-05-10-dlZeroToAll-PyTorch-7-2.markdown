@@ -17,7 +17,7 @@ MNIST 데이터 셋은 숫자 손글씨를 모아놓은 데이터 셋이다. 사
 
 MNIST는 다음과 같이 28x28 크기의 픽셀, 1개의 gray channel 그리고 0 ~ 9의 정수 label로 이루어져 있다.
 
-![](/posting_imgs/lab7-2-1.png)
+![MNIST dataset 설명 그림](/posting_imgs/lab7-2-1.webp)
 
 ### torchvision
 
@@ -151,7 +151,7 @@ Prediction:  3
 '''
 ```
 
-![](/posting_imgs/lab7-2-1.png)
+![Test the model using test sets 설명 그림](/posting_imgs/lab7-2-1.webp)
 
 학습한 모델에 test 입력을 통과시켜 나온 결과를 `argmax`를 통해 모델이 예측한 label을 뽑아낼 수 있다.
 이후 test의 실제 label과 비교하여 ByteTensor를 생성하고, 그 평균을 구해 정확도를 계산할 수 있다.

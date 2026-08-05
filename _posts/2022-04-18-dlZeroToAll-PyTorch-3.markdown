@@ -48,7 +48,7 @@ plt.xlabel('$W$')
 plt.ylabel('Cost')
 plt.show()
 {% endhighlight %}
-![](/posting_imgs/lab3-1.png)
+![Cost by W 설명 그림](/posting_imgs/lab3-1.webp)
 <br>
 
 ***
@@ -71,11 +71,11 @@ $W$에 대해 미분하면 아래와 같은 결과를 얻을 수 있다.
 <br><br>
 아래의 두 gif는 각각 극소점의 좌우에서 극소점에 접근할 때 접선의 변화를 나타낸 것이다.
 <br><br>
-![](/posting_imgs/lab3-2.gif)
+![Gradient Descent by Hand 설명 그림](/posting_imgs/lab3-2.gif)
 <br><br>
 먼저 왼쪽에서 접근하는 경우 기울기(gradient)가 음수이고 극소점으로 도달하기 위해서는 $W$가 커져야 한다. 그러므로 음수인 기울기를 빼주어 극소점에 가깝게 도달할 수 있다.
 <br><br>
-![](/posting_imgs/lab3-3.gif)
+![Gradient Descent by Hand 설명 그림 2](/posting_imgs/lab3-3.gif)
 <br><br>
 다음으로 오른쪽에서 접근하는 경우 기울기가 양수이고 극소점으로 도달하기 위해서는 $W$가 작아져야 한다. 이 때는 양수인 기울기를 빼주어 극소점에 가깝게 도달할 수 있다.
 
@@ -83,7 +83,7 @@ $W$에 대해 미분하면 아래와 같은 결과를 얻을 수 있다.
 
 다만, 학습률이 너무 작으면 수렴이 늦어지고, 너무 크면 진동하면 발산해 버리기 때문에 적절한 범위의 값을 사용해야 한다.
 
-![](/posting_imgs/lab3-4.jpg)
+![Gradient Descent by Hand 설명 그림 3](/posting_imgs/lab3-4.webp)
 
 이어서 앞선 식들을 코드로 표현하면 다음과 같다.
 

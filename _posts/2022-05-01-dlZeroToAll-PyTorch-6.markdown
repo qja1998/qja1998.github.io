@@ -17,17 +17,17 @@ description: '이전 포스팅에서는 이진 분류 문제에 대해 알아봤
 ### Hypothesis
 이진 분류는 다음과 같이 두 카테고리의 값들이 잘 나눠질 수 있는 선을 긋는 것과 같다.
 
-![](/posting_imgs/lab6-1.png){: width="40%"}
+![Hypothesis 설명 그림](/posting_imgs/lab6-1.webp){: width="40%"}
 
 이처럼 다중 분류도 여러 카테고리의 값들을 잘 나누는 선들을 긋는다고 생각해 보자. 그러면 다음과 같은 그림이 그려질 것이다.
 
-![](/posting_imgs/lab6-2.png){: width="40%"}
+![Hypothesis 설명 그림 2](/posting_imgs/lab6-2.webp){: width="40%"}
 
 파란색 선은 **A or not**, 빨간색 선은 **B or not** 그리고 초록색 선은 **C or not**으로 구분하고 있다고 생각하면 각 카테고리마다 하나의 분류 문제로 볼 수 있다.
 
 이 말은 각각의 카테고리를 분류하는 hypothesis를 정의할 수 있다는 것인데, 이를 다음과 같이 행렬의 연산으로 깔끔하게 나타낼 수 있다.
 
-![](/posting_imgs/lab6-3.png)
+![Hypothesis 설명 그림 3](/posting_imgs/lab6-3.webp)
 
 이렇게 나온 확률을 각각 시그모이드로 처리하여 값을 낼 수도 있겠지만, 이때 조금 더 편하고 최적화된 함수로 softmax를 사용하게 되며 다음과 같이 정의된다.
 
@@ -37,7 +37,7 @@ max를 soft하게 뽑는 것으로, 이 값이 최대인가, 아닌가로 단정
 
 이렇게 뽑은 확률값으로 원-핫 인코딩하여 최종적으로 어느 카테고리에 속하는지 출력하게 된다. 아래 그림은 A 카테고리에 속한다고 생각할 때의 출력을 보인 것이다.
 
-![](/posting_imgs/lab6-4.png)
+![Hypothesis 설명 그림 4](/posting_imgs/lab6-4.webp)
 
 코드로는 `torch`에서 제공하는 함수를 사용하면 된다.
 

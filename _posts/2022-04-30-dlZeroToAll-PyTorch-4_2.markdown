@@ -25,9 +25,9 @@ description: 'lab41에서 다루었던 Multivariate Linear Regression에서는 �
 하지만 어디까지나 전체가 아닌 일부 데이터를 써서 학습하는 것이기 때문에 잘못된 방향으로 학습이 될 수도 있고,
 결과적으로 어느정도 수렴하더라도 그 과정이 아래 그림과 같이 좀 거칠게 Gradient descent 될 수도 있다. (아래 그림은 이해를 위한 임의의 그래프이며, 실제 loss의 그래프가 아닙니다.)
 
-![Minibatch Gradient Descent](/posting_imgs/lab4_2-1.png)
+![Minibatch Gradient Descent](/posting_imgs/lab4_2-1.webp)
 
-![Gradient Descent](/posting_imgs/lab4_2-2.png)
+![Gradient Descent](/posting_imgs/lab4_2-2.webp)
 
 ***
 ## Dataset

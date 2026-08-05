@@ -18,7 +18,7 @@ RNN은 sequential data를 잘 학습하기 위해 고안된 모델이다. Sequen
 이런 데이터는 이전 순서의 데이터들을 생각하여 학습을 하는 것이 더효과적일 것이다.
 이렇게 학습하기 위해 RNN은 다음과 같은 구조로 구성되어 있다.
 
-![RNN의 구조](/posting_imgs/lab11-0-1.png)
+![RNN의 구조](/posting_imgs/lab11-0-1.webp)
 
 한 모델로 계속 학습하지만 이전의 output이 다음의 input과 함께 들어가는 구조이다. 이렇게 output을 다음 input으로 보낼 때 이 값을 hidden state라고 하며, 이런 식으로 모델을 구성하면 과거의 데이터를 반영하여 학습할 수 있게 된다.
 
@@ -28,7 +28,7 @@ RNN은 sequential data를 잘 학습하기 위해 고안된 모델이다. Sequen
 
 Activation을 표현하여 조금 더 자세히 모델을 나타내면 다음과 같은 구조를 확인할 수 있다.
 
-![](/posting_imgs/lab11-0-2.png)
+![RNN(Recurrent Neural Network) 설명 그림](/posting_imgs/lab11-0-2.webp)
 
 일반화하여 수식으로 나타내면 다음과 같고
 
@@ -44,7 +44,7 @@ activation과 weight를 명시하여 표현하면 다음과 같다.
 
 이런 RNN의 구조를 응용하여 다음과 같은 구조들로 사용할 수 있다.
 
-![Usages of RNN](/posting_imgs/lab11-0-3.png)
+![Usages of RNN](/posting_imgs/lab11-0-3.webp)
 
 * **one to many**
 : 하나의 입력을 받아 여러 출력을 내는 구조이다. 하나의 이미지를 받아 그에 대한 설명을 문장(여러개의 단어)으로 출력하는 것을 예로 들 수 있다.

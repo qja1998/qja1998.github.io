@@ -18,7 +18,7 @@ description: 'torchvision.datasets에 있는 ImageFolder는 directory에 따라 
 
 먼저 category에 맞게 directory를 생성해주어야 ImageFolder를 사용할 수 있으므로, directory는 다음과 같은 구조여야 한다.
 
-![](/posting_imgs/lab10-4-1.png)
+![ImageFolder 설명 그림](/posting_imgs/lab10-4-1.webp)
 
 ```py
 import torchvision

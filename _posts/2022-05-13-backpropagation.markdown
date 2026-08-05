@@ -14,7 +14,7 @@ description: '데이터를 레이어의 노드들을 통과시키면서 설정�
 
 데이터를 레이어의 노드들을 통과시키면서 설정된 weight에 따라 예측 결과값을 계산하는 것을 **forward pass**라고 한다.
 
-![Forward Pass](/posting_imgs/forward.png)
+![Forward Pass](/posting_imgs/forward.webp)
 
 MLP의 결과값을 만들어 주는 필수적인 과정이지만 이것만으로는 weight를 개선하면서 학습을 진행할 수가 없다.
 
@@ -31,7 +31,7 @@ MLP의 결과값을 만들어 주는 필수적인 과정이지만 이것만으�
 
 위에서 나왔던 네트워크의 일부분을 떼서 역전파가 어떻게 적용되는지 확인해 보자.
 
-![Backpropagation 과정](/posting_imgs/backward.png)
+![Backpropagation 과정](/posting_imgs/backward.webp)
 
 먼저 최종 output에 가장 가까운 $\nabla W_3$부터 계산한다.
 
