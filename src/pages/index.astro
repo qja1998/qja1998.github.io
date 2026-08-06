@@ -6,6 +6,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import PostCard from "@/components/PostCard.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getUniqueCategories } from "@/utils/getUniqueCategories";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -30,6 +31,30 @@ const counts = SEGMENTS.map(s => ({
   n: posts.filter(p => s.match(p.data.categories ?? [])).length,
 })).filter(s => s.n > 0);
 const other = posts.length - counts.reduce((a, b) => a + b.n, 0);
+
+// 칩은 실제로 갈 수 있는 곳이어야 한다. 밴드는 티어까지 쪼개 보여 주지만
+// 라우트가 있는 단위는 대분류(boj, programmers …)라 칩은 그 단위로 만든다.
+const LABEL: Record<string, string> = {
+  boj: "백준",
+  programmers: "프로그래머스",
+  pytorch: "PyTorch",
+  troubleshooting: "트러블슈팅",
+  docker: "Docker",
+  background: "배경지식",
+  swea: "SWEA",
+  "generative-model": "생성모델",
+};
+const CHIP_TOKEN: Record<string, string> = {
+  boj: "--d-gold",
+  programmers: "--d-sql",
+  pytorch: "--d-torch",
+  troubleshooting: "--d-trouble",
+  docker: "--d-docker",
+  background: "--d-base",
+  swea: "--d-swea",
+  "generative-model": "--d-bronze",
+};
+const chips = getUniqueCategories(await getCollection("posts"));
 
 const dates = posts.map(p => new Date(p.data.pubDatetime)).sort((a, b) => +a - +b);
 const span = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
@@ -60,19 +85,23 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
           {other > 0 && <span style={`flex:${other};background:var(--pc-line)`} title={`기타 ${other}`} />}
         </div>
         <div class="legend">
-          <a href={postsPath} aria-current="page">
+          <a href={postsPath}>
             <span class="dot" style="background:var(--pc-night)"></span>전체
             <span class="n">{posts.length}</span>
           </a>
           {
-            counts.map(c => (
-              <a href={tagsPath}>
-                <span class="dot" style={`background:var(${c.token})`} />
-                {c.label}
-                <span class="n">{c.n}</span>
+            chips.map(c => (
+              <a href={getRelativeLocaleUrl(locale, `categories/${c.category}/`)}>
+                <span
+                  class="dot"
+                  style={`background:var(${CHIP_TOKEN[c.category] ?? "--d-base"})`}
+                />
+                {LABEL[c.category] ?? c.name}
+                <span class="n">{c.count}</span>
               </a>
             ))
           }
+          <a href={tagsPath}>태그 전체 →</a>
         </div>
       </div>
     </section>

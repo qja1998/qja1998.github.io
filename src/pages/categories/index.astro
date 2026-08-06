@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import { getUniqueCategories } from "@/utils/getUniqueCategories";
+import config from "@/config";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const categories = getUniqueCategories(posts);
+const locale = Astro.currentLocale ?? config.site.lang;
+---
+
+<Layout title={`카테고리 | ${config.site.title}`}>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle="카테고리" pageDesc="글의 대분류. 세부 주제는 태그를 보세요.">
+    <ul class="cats">
+      {
+        categories.map(({ category, name, count }) => (
+          <li>
+            <a href={getRelativeLocaleUrl(locale, `categories/${category}/`)}>
+              {name}
+              <span>{count}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Main>
+  <Footer />
+</Layout>
+
+<style>
+  .cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+  }
+  .cats a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 9px;
+    text-decoration: none;
+    border: 1px solid var(--pc-line);
+    border-radius: 99px;
+    padding: 9px 16px;
+    font-family: var(--pc-mono);
+    font-size: 13px;
+  }
+  .cats a:hover {
+    border-color: var(--pc-night);
+  }
+  .cats span {
+    color: var(--pc-muted);
+  }
+</style>
