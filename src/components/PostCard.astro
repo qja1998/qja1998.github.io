@@ -5,8 +5,9 @@ import config from "@/config";
 
 interface Props {
   post: any;
+  cat?: string;
 }
-const { post } = Astro.props;
+const { post, cat = "" } = Astro.props;
 const body: string = post.body ?? "";
 const c = cover(post.data.title, post.data.categories ?? [], body);
 const rects = minimapRects(c.minimap);
@@ -18,7 +19,7 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
 const isNum = /^\d+$/.test(c.ident);
 ---
 
-<a class="pc" href={href} style={`--tier:var(${c.token})`}>
+<a class="pc" href={href} data-cat={cat} style={`--tier:var(${c.token})`}>
   <div class="pc-cover">
     <svg
       class="pc-mm"

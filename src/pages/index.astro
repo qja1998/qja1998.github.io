@@ -11,7 +11,19 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const posts = getSortedPosts(await getCollection("posts"));
-const recent = posts.slice(0, config.posts.perIndex);
+const HOME = config.posts.perIndex;   // "전체" 에서 보여 줄 개수
+const PER_CAT = 12;                   // 칩 하나를 눌렀을 때 보여 줄 개수
+
+// 칩은 필터라서 누르는 즉시 걸릴 카드가 DOM 에 있어야 한다. 그렇다고 165장을
+// 다 넣으면 500KB 다. 카테고리마다 최근 PER_CAT 개까지만 넣고 나머지는
+// 카테고리 페이지로 보낸다.
+const perCat = new Map<string, number>();
+const rendered = posts.filter((p, i) => {
+  const cat = p.data.categories?.[0] ?? "";
+  const n = (perCat.get(cat) ?? 0) + 1;
+  perCat.set(cat, n);
+  return i < HOME || n <= PER_CAT;
+});
 
 // 스펙트럼 밴드 — 165개를 실제 분류 비율대로 띠 하나에 담는다.
 // Horizone 의 필터 칩을 데이터 비율로 바꾼 것이고, 사진 없는 그리드에 색을 주는 유일한 자리다.
@@ -85,13 +97,18 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
           {other > 0 && <span style={`flex:${other};background:var(--pc-line)`} title={`기타 ${other}`} />}
         </div>
         <div class="legend">
-          <a href={postsPath}>
+          <a href={postsPath} data-cat="" aria-current="true">
             <span class="dot" style="background:var(--pc-night)"></span>전체
             <span class="n">{posts.length}</span>
           </a>
           {
             chips.map(c => (
-              <a href={getRelativeLocaleUrl(locale, `categories/${c.category}/`)}>
+              <a
+                href={getRelativeLocaleUrl(locale, `categories/${c.category}/`)}
+                data-cat={c.name}
+                data-count={c.count}
+                data-label={LABEL[c.category] ?? c.name}
+              >
                 <span
                   class="dot"
                   style={`background:var(${CHIP_TOKEN[c.category] ?? "--d-base"})`}
@@ -106,14 +123,69 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
       </div>
     </section>
 
-    <section class="grid">
-      {recent.map(post => <PostCard post={post} />)}
+    <section class="grid" id="grid" data-home={HOME} data-per-cat={PER_CAT}>
+      {
+        rendered.map(post => (
+          <PostCard post={post} cat={post.data.categories?.[0] ?? ""} />
+        ))
+      }
     </section>
 
-    <a class="more" href={postsPath}>전체 {posts.length}개 보기 →</a>
+    <a class="more" id="more" href={postsPath} data-all-href={postsPath}>
+      전체 {posts.length}개 보기 →
+    </a>
   </main>
   <Footer />
 </Layout>
+
+<script is:inline>
+  // 칩은 진짜 링크다(JS 가 꺼져 있거나 크롤러가 오면 카테고리 페이지로 간다).
+  // JS 가 있으면 이동 대신 그리드를 제자리에서 거른다 — 생김새가 필터니까.
+  (() => {
+    const grid = document.getElementById("grid");
+    const more = document.getElementById("more");
+    if (!grid || !more) return;
+    const chips = [...document.querySelectorAll(".legend a[data-cat]")];
+    const cards = [...grid.querySelectorAll("[data-cat]")];
+    const HOME = +grid.dataset.home || 9;
+    const PER_CAT = +grid.dataset.perCat || 12;
+    const allHref = more.dataset.allHref;
+    const allText = more.textContent.trim();
+
+    function apply(cat, chip) {
+      const limit = cat ? PER_CAT : HOME;
+      let shown = 0;
+      for (const card of cards) {
+        const hit = (!cat || card.dataset.cat === cat) && shown < limit;
+        card.hidden = !hit;
+        if (hit) shown++;
+      }
+      chips.forEach(a => a.setAttribute("aria-current", String(a === chip)));
+      const total = chip ? +chip.dataset.count || 0 : 0;
+      more.href = cat ? chip.getAttribute("href") : allHref;
+      more.textContent =
+        cat && total > shown
+          ? `${chip.dataset.label} ${total}개 전체 보기 →`
+          : cat
+            ? `${chip.dataset.label} 페이지로 →`
+            : allText;
+      history.replaceState(null, "", cat ? `#${encodeURIComponent(cat)}` : location.pathname);
+    }
+
+    chips.forEach(chip =>
+      chip.addEventListener("click", e => {
+        // 새 탭·저장 의도는 그대로 둔다
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        apply(chip.dataset.cat, chip);
+      })
+    );
+
+    const initial = decodeURIComponent(location.hash.slice(1));
+    const chip = chips.find(a => a.dataset.cat === initial);
+    apply(chip ? initial : "", chip ?? chips[0]);
+  })();
+</script>
 
 <style>
   /* 홈만 그리드 폭이라 헤더·푸터도 같이 넓혀야 중심이 맞는다.
@@ -182,7 +254,7 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
   .legend a:hover {
     border-color: var(--pc-night);
   }
-  .legend a[aria-current] {
+  .legend a[aria-current="true"] {
     background: var(--pc-night);
     border-color: var(--pc-night);
     color: #fff;
@@ -197,7 +269,7 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
     color: var(--pc-muted);
     font-weight: 400;
   }
-  .legend a[aria-current] .n {
+  .legend a[aria-current="true"] .n {
     color: #9fb6bc;
   }
 
