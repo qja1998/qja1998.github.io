@@ -1,0 +1,213 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import PostCard from "@/components/PostCard.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const posts = getSortedPosts(await getCollection("posts"));
+const recent = posts.slice(0, config.posts.perIndex);
+
+// 스펙트럼 밴드 — 165개를 실제 분류 비율대로 띠 하나에 담는다.
+// Horizone 의 필터 칩을 데이터 비율로 바꾼 것이고, 사진 없는 그리드에 색을 주는 유일한 자리다.
+const SEGMENTS: { label: string; token: string; match: (c: string[]) => boolean }[] = [
+  { label: "백준 골드", token: "--d-gold", match: c => c[0] === "boj" && c[1] === "gold" },
+  { label: "백준 실버", token: "--d-silver", match: c => c[0] === "boj" && c[1] === "silver" },
+  { label: "백준 브론즈", token: "--d-bronze", match: c => c[0] === "boj" && c[1] === "bronze" },
+  { label: "프로그래머스", token: "--d-sql", match: c => c[0] === "programmers" },
+  { label: "PyTorch", token: "--d-torch", match: c => c[0] === "pytorch" },
+  { label: "트러블슈팅", token: "--d-trouble", match: c => c[0] === "troubleshooting" },
+  { label: "Docker", token: "--d-docker", match: c => c[0] === "docker" },
+  { label: "배경지식", token: "--d-base", match: c => c[0] === "background" },
+  { label: "SWEA", token: "--d-swea", match: c => c[0] === "swea" },
+];
+const counts = SEGMENTS.map(s => ({
+  ...s,
+  n: posts.filter(p => s.match(p.data.categories ?? [])).length,
+})).filter(s => s.n > 0);
+const other = posts.length - counts.reduce((a, b) => a + b.n, 0);
+
+const dates = posts.map(p => new Date(p.data.pubDatetime)).sort((a, b) => +a - +b);
+const span = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+const range = dates.length ? `${span(dates[0])} — ${span(dates[dates.length - 1])}` : "";
+const postsPath = getRelativeLocaleUrl(locale, "posts/");
+const tagsPath = getRelativeLocaleUrl(locale, "tags/");
+---
+
+<Layout>
+  <Header />
+  <main id="main-content" data-layout="index" class="app-layout my-1">
+    <section class="hero">
+      <p class="eyebrow">{posts.length} POSTS · {range}</p>
+      <h1>막힌 걸 풀고,<br />왜 그렇게 풀렸는지 적어 둡니다.</h1>
+      <p class="lede">{config.site.description}</p>
+
+      <div class="spectrum">
+        <div
+          class="bar"
+          role="img"
+          aria-label={counts.map(c => `${c.label} ${c.n}`).join(", ")}
+        >
+          {
+            counts.map(c => (
+              <span style={`flex:${c.n};background:var(${c.token})`} title={`${c.label} ${c.n}`} />
+            ))
+          }
+          {other > 0 && <span style={`flex:${other};background:var(--pc-line)`} title={`기타 ${other}`} />}
+        </div>
+        <div class="legend">
+          <a href={postsPath} aria-current="page">
+            <span class="dot" style="background:var(--pc-night)"></span>전체
+            <span class="n">{posts.length}</span>
+          </a>
+          {
+            counts.map(c => (
+              <a href={tagsPath}>
+                <span class="dot" style={`background:var(${c.token})`} />
+                {c.label}
+                <span class="n">{c.n}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      {recent.map(post => <PostCard post={post} />)}
+    </section>
+
+    <a class="more" href={postsPath}>전체 {posts.length}개 보기 →</a>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* 홈만 그리드 폭이라 헤더·푸터도 같이 넓혀야 중심이 맞는다.
+     포스트 페이지는 읽기 폭(3xl)을 그대로 둔다. */
+  :global(body:has([data-layout="index"])) :global(header .app-layout),
+  :global(body:has([data-layout="index"])) :global(footer .app-layout) {
+    max-width: 78rem;
+  }
+
+  .hero {
+    padding: 44px 0 30px;
+    border-bottom: 1px solid var(--pc-line);
+  }
+  .eyebrow {
+    font-family: var(--pc-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--pc-muted);
+    margin: 0 0 14px;
+  }
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(30px, 4.6vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.18;
+  }
+  .lede {
+    margin: 14px 0 0;
+    max-width: 52ch;
+    color: var(--pc-muted);
+    font-size: 16.5px;
+  }
+
+  .spectrum {
+    margin-top: 34px;
+  }
+  .bar {
+    display: flex;
+    height: 10px;
+    border-radius: 99px;
+    overflow: hidden;
+    background: var(--pc-line);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .legend a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-line);
+    border-radius: 99px;
+    padding: 7px 14px 7px 11px;
+    font-family: var(--pc-mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: inherit;
+  }
+  .legend a:hover {
+    border-color: var(--pc-night);
+  }
+  .legend a[aria-current] {
+    background: var(--pc-night);
+    border-color: var(--pc-night);
+    color: #fff;
+  }
+  .legend .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex: none;
+  }
+  .legend .n {
+    color: var(--pc-muted);
+    font-weight: 400;
+  }
+  .legend a[aria-current] .n {
+    color: #9fb6bc;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 38px;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .more {
+    display: inline-block;
+    margin: 40px 0 20px;
+    font-family: var(--pc-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    border: 1px solid var(--pc-night);
+    color: var(--pc-night);
+    border-radius: 99px;
+    padding: 12px 24px;
+  }
+  .more:hover {
+    background: var(--pc-night);
+    color: #fff;
+  }
+  :global([data-theme="dark"]) .more {
+    border-color: var(--pc-line);
+    color: inherit;
+  }
+</style>

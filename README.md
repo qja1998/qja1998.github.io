@@ -1,43 +1,49 @@
-# Chirpy Starter
+# qja1998.github.io
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+CatBus — 알고리즘 문제 풀이와 삽질 기록.
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+[Astro](https://astro.build) + [AstroPaper](https://github.com/satnaing/astro-paper) 기반.
+`main`/`master` 에 push 하면 GitHub Actions 가 빌드해 GitHub Pages 로 배포한다.
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+## 개발
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
-
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
+```bash
+npm ci
+npm run dev          # http://localhost:4321
+npx astro build      # dist/ 생성
+npx pagefind --site dist   # 검색 인덱스 (배포 시 Actions 가 수행)
 ```
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+## 글 쓰기
 
-## Usage
+`src/content/posts/<slug>.md` 를 만든다. **파일명이 곧 URL** 이다 (`/posts/<slug>/`).
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+```yaml
+---
+title: "[BOJ] 공격 - 1430 (G4)"
+author: "kwon_gi_beom"
+pubDatetime: 2025-10-26T17:31:56+09:00
+description: "한 줄 요약. 목록 카드와 검색 결과에 그대로 나온다."
+tags: ["math", "bfs"]
+categories: ["boj", "gold"]
+---
+```
 
-## Contributing
+- `pubDatetime` 은 `+09:00` 형식이어야 한다. `+0900` 은 YAML 이 날짜로 읽지 못한다.
+- 이미지는 `public/posting_imgs/` 에 두고 `/posting_imgs/이름.webp` 로 참조한다.
+- 수식은 `$…$` / `$$…$$` (remark-math + KaTeX).
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+## 홈 카드 커버
 
-## License
+이 블로그에는 커버 사진이 없다. `src/utils/cover.ts` 가 글 자체에서 커버를 만든다.
 
-This work is published under [MIT][mit] License.
+- **식별자** — 제목에서 문제 번호·챕터·에러 이름을 뽑는다
+- **미니맵** — 코드가 있으면 코드의 들여쓰기 구조, 없으면 본문의 제목·문단 구조
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+제목 형식이 새로 생기면 `identify()` 에 규칙을 추가한다.
+
+## Jekyll 에서 이관
+
+`tools/migrate_to_astro.py` 가 `_posts/` 를 변환했다. URL 165개를 그대로 유지하는 것이
+그 스크립트의 첫 계약이다 — 파일명 뒷부분이 겹치는 15개 글은 `permalink` 로 구분돼 있었고
+그 값을 파일명으로 삼았다.

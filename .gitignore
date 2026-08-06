@@ -22,3 +22,8 @@ package-lock.json
 !.vscode/tasks.json
 
 # Misc
+
+# astro
+node_modules/
+dist/
+.astro/

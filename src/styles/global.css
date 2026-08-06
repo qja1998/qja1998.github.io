@@ -1,0 +1,84 @@
+@import "tailwindcss";
+/* 한글 본문. astro-paper 기본값은 전부 mono 라 한글이 넓고 어색해진다 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+/* 21개 글이 $$ 수식을 쓴다. rehype-katex 는 마크업만 만들고 CSS 는 여기서 넣어야 한다 */
+@import "katex/dist/katex.min.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* --- CatBus 팔레트 ---------------------------------------------------------
+   아바타가 고양이버스라 거기서 뽑았다. --d-* 는 장식이 아니라 분류 정보다:
+   커버 하단 rule, 스펙트럼 밴드, 커버 색온도가 전부 이 값을 쓴다.
+   전부 night(#123039) 위에서 읽히는 명도로 맞췄다. */
+:root {
+  --pc-night: #123039;
+  --pc-lamp: #f0b429;
+  --pc-surface: #ffffff;
+  --pc-line: #dce2e1;
+  --pc-muted: #5a6a70;
+  --pc-mono: var(--font-google-sans-code), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --d-gold: #f0b429;
+  --d-silver: #94aeb9;
+  --d-bronze: #ce8b54;
+  --d-sql: #4fbfa8;
+  --d-torch: #a98bd1;
+  --d-trouble: #e2685e;
+  --d-docker: #7fb3e8;
+  --d-base: #b8c4c2;
+  --d-swea: #d9b26a;
+}
+[data-theme="dark"] {
+  --pc-surface: #151c20;
+  --pc-line: #26333a;
+  --pc-muted: #93a5ac;
+}
+
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  a,
+  button,
+  #main-content {
+    @apply outline-accent outline-offset-1 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+/* 글 읽기 폭(3xl)은 포스트에 맞다. 홈은 3열 카드 그리드라 더 넓어야 한다. */
+[data-layout="index"] {
+  max-width: 78rem;
+}
+
+/* 본문은 Pretendard, 코드와 데이터는 mono */
+pre,
+code,
+kbd,
+samp {
+  font-family: var(--pc-mono);
+}
+
+@utility app-layout {
+  @apply max-w-app mx-auto w-full px-4;
+}
+
+@utility active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-8;
+}
+
+:target {
+  scroll-margin-block: 1rem;
+}

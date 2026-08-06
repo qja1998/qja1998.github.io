@@ -1,6 +1,0 @@
-# 포스트 frontmatter 의 author 값을 실제 표시 이름·링크로 연결한다.
-# 이 파일이 없으면 테마가 site.data.authors[author].name 을 찾지 못해
-# 포스트 상단 저자 표기가 빈칸으로 나온다.
-kwon:
-  name: kwon_gi_beom
-  url: https://github.com/qja1998
