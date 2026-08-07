@@ -6,8 +6,9 @@ import config from "@/config";
 interface Props {
   post: any;
   cat?: string;
+  featured?: boolean;
 }
-const { post, cat = "" } = Astro.props;
+const { post, cat = "", featured = false } = Astro.props;
 const body: string = post.body ?? "";
 const c = cover(post.data.title, post.data.categories ?? [], body);
 const rects = minimapRects(c.minimap);
@@ -19,7 +20,13 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
 const isNum = /^\d+$/.test(c.ident);
 ---
 
-<a class="pc" href={href} data-cat={cat} style={`--tier:var(${c.token})`}>
+<a
+  class="pc"
+  href={href}
+  data-cat={cat}
+  data-featured={featured ? "" : undefined}
+  style={`--tier:var(${c.token})`}
+>
   <div class="pc-cover">
     <svg
       class="pc-mm"
@@ -41,8 +48,10 @@ const isNum = /^\d+$/.test(c.ident);
         ))
       }
     </svg>
-    <span class="pc-kind">{c.kind}</span>
-    {c.tier && <span class="pc-tier">{c.tier}</span>}
+    <span class="pc-top">
+      <span class="pc-kind">{c.kind}</span>
+      {c.tier && <span class="pc-tier">{c.tier}</span>}
+    </span>
     <span class={isNum ? "pc-id" : "pc-id pc-id-sm"}>{c.ident}</span>
   </div>
   <div class="pc-body">
@@ -86,18 +95,28 @@ const isNum = /^\d+$/.test(c.ident);
     outline-offset: 3px;
   }
 
-  /* 커버 = 그 글의 구조. night 에 도메인 색을 12% 섞어 카드마다 색온도가 달라진다. */
+  /* 커버 = 그 글의 구조. night 에 도메인 색을 12% 섞어 카드마다 색온도가 달라진다.
+     기본은 얇은 띠다 — 미니맵은 글을 고르는 데 기여하지 않으므로 면적을 적게 준다.
+     대표 글(첫 카드) 하나만 큰 커버로 올려 인상을 남긴다. */
   .pc-cover {
     position: relative;
-    aspect-ratio: 16 / 10;
+    height: 66px;
     background: var(--pc-night);
     background: color-mix(in oklab, var(--pc-night) 88%, var(--tier));
     color: #fff;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: 0 16px 14px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 16px;
     overflow: hidden;
+  }
+  .pc-top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
   }
   .pc-cover::after {
     content: "";
@@ -111,21 +130,21 @@ const isNum = /^\d+$/.test(c.ident);
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.9;
+    opacity: 0.42;
   }
   .pc-id {
     position: relative;
     z-index: 2;
     font-family: var(--pc-mono);
     font-weight: 800;
-    font-size: clamp(26px, 3.2vw, 36px);
+    font-size: 21px;
     letter-spacing: -0.03em;
     line-height: 1;
     text-shadow: 0 2px 20px rgba(8, 20, 25, 0.9);
     transition: transform 0.22s ease;
   }
   .pc-id-sm {
-    font-size: clamp(17px, 2vw, 22px);
+    font-size: 15px;
     letter-spacing: -0.01em;
   }
   .pc:hover .pc-id {
@@ -133,21 +152,17 @@ const isNum = /^\d+$/.test(c.ident);
   }
   .pc-kind,
   .pc-tier {
-    position: absolute;
-    top: 13px;
-    z-index: 2;
     font-family: var(--pc-mono);
     font-size: 10.5px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .pc-kind {
-    left: 15px;
     font-weight: 500;
     color: #88a3ab;
   }
   .pc-tier {
-    right: 15px;
     font-weight: 700;
     color: var(--tier);
     letter-spacing: 0.14em;
@@ -199,11 +214,61 @@ const isNum = /^\d+$/.test(c.ident);
     opacity: 0.45;
   }
 
-  @media (max-width: 560px) {
-    .pc-cover {
+
+  /* 대표 글: 그리드 한 줄을 통째로 쓰고 커버를 왼쪽에 크게 둔다.
+     Cloudflare·Stripe·Tailwind 가 쓰는 형태다 — 커버 예산을 상위 1건에만 쓴다. */
+  .pc[data-featured] {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+  .pc[data-featured] .pc-cover {
+    height: auto;
+    width: 42%;
+    flex: none;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0 20px 18px;
+  }
+  .pc[data-featured] .pc-mm {
+    opacity: 0.9;
+  }
+  .pc[data-featured] .pc-top {
+    position: absolute;
+    inset: 14px 18px auto;
+    justify-content: space-between;
+  }
+  .pc[data-featured] .pc-id {
+    font-size: clamp(30px, 3.4vw, 42px);
+  }
+  .pc[data-featured] .pc-id-sm {
+    font-size: clamp(19px, 2.2vw, 26px);
+  }
+  .pc[data-featured] .pc-cover::after {
+    inset: auto 0 0 0;
+  }
+  .pc[data-featured] .pc-body {
+    padding: 26px 28px;
+    justify-content: center;
+    gap: 12px;
+  }
+  .pc[data-featured] .pc-body h2 {
+    font-size: 24px;
+    -webkit-line-clamp: 3;
+  }
+  .pc[data-featured] .pc-body p {
+    font-size: 15px;
+    -webkit-line-clamp: 3;
+  }
+  @media (max-width: 720px) {
+    .pc[data-featured] {
+      flex-direction: column;
+    }
+    .pc[data-featured] .pc-cover {
+      width: 100%;
       aspect-ratio: 2 / 1;
     }
   }
+
   @media (prefers-reduced-motion: reduce) {
     .pc,
     .pc-id {

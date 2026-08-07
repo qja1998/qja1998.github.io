@@ -125,8 +125,12 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
 
     <section class="grid" id="grid" data-home={HOME} data-per-cat={PER_CAT}>
       {
-        rendered.map(post => (
-          <PostCard post={post} cat={post.data.categories?.[0] ?? ""} />
+        rendered.map((post, i) => (
+          <PostCard
+            post={post}
+            cat={post.data.categories?.[0] ?? ""}
+            featured={i === 0}
+          />
         ))
       }
     </section>
@@ -158,6 +162,8 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
       for (const card of cards) {
         const hit = (!cat || card.dataset.cat === cat) && shown < limit;
         card.hidden = !hit;
+        // 걸러진 목록의 첫 카드가 그때그때 대표 글이 된다
+        card.toggleAttribute("data-featured", hit && shown === 0);
         if (hit) shown++;
       }
       chips.forEach(a => a.setAttribute("aria-current", String(a === chip)));
