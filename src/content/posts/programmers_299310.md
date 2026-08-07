@@ -2,7 +2,7 @@
 title: "[Programmers] 연도별 대장균 크기의 편차 구하기  - 299310"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-19T23:07:06+09:00
-description: "프로그래머스 '연도별 대장균 크기의 편차 구하기' (299310번) SQL 문제 풀이와 쿼리 설명."
+description: "상관 서브쿼리로 같은 연도의 MAX(size_of_colony) 를 가져와 각 개체 크기와의 차를 구한다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

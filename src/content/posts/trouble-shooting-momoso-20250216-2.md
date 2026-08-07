@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker 상에서 redis가 정상적으로 연결되지 않는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-02-16T23:01:00+09:00
-description: "docker 상에서 redis가 정상적으로 연결되지 않는 문제 문제를 만난 상황과 해결 과정 기록."
+description: "컨테이너의 redis 에 127.0.0.1 로 붙으려 해 연결이 안 됐다. host 를 redis 컨테이너 이름으로 바꿨다."
 tags: ["docker", "redis"]
 categories: ["troubleshooting"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 부모의 형질을 모두 가지는 대장균 찾기 - 301647"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-02T22:51:12+09:00
-description: "프로그래머스 '부모의 형질을 모두 가지는 대장균 찾기' (301647번) SQL 문제 풀이와 쿼리 설명."
+description: "자기 조인으로 부모 행을 붙이고 `A.GENOTYPE & B.GENOTYPE = B.GENOTYPE` 비트 연산으로 부모 형질을 모두 포함하는지 판정한다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

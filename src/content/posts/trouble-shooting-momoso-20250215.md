@@ -2,7 +2,7 @@
 title: "[Troubleshooting] gitlab ci 상에서 permission denied가 발생하는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-02-15T23:00:00+09:00
-description: "gitlab ci 상에서 permission denied가 발생하는 문제 문제를 만난 상황과 해결 과정 기록."
+description: "같은 stage 의 두 job 이 runner 하나를 두고 다퉈 뒤늦은 쪽이 docker daemon 권한을 얻지 못했다. tags 로 job 마다 runner 를 나눠 지정했다."
 tags: ["gitlab-ci-cd"]
 categories: ["troubleshooting"]
 ---

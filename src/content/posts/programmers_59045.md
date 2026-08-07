@@ -2,7 +2,7 @@
 title: "[Programmers] 보호소에서 중성화한 동물 - 59045"
 author: "kwon_gi_beom"
 pubDatetime: 2025-04-14T17:01:44+09:00
-description: "프로그래머스 '보호소에서 중성화한 동물' (59045번) SQL 문제 풀이와 쿼리 설명."
+description: "입소 때 Intact 였다가 퇴소 때 Spayed/Neutered 로 바뀐 행을 REGEXP 로 매칭해 보호소에서 중성화된 동물을 찾는다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

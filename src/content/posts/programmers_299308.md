@@ -2,7 +2,7 @@
 title: "[Programmers] 분기별 분화된 대장균의 개체 수 구하기 - 299308"
 author: "kwon_gi_beom"
 pubDatetime: 2025-07-03T17:33:32+09:00
-description: "프로그래머스 '분기별 분화된 대장균의 개체 수 구하기' (299308번) SQL 문제 풀이와 쿼리 설명."
+description: "QUARTER() 로 분화일을 분기 문자열로 바꾸는 CTE 를 만들고, 바깥에서 그 값으로 GROUP BY 해 분기별 개체 수를 센다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 자동차 종류 별 특정 옵션이 포함된 자동차 수 구하기 - 151137"
 author: "kwon_gi_beom"
 pubDatetime: 2025-05-05T20:05:06+09:00
-description: "프로그래머스 '자동차 종류 별 특정 옵션이 포함된 자동차 수 구하기' (151137번) SQL 문제 풀이와 쿼리 설명."
+description: "LIKE 를 OR 로 세 번 잇는 대신 REGEXP 로 세 옵션을 한 번에 매칭하고 차종별로 COUNT 한다. 원래 쓰던 LIKE 버전도 주석으로 남겨 두었다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 있었는데요 없었습니다 - 59043"
 author: "kwon_gi_beom"
 pubDatetime: 2025-04-08T23:40:33+09:00
-description: "프로그래머스 '있었는데요 없었습니다' (59043번) SQL 문제 풀이와 쿼리 설명."
+description: "입소·퇴소를 조인하고 `입소 시각 > 퇴소 시각` 인 행만 남긴다. 데이터가 뒤집힌 경우를 찾는 문제."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

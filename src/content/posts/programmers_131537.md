@@ -2,7 +2,7 @@
 title: "[Programmers] 오프라인/온라인 판매 데이터 통합하기 - 131537"
 author: "kwon_gi_beom"
 pubDatetime: 2025-04-08T23:40:24+09:00
-description: "프로그래머스 '오프라인/온라인 판매 데이터 통합하기' (131537번) SQL 문제 풀이와 쿼리 설명."
+description: "3월치만 걸러 온라인·오프라인을 UNION 한다. 오프라인에는 user_id 가 없어 NULL 을 채워 컬럼 수를 맞춘다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

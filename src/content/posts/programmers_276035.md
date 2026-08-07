@@ -2,7 +2,7 @@
 title: "[Programmers] FrontEnd 개발자 찾기 - 276035"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-11T22:45:37+09:00
-description: "프로그래머스 'FrontEnd 개발자 찾기' (276035번) SQL 문제 풀이와 쿼리 설명."
+description: "스킬코드를 비트마스크로 다룬다. `SKILL_CODE | CODE = SKILL_CODE` 로 프론트엔드 비트가 켜져 있는 개발자만 고른다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

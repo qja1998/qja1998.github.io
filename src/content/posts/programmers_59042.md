@@ -2,7 +2,7 @@
 title: "[Programmers] 없어진 기록 찾기 - 59042"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-26T22:06:18+09:00
-description: "프로그래머스 '없어진 기록 찾기' (59042번) SQL 문제 풀이와 쿼리 설명."
+description: "animal_outs 기준 RIGHT JOIN 후 입양 기록 쪽 키가 NULL 인 행만 남긴다 — 들어온 기록 없이 나간 동물."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

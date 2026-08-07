@@ -2,7 +2,7 @@
 title: "[Programmers] 상품 별 오프라인 매출 구하기 - 131533"
 author: "kwon_gi_beom"
 pubDatetime: 2025-07-10T19:43:57+09:00
-description: "프로그래머스 '상품 별 오프라인 매출 구하기' (131533번) SQL 문제 풀이와 쿼리 설명."
+description: "상품과 오프라인 판매를 조인해 SUM(수량) × 단가로 매출을 만든다. GROUP BY 는 product_id 로 하고 정렬만 product_code 를 쓴다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

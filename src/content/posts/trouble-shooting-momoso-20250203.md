@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker에서 react-scripts를 찾지 못하는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-02-03T23:00:00+09:00
-description: "docker에서 react-scripts를 찾지 못하는 문제 문제를 만난 상황과 해결 과정 기록."
+description: "compose 로 react 를 띄우면 로컬 node_modules 가 마운트로 컨테이너 쪽을 덮어써 react-scripts 를 못 찾았다. node_modules 를 별도 볼륨으로 떼어 냈다."
 tags: ["docker", "react"]
 categories: ["troubleshooting"]
 ---

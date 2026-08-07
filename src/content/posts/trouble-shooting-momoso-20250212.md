@@ -2,7 +2,7 @@
 title: "[Troubleshooting] conda 가상환경 상에서 pip install로 설치한 모듈을 찾을 수 없는 경우"
 author: "kwon_gi_beom"
 pubDatetime: 2025-02-12T23:00:00+09:00
-description: "conda 가상환경 상에서 pip install로 설치한 모듈을 찾을 수 없는 경우 문제를 만난 상황과 해결 과정 기록."
+description: "conda 환경에서 pip install 한 모듈을 찾지 못했다. pip 경로가 전역을 가리켜 전역에 설치되고 있었던 것이라 가상환경의 pip 를 명시했다."
 tags: ["python", "conda"]
 categories: ["troubleshooting"]
 ---

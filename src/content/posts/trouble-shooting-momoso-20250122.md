@@ -2,7 +2,7 @@
 title: "[Troubleshooting] gitlab-runner가 연결하려 할 때 403 error"
 author: "kwon_gi_beom"
 pubDatetime: 2025-01-22T23:00:00+09:00
-description: "gitlab-runner가 연결하려 할 때 403 error 문제를 만난 상황과 해결 과정 기록."
+description: "register 는 되는데 Checking for jobs 에서 403. 예전에 등록해 둔 runner 들이 config.toml 에 남아 함께 실행되던 것이 원인이라 파일을 지우고 다시 등록했다."
 tags: ["gitlab-ci-cd", "docker"]
 categories: ["troubleshooting"]
 ---

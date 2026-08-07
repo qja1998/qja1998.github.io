@@ -2,7 +2,7 @@
 title: "[Programmers] 서울에 위치한 식당 목록 출력하기 - 131118"
 author: "kwon_gi_beom"
 pubDatetime: 2025-06-26T18:39:14+09:00
-description: "프로그래머스 '서울에 위치한 식당 목록 출력하기' (131118번) SQL 문제 풀이와 쿼리 설명."
+description: "CTE 안에서 식당과 리뷰를 조인해 평점을 ROUND(AVG(), 2) 로 묶고, 주소가 '서울' 로 시작하는 곳만 남긴 뒤 평점·즐겨찾기 순으로 정렬한다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 즐겨찾기가 가장 많은 식당 정보 출력하기 - 131123"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-11T22:45:37+09:00
-description: "프로그래머스 '즐겨찾기가 가장 많은 식당 정보 출력하기' (131123번) SQL 문제 풀이와 쿼리 설명."
+description: "(FOOD_TYPE, FAVORITES) 를 튜플째로 GROUP BY 결과와 IN 비교해, 음식 종류마다 즐겨찾기가 가장 많은 행을 고른다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

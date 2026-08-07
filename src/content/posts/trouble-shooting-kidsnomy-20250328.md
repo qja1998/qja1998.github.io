@@ -2,7 +2,7 @@
 title: "[Troubleshooting] pytorch의 IndexError: index out of range in self 에러"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-28T23:00:00+09:00
-description: "pytorch의 IndexError: index out of range in self 에러 문제를 만난 상황과 해결 과정 기록."
+description: "BERT 로 예측할 때 뜬 IndexError. 토크나이저가 token_type_ids 에 2 이상을 넣어 임베딩 레이어의 허용 범위를 벗어난 것이 원인이었다."
 tags: ["pytorch"]
 categories: ["troubleshooting"]
 ---

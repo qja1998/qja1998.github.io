@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker 빌드 시 권한 문제로 install이 안되는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-01-19T23:00:00+09:00
-description: "docker 빌드 시 권한 문제로 install이 안되는 문제 — docker-compose build로 빌드를 진행할 때 아래와 같은 문제가 발생"
+description: "docker-compose build 가 archive/tar: unknown file mode 로 실패. 다른 환경에서 가져온 node_modules 의 권한이 문제라 package-lock.json 과 함께 지우고 다시 설치했다."
 tags: ["docker", "npm"]
 categories: ["troubleshooting"]
 ---

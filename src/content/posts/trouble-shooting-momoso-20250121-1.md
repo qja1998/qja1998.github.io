@@ -2,7 +2,7 @@
 title: "[Troubleshooting] gitlab-runner에서 panic: EOF [recovered]가 발생하는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-01-21T23:00:00+09:00
-description: "gitlab-runner에서 panic: EOF [recovered]가 발생하는 문제 — 이 문제는 GitLab Runner 컨테이너가 실행되는 동안 사용자 입력을 요구하지만, 컨테이너의 표준 입력(stdin)과 터미널 연결(tty)이 활성화되지 않아 발생합니다. 이를 해결하기 위해 s"
+description: "컨테이너 안에서 gitlab-runner register 가 입력을 받지 못해 panic: EOF 로 죽었다. compose 에 stdin_open 과 tty 를 켜 인터랙티브로 띄웠다."
 tags: ["gitlab-ci-cd", "docker"]
 categories: ["troubleshooting"]
 ---

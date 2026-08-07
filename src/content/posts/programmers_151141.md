@@ -2,7 +2,7 @@
 title: "[Programmers] 자동차 대여 기록 별 대여 금액 구하기 - 151141"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-19T23:07:06+09:00
-description: "프로그래머스 '자동차 대여 기록 별 대여 금액 구하기' (151141번) SQL 문제 풀이와 쿼리 설명."
+description: "DATEDIFF+1 로 대여 일수를 구하고 CASE 로 90일·30일·7일 구간을 나눠 요금제와 조인한다. 할인율을 적용해 대여 금액을 계산하는 문제."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 업그레이드 된 아이템 구하기 - 273711"
 author: "kwon_gi_beom"
 pubDatetime: 2025-06-26T18:38:56+09:00
-description: "프로그래머스 '업그레이드 된 아이템 구하기' (273711번) SQL 문제 풀이와 쿼리 설명."
+description: "item_tree 에서 부모로 등장하는 아이템 중 rarity 가 RARE 인 것을 CTE 로 모은 뒤, 아이템 정보와 조인한다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

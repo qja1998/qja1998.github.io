@@ -2,7 +2,7 @@
 title: "[Troubleshooting] docker에서 volume을 연결해도 파일이 보이지 않는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-02-16T23:00:00+09:00
-description: "docker에서 volume을 연결해도 파일이 보이지 않는 문제 문제를 만난 상황과 해결 과정 기록."
+description: "이미지 안에서 만든 build 산출물이 볼륨 마운트로 비어 있는 로컬 디렉터리에 덮여 사라졌다. Dockerfile 에서 build 파일을 복사하도록 고쳤다."
 tags: ["docker"]
 categories: ["troubleshooting"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 연간 평가점수에 해당하는 평가 등급 및 성과금 조회하기 - 284528"
 author: "kwon_gi_beom"
 pubDatetime: 2025-07-03T17:33:50+09:00
-description: "프로그래머스 '연간 평가점수에 해당하는 평가 등급 및 성과금 조회하기' (284528번) SQL 문제 풀이와 쿼리 설명."
+description: "CTE 에서 사원별 평균 점수를 CASE 로 S·A·B·C 등급으로 바꾸고, 바깥에서 등급별 지급률을 다시 CASE 로 적용해 성과금을 구한다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 주문량이 많은 아이스크림들 조회하기 - 133027"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-02T22:51:31+09:00
-description: "프로그래머스 '주문량이 많은 아이스크림들 조회하기' (133027번) SQL 문제 풀이와 쿼리 설명."
+description: "7월 주문을 맛별로 SUM 한 서브쿼리를 상반기 테이블과 조인하고, 두 합을 더한 값으로 정렬해 상위 3개만 남긴다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

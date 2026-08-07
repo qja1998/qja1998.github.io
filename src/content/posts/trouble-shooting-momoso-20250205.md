@@ -1,8 +1,8 @@
 ---
-title: "[Troubleshooting] gitlab-runner가 연결하려 할 때 403 error"
+title: "[Troubleshooting] docker 빌드 중 npm install 의존성 충돌"
 author: "kwon_gi_beom"
 pubDatetime: 2025-02-05T23:00:00+09:00
-description: "gitlab-runner가 연결하려 할 때 403 error 문제를 만난 상황과 해결 과정 기록."
+description: "컨테이너에서 npm install 이 실패. webpack-cli 5 는 webpack 5 를 요구하는데 프로젝트가 webpack 4 를 쓰고 있던 의존성 충돌이라 webpack 을 5 로 올렸다."
 tags: ["gitlab-ci-cd", "docker"]
 categories: ["troubleshooting"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 최솟값 구하기 - 59038"
 author: "kwon_gi_beom"
 pubDatetime: 2025-04-02T23:10:42+09:00
-description: "프로그래머스 '최솟값 구하기' (59038번) SQL 문제 풀이와 쿼리 설명."
+description: "animal_ins 에서 MIN(datetime) 하나만 뽑는다. 가장 먼저 들어온 동물의 보호 시작 시각."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

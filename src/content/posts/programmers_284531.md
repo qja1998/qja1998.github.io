@@ -2,7 +2,7 @@
 title: "[Programmers] 노선별 평균 역 사이 거리 조회하기 - 284531"
 author: "kwon_gi_beom"
 pubDatetime: 2025-07-17T18:20:14+09:00
-description: "프로그래머스 '노선별 평균 역 사이 거리 조회하기' (284531번) SQL 문제 풀이와 쿼리 설명."
+description: "노선별로 SUM 과 AVG 를 각각 구해 ROUND 자릿수를 다르게 주고, CONCAT 으로 'km' 를 붙여 문자열로 만든다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

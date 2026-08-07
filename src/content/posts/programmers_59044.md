@@ -2,7 +2,7 @@
 title: "[Programmers] 오랜 기간 보호한 동물(1) - 59044"
 author: "kwon_gi_beom"
 pubDatetime: 2025-04-14T17:02:10+09:00
-description: "프로그래머스 '오랜 기간 보호한 동물(1)' (59044번) SQL 문제 풀이와 쿼리 설명."
+description: "NOT IN 서브쿼리로 아직 나가지 않은 동물만 남기고, 입소 순으로 정렬해 LIMIT 3."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

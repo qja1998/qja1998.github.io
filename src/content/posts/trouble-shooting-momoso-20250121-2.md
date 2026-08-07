@@ -2,7 +2,7 @@
 title: "gitlab-runner container에서 Command not found가 발생하는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-01-21T23:00:01+09:00
-description: "gitlab-runner container에서 Command not found가 발생하는 문제 — 이 문제는 GitLab Runner 컨테이너가 실행될 때 entrypoint 스크립트에 의해 예상치 못한 명령어(tail 등)가 실행되면서 발생한 오류입니다. 이를 해결하기 위해 entrypoint"
+description: "gitlab-runner 이미지의 기본 ENTRYPOINT 가 끼어들어 sh·bash·tail 이 먹지 않았다. entrypoint: [\"\"] 로 비활성화했다."
 tags: ["gitlab-ci-cd", "docker"]
 categories: ["troubleshooting"]
 ---

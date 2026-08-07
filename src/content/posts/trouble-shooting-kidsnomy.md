@@ -2,7 +2,7 @@
 title: "[Troubleshooting] jenkins에서 git pull 사용시 발생하는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-24T23:00:00+09:00
-description: "jenkins에서 git pull 사용시 발생하는 문제 문제를 만난 상황과 해결 과정 기록."
+description: "Jenkins 의 sh 단계에서 부른 git pull 이 checkout 이 설정한 자격 증명을 상속하지 못해 Access denied. 내장 checkout 으로 대체했다."
 tags: ["jenkins"]
 categories: ["troubleshooting"]
 ---

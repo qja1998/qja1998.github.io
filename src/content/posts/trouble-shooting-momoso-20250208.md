@@ -2,7 +2,7 @@
 title: "[Troubleshooting] SSL 발급 억까 탐방기"
 author: "kwon_gi_beom"
 pubDatetime: 2025-02-08T23:00:00+09:00
-description: "SSL 발급 억까 탐방기 문제를 만난 상황과 해결 과정 기록."
+description: "인증서를 받기도 전에 nginx conf 가 listen 443 ssl 을 쓰고 있어 nginx 가 죽었고, 그 탓에 certbot 인증 경로에도 못 붙었다. ssl 지시문을 빼고 먼저 발급받았다."
 tags: ["ssl", "docker"]
 categories: ["troubleshooting"]
 ---

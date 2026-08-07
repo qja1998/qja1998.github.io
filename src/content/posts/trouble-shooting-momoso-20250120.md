@@ -2,7 +2,7 @@
 title: "[Troubleshooting] gitlab-runner 상에서 docker 빌드가 안되는 문제"
 author: "kwon_gi_beom"
 pubDatetime: 2025-01-20T23:00:00+09:00
-description: "gitlab-runner 상에서 docker 빌드가 안되는 문제 문제를 만난 상황과 해결 과정 기록."
+description: "gitlab-runner 최신 이미지가 manifest mediatype 을 제대로 지원하지 못해 빌드가 깨졌다. 이미지 버전을 v14 로 낮춰 해결."
 tags: ["docker", "gitlab-ci-cd"]
 categories: ["troubleshooting"]
 ---

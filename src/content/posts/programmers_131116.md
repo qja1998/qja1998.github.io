@@ -2,7 +2,7 @@
 title: "[Programmers] 식품분류별 가장 비싼 식품의 정보 조회하기 - 131116"
 author: "kwon_gi_beom"
 pubDatetime: 2025-04-02T23:10:42+09:00
-description: "프로그래머스 '식품분류별 가장 비싼 식품의 정보 조회하기' (131116번) SQL 문제 풀이와 쿼리 설명."
+description: "카테고리별 MAX(price) 를 구한 서브쿼리를 원본 테이블과 다시 조인해, 최고가만이 아니라 그 상품의 이름까지 함께 뽑는다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

@@ -2,7 +2,7 @@
 title: "[Programmers] 대장균의 크기에 따라 분류하기 2 - 301649"
 author: "kwon_gi_beom"
 pubDatetime: 2025-05-07T22:54:21+09:00
-description: "프로그래머스 '대장균의 크기에 따라 분류하기 2' (301649번) SQL 문제 풀이와 쿼리 설명."
+description: "PERCENT_RANK() 윈도 함수로 크기 백분위를 매기고, CASE 로 25%·50%·75% 구간을 잘라 등급 이름을 붙인다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

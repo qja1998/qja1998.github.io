@@ -2,7 +2,7 @@
 title: "[Programmers] 물고기 종류 별 대어 찾기 - 293261"
 author: "kwon_gi_beom"
 pubDatetime: 2025-06-12T17:46:21+09:00
-description: "프로그래머스 '물고기 종류 별 대어 찾기' (293261번) SQL 문제 풀이와 쿼리 설명."
+description: "어종별 MAX(length) 를 CTE 로 만든 뒤 어종과 길이를 둘 다 조건에 걸어 조인해, 종마다 가장 큰 개체만 남긴다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

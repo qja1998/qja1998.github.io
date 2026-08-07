@@ -2,7 +2,7 @@
 title: "[Programmers] 업그레이드 할 수 없는 아이템 구하기 - 273712"
 author: "kwon_gi_beom"
 pubDatetime: 2025-05-05T20:05:52+09:00
-description: "프로그래머스 '업그레이드 할 수 없는 아이템 구하기' (273712번) SQL 문제 풀이와 쿼리 설명."
+description: "item_tree 를 자기 자신과 LEFT JOIN 해서 자식이 없는(NULL 인) 아이템만 남긴다 — 더 업그레이드할 수 없는 아이템이다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

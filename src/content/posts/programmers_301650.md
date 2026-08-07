@@ -2,7 +2,7 @@
 title: "[Programmers] 특정 세대의 대장균 찾기 - 301650"
 author: "kwon_gi_beom"
 pubDatetime: 2025-05-07T22:54:50+09:00
-description: "프로그래머스 '특정 세대의 대장균 찾기' (301650번) SQL 문제 풀이와 쿼리 설명."
+description: "ecoli_data 를 세 번 조인해 부모의 부모까지 거슬러 올라가고, 그 위가 NULL 인 경우만 남겨 3세대를 찾는다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

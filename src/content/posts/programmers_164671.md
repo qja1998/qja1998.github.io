@@ -2,7 +2,7 @@
 title: "[Programmers] 조회수가 가장 많은 중고거래 게시판의 첨부파일 조회하기 - 164671"
 author: "kwon_gi_beom"
 pubDatetime: 2025-07-17T18:20:36+09:00
-description: "프로그래머스 '조회수가 가장 많은 중고거래 게시판의 첨부파일 조회하기' (164671번) SQL 문제 풀이와 쿼리 설명."
+description: "조회수 최댓값을 서브쿼리로 구해 그 게시글의 첨부파일만 남기고, CONCAT 으로 파일 경로 문자열을 만들어 낸다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---

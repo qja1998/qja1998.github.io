@@ -2,7 +2,7 @@
 title: "[Troubleshooting] pem 키로 ssh 접근 시 권한 문제가 발생하는 경우"
 author: "kwon_gi_beom"
 pubDatetime: 2025-01-31T23:00:00+09:00
-description: "pem 키로 ssh 접근 시 권한 문제가 발생하는 경우 문제를 만난 상황과 해결 과정 기록."
+description: "pem 키에 권한이 너무 열려 있어 AWS 가 ssh 접근을 거부했다. chmod 400 으로 읽기 전용으로 바꿨다."
 tags: ["ssh", "aws"]
 categories: ["troubleshooting"]
 ---

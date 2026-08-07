@@ -2,7 +2,7 @@
 title: "[Programmers] 대장균들의 자식의 수 구하기 - 299305"
 author: "kwon_gi_beom"
 pubDatetime: 2025-03-26T22:06:18+09:00
-description: "프로그래머스 '대장균들의 자식의 수 구하기' (299305번) SQL 문제 풀이와 쿼리 설명."
+description: "ecoli_data 를 자기 자신과 LEFT JOIN 해 부모-자식을 이어 붙이고, 자식 쪽을 COUNT 해 개체마다 자식 수를 센다."
 tags: ["sql"]
 categories: ["programmers", "sql"]
 ---
