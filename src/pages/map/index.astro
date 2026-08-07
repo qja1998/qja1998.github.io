@@ -1,0 +1,253 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import { layout, embeddingMeta } from "@/utils/related";
+import { cover } from "@/utils/cover";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const meta = embeddingMeta();
+const xy = layout();
+
+const LABEL: Record<string, string> = {
+  boj: "백준",
+  programmers: "프로그래머스",
+  pytorch: "PyTorch",
+  troubleshooting: "트러블슈팅",
+  docker: "Docker",
+  background: "배경지식",
+  swea: "SWEA",
+  "generative-model": "생성모델",
+};
+const TOKEN: Record<string, string> = {
+  boj: "--d-gold",
+  programmers: "--d-sql",
+  pytorch: "--d-torch",
+  troubleshooting: "--d-trouble",
+  docker: "--d-docker",
+  background: "--d-base",
+  swea: "--d-swea",
+  "generative-model": "--d-bronze",
+};
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const points = posts
+  .filter(p => xy[p.id])
+  .map(p => {
+    const cat = p.data.categories?.[0] ?? "";
+    const c = cover(p.data.title, p.data.categories ?? [], p.body ?? "");
+    return {
+      id: p.id,
+      cat,
+      label: LABEL[cat] ?? cat,
+      token: TOKEN[cat] ?? "--d-base",
+      ident: c.ident,
+      title: c.short,
+      href: getRelativeLocaleUrl(locale, `posts/${p.id}/`),
+      x: xy[p.id].x,
+      y: xy[p.id].y,
+    };
+  });
+
+const cats = [...new Set(points.map(p => p.cat))]
+  .map(cat => ({
+    cat,
+    label: LABEL[cat] ?? cat,
+    token: TOKEN[cat] ?? "--d-base",
+    n: points.filter(p => p.cat === cat).length,
+  }))
+  .sort((a, b) => b.n - a.n);
+---
+
+<Layout title={`주제 지도 | ${config.site.title}`}>
+  <Header />
+  <Breadcrumb />
+  <Main
+    pageTitle="주제 지도"
+    pageDesc={`글 ${points.length}편을 내용이 비슷한 것끼리 가깝게 놓았습니다.`}
+  >
+    <div class="legend">
+      {
+        cats.map(c => (
+          <button type="button" data-cat={c.cat}>
+            <span class="dot" style={`background:var(${c.token})`} />
+            {c.label}
+            <span class="n">{c.n}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="plot">
+      <svg viewBox="0 0 100 100" role="img" aria-label="글 주제 지도">
+        {
+          points.map(p => (
+            <a href={p.href} data-cat={p.cat}>
+              <circle
+                cx={(p.x * 92 + 4).toFixed(2)}
+                cy={((1 - p.y) * 92 + 4).toFixed(2)}
+                r="1.05"
+                style={`fill:var(${p.token})`}
+              />
+              <title>{`${p.ident} · ${p.title} (${p.label})`}</title>
+            </a>
+          ))
+        }
+      </svg>
+      <p class="hint">점에 올리면 제목이 뜨고, 누르면 글로 갑니다.</p>
+    </div>
+
+    <div class="how">
+      <h2>어떻게 만드나</h2>
+      <ol>
+        <li>
+          글 {meta.count}편에서 frontmatter와 코드블록을 걷어내고 제목·분류·태그·본문을
+          한 덩어리로 만듭니다. <strong>코드는 뺍니다</strong> — 문제 풀이끼리 코드가
+          비슷해 전부 한 곳에 뭉쳐 버립니다.
+        </li>
+        <li>
+          <code>{meta.model}</code> 로 {meta.dim}차원 벡터를 뽑습니다. 한국어와 영어가
+          섞인 글이라 다국어 모델을 씁니다.
+        </li>
+        <li>UMAP으로 {meta.dim}차원을 2차원으로 눌러 이 그림을 만듭니다.</li>
+        <li>
+          같은 벡터로 글마다 코사인 유사도가 높은 이웃을 골라 각 글 아래
+          <strong>비슷한 글</strong>로 붙입니다.
+        </li>
+      </ol>
+      <p>
+        전부 빌드 시점에 끝납니다. 브라우저로 오는 건 이 그림의 좌표뿐이고 벡터는
+        오지 않습니다. 모델을 매번 내려받지 않도록 결과를 저장소에 커밋하고,
+        본문이 바뀐 글만 다시 계산합니다.
+      </p>
+    </div>
+  </Main>
+  <Footer />
+</Layout>
+
+<script is:inline>
+  // 분류 버튼은 강조 토글이다. 끄면 점이 사라지는 게 아니라 흐려진다 —
+  // 이 지도의 값어치는 무리가 서로 어디에 있는지를 보는 데 있다.
+  (() => {
+    const plot = document.querySelector(".plot svg");
+    const btns = [...document.querySelectorAll(".legend button")];
+    if (!plot) return;
+    let active = null;
+    btns.forEach(b =>
+      b.addEventListener("click", () => {
+        active = active === b.dataset.cat ? null : b.dataset.cat;
+        plot.dataset.focus = active ?? "";
+        btns.forEach(x => x.setAttribute("aria-pressed", String(x.dataset.cat === active)));
+      })
+    );
+  })();
+</script>
+
+<style>
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 1rem;
+  }
+  .legend button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-line);
+    border-radius: 99px;
+    padding: 6px 12px 6px 10px;
+    font-family: var(--pc-mono);
+    font-size: 11.5px;
+    cursor: pointer;
+    color: inherit;
+  }
+  .legend button[aria-pressed="true"] {
+    background: var(--pc-night);
+    border-color: var(--pc-night);
+    color: #fff;
+  }
+  .legend .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+  }
+  .legend .n {
+    color: var(--pc-muted);
+  }
+  .legend button[aria-pressed="true"] .n {
+    color: #9fb6bc;
+  }
+
+  .plot {
+    border: 1px solid var(--pc-line);
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--pc-night) 4%, transparent);
+    padding: 8px;
+  }
+  .plot svg {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+  .plot circle {
+    transition:
+      r 0.15s ease,
+      opacity 0.15s ease;
+  }
+  .plot a:hover circle,
+  .plot a:focus-visible circle {
+    r: 2.2;
+  }
+  /* 강조가 걸리면 나머지는 흐려질 뿐 사라지지 않는다 */
+  .plot svg[data-focus]:not([data-focus=""]) a circle {
+    opacity: 0.12;
+  }
+  .plot svg[data-focus="boj"] a[data-cat="boj"] circle,
+  .plot svg[data-focus="programmers"] a[data-cat="programmers"] circle,
+  .plot svg[data-focus="pytorch"] a[data-cat="pytorch"] circle,
+  .plot svg[data-focus="troubleshooting"] a[data-cat="troubleshooting"] circle,
+  .plot svg[data-focus="docker"] a[data-cat="docker"] circle,
+  .plot svg[data-focus="background"] a[data-cat="background"] circle,
+  .plot svg[data-focus="swea"] a[data-cat="swea"] circle,
+  .plot svg[data-focus="generative-model"] a[data-cat="generative-model"] circle {
+    opacity: 1;
+    r: 1.5;
+  }
+  .hint {
+    margin: 6px 2px 2px;
+    font-size: 12px;
+    color: var(--pc-muted);
+  }
+
+  .how {
+    margin-top: 2.2rem;
+  }
+  .how h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.7rem;
+  }
+  .how ol {
+    margin: 0 0 1rem;
+    padding-left: 1.4rem;
+    list-style: decimal;
+  }
+  .how li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+  .how p {
+    color: var(--pc-muted);
+    line-height: 1.7;
+  }
+  .how code {
+    font-size: 0.85em;
+  }
+</style>

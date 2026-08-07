@@ -1,0 +1,118 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { relatedSlugs, embeddingMeta } from "@/utils/related";
+import { cover } from "@/utils/cover";
+import config from "@/config";
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+
+const all = await getCollection("posts", ({ data }) => !data.draft);
+const byId = new Map(all.map(p => [p.id, p]));
+const catOf = (s: string) => byId.get(s)?.data.categories?.[0] ?? "";
+
+const picks = relatedSlugs(slug, catOf).flatMap(n => {
+  const post = byId.get(n.slug);
+  if (!post) return [];
+  const c = cover(post.data.title, post.data.categories ?? [], post.body ?? "");
+  return [{ ...n, post, c }];
+});
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const meta = embeddingMeta();
+---
+
+{
+  picks.length > 0 && (
+    <section class="rel" aria-labelledby="rel-h">
+      <h2 id="rel-h">비슷한 글</h2>
+      <ul>
+        {picks.map(({ post, c, score }) => (
+          <li>
+            <a href={getRelativeLocaleUrl(locale, `posts/${post.id}/`)}>
+              <span class="ident" style={`--tier:var(${c.token})`}>
+                {c.ident}
+              </span>
+              <span class="t">{c.short}</span>
+              <span class="s" title={`유사도 ${score.toFixed(3)}`}>
+                {score.toFixed(2)}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="note">
+        본문을 <code>{meta.model}</code> 로 임베딩해 코사인 유사도로 고릅니다.
+        계산은 빌드 때 끝나고 벡터는 브라우저로 오지 않습니다.
+        <a href={getRelativeLocaleUrl(locale, "map/")}>주제 지도 →</a>
+      </p>
+    </section>
+  )
+}
+
+<style>
+  .rel {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--pc-line);
+  }
+  .rel h2 {
+    margin: 0 0 0.9rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .rel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .rel a {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .rel a:hover {
+    background: color-mix(in oklab, var(--pc-night) 7%, transparent);
+  }
+  .ident {
+    font-family: var(--pc-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tier);
+    width: 6.5rem;
+    flex: none;
+    /* PyTorch 글은 식별자가 'RNN - hihello / charseq' 처럼 길다 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .t {
+    flex: 1;
+    font-size: 0.95rem;
+  }
+  .s {
+    font-family: var(--pc-mono);
+    font-size: 11.5px;
+    color: var(--pc-muted);
+    flex: none;
+  }
+  .note {
+    margin: 0.9rem 0 0;
+    font-size: 12.5px;
+    color: var(--pc-muted);
+    line-height: 1.6;
+  }
+  .note code {
+    font-size: 11.5px;
+  }
+</style>
