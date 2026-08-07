@@ -23,6 +23,19 @@ export const GET: APIRoute = async context => {
     ),
   ]);
 
+  // 한글 글리프용. satori 는 폰트 배열을 순서대로 훑어 글자마다 맞는 폰트를 고른다.
+  const koFonts = fontData["--font-noto-kr"];
+  const koRegularPath = getFontPathByWeight(koFonts, 400);
+  const koBoldPath = getFontPathByWeight(koFonts, 700);
+  const [koRegular, koBold] = await Promise.all([
+    koRegularPath
+      ? fetch(experimental_getFontFileURL(koRegularPath, context.url)).then(r => r.arrayBuffer())
+      : Promise.resolve(undefined),
+    koBoldPath
+      ? fetch(experimental_getFontFileURL(koBoldPath, context.url)).then(r => r.arrayBuffer())
+      : Promise.resolve(undefined),
+  ]);
+
   const svg = await satori(
     {
       type: "div",
@@ -156,6 +169,13 @@ export const GET: APIRoute = async context => {
           weight: 700,
           style: "normal",
         },
+
+        ...(koRegular
+          ? [{ name: "Noto Sans KR", data: koRegular, weight: 400 as const, style: "normal" as const }]
+          : []),
+        ...(koBold
+          ? [{ name: "Noto Sans KR", data: koBold, weight: 700 as const, style: "normal" as const }]
+          : []),
       ],
     }
   );

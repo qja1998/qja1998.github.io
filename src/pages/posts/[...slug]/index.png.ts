@@ -44,6 +44,19 @@ export const GET: APIRoute = async ({ props, url }) => {
     ),
   ]);
 
+  // 한글 글리프용. satori 는 폰트 배열을 순서대로 훑어 글자마다 맞는 폰트를 고른다.
+  const koFonts = fontData["--font-noto-kr"];
+  const koRegularPath = getFontPathByWeight(koFonts, 400);
+  const koBoldPath = getFontPathByWeight(koFonts, 700);
+  const [koRegular, koBold] = await Promise.all([
+    koRegularPath
+      ? fetch(experimental_getFontFileURL(koRegularPath, url)).then(r => r.arrayBuffer())
+      : Promise.resolve(undefined),
+    koBoldPath
+      ? fetch(experimental_getFontFileURL(koBoldPath, url)).then(r => r.arrayBuffer())
+      : Promise.resolve(undefined),
+  ]);
+
   const svg = await satori(
     {
       type: "div",
@@ -105,7 +118,15 @@ export const GET: APIRoute = async ({ props, url }) => {
                       type: "p",
                       props: {
                         style: {
-                          fontSize: 72,
+                          // 제목 165개 중 78개가 30자를 넘고 44개는 40자를 넘는다.
+                          // 72px 고정이면 네 줄이 되어 하단 저자 줄을 덮는다
+                          // (satori 는 overflow:hidden 으로 깔끔히 잘리지 않는다).
+                          fontSize:
+                            props.data.title.length > 45
+                              ? 44
+                              : props.data.title.length > 30
+                                ? 56
+                                : 72,
                           fontWeight: "bold",
                           maxHeight: "84%",
                           overflow: "hidden",
@@ -184,6 +205,13 @@ export const GET: APIRoute = async ({ props, url }) => {
           weight: 700,
           style: "normal",
         },
+
+        ...(koRegular
+          ? [{ name: "Noto Sans KR", data: koRegular, weight: 400 as const, style: "normal" as const }]
+          : []),
+        ...(koBold
+          ? [{ name: "Noto Sans KR", data: koBold, weight: 700 as const, style: "normal" as const }]
+          : []),
       ],
     }
   );

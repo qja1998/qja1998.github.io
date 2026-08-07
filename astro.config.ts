@@ -63,6 +63,18 @@ export default defineConfig({
   },
   fonts: [
     {
+      // OG 이미지는 satori 로 그리는데, Google Sans Code 에 한글 글리프가 없어
+      // 제목 156편이 두부(□□)로 나왔다. satori 에 같이 넘길 한글 폰트를 둔다.
+      name: "Noto Sans KR",
+      cssVariable: "--font-noto-kr",
+      provider: fontProviders.google(),
+      fallbacks: ["sans-serif"],
+      weights: [400, 700],
+      styles: ["normal"],
+      subsets: ["korean", "latin"],
+      formats: ["ttf"],
+    },
+    {
       name: "Google Sans Code",
       cssVariable: "--font-google-sans-code",
       provider: fontProviders.google(),
