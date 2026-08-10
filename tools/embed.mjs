@@ -6,10 +6,9 @@
  * 글을 쓴 뒤 `npm run embed` 를 한 번 돌리고 함께 커밋하면 된다.
  *
  * 산출물은 빌드 입력이지 클라이언트로 나가지 않는다.
- * 브라우저가 받는 건 2D 좌표와 이웃 목록뿐이다(수 KB).
+ * 브라우저가 받는 건 고른 이웃의 제목과 링크뿐이다.
  */
 import { pipeline, env } from "@xenova/transformers";
-import { UMAP } from "umap-js";
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -73,25 +72,11 @@ for (const slug of Object.keys(cache)) {
   if (!docs.some(d => d.slug === slug)) delete cache[slug];
 }
 
-// 2D 배치. UMAP 은 난수를 쓰므로 시드를 고정해 빌드마다 지도가 흔들리지 않게 한다.
 const order = docs.map(d => d.slug);
-const vectors = order.map(s => cache[s].vec);
-let seed = 42;
-const rng = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
-const umap = new UMAP({ nComponents: 2, nNeighbors: 12, minDist: 0.25, random: rng });
-const xy = umap.fit(vectors);
-
-// 좌표를 0~1 로 정규화해 두면 페이지에서 그대로 % 로 쓸 수 있다
-const xs = xy.map(p => p[0]), ys = xy.map(p => p[1]);
-const norm = (v, arr) => (v - Math.min(...arr)) / (Math.max(...arr) - Math.min(...arr) || 1);
-
-const layout = {};
-order.forEach((slug, i) => {
-  layout[slug] = { x: +norm(xy[i][0], xs).toFixed(4), y: +norm(xy[i][1], ys).toFixed(4) };
-});
+const dim = cache[order[0]].vec.length;
 
 mkdirSync("src/data", { recursive: true });
-writeFileSync(OUT, JSON.stringify({ model: MODEL, dim: vectors[0].length, posts: cache, layout }, null, 0));
+writeFileSync(OUT, JSON.stringify({ model: MODEL, dim, posts: cache }, null, 0));
 
 const kb = Math.round(readFileSync(OUT).length / 1024);
-console.log(`${OUT} 기록 · ${order.length}편 · ${vectors[0].length}차원 · ${kb}KB`);
+console.log(`${OUT} 기록 · ${order.length}편 · ${dim}차원 · ${kb}KB`);

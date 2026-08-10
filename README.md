@@ -33,7 +33,7 @@ categories: ["boj", "gold"]
 - 이미지는 `public/posting_imgs/` 에 두고 `/posting_imgs/이름.webp` 로 참조한다.
 - 수식은 `$…$` / `$$…$$` (remark-math + KaTeX).
 
-## 임베딩 — 비슷한 글 · 주제 지도
+## 임베딩 — 비슷한 글
 
 글을 쓰거나 고친 뒤 한 번 돌리고 결과를 함께 커밋한다.
 
@@ -46,10 +46,9 @@ npm run embed        # src/data/embeddings.json 갱신
 - 모델은 `Xenova/multilingual-e5-small` (384차원). 한국어·영어가 섞여 있어
   다국어 모델을 쓴다. 임베딩 입력에서 **코드블록은 뺀다** — 넣으면 문제 풀이끼리
   코드가 비슷해 전부 한 곳에 뭉친다.
-- 산출물은 빌드 입력이다. 브라우저로 가는 건 지도의 2D 좌표와 고른 이웃 목록뿐,
+- 산출물은 빌드 입력이다. 브라우저로 가는 건 고른 이웃의 제목과 링크뿐,
   벡터는 나가지 않는다.
-- 쓰는 곳: 포스트 하단 `비슷한 글`(`src/components/RelatedPosts.astro`),
-  `/map/` 주제 지도(`src/pages/map/index.astro`).
+- 쓰는 곳: 포스트 하단 `비슷한 글` (`src/components/RelatedPosts.astro`).
 
 ## 홈 카드 커버
 

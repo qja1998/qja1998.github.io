@@ -10,7 +10,6 @@ type Store = {
   model: string;
   dim: number;
   posts: Record<string, { hash: string; vec: number[] }>;
-  layout: Record<string, { x: number; y: number }>;
 };
 
 const store = data as Store;
@@ -60,10 +59,6 @@ export function relatedSlugs(
   return picked;
 }
 
-/** 주제 지도용 2D 좌표 (0~1 로 정규화돼 있다). */
-export function layout() {
-  return store.layout;
-}
 
 export function embeddingMeta() {
   return { model: store.model, dim: store.dim, count: Object.keys(store.posts).length };
