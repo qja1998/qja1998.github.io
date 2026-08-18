@@ -3,7 +3,6 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { cover, readMinutes } from "@/utils/cover";
 import { fingerprint } from "@/utils/related";
 import { semanticColor, keyTerms } from "@/utils/related";
-import { algoShape } from "@/utils/algoShape";
 import config from "@/config";
 
 interface Props {
@@ -18,10 +17,17 @@ const c = cover(post.data.title, post.data.categories ?? [], body);
 // 비슷한 글끼리 지문이 닮는다 — 코드 구조가 아니라 내용이 만든 그림이다.
 const fp = fingerprint(post.id);
 // 본문이 너무 짧아 낱말을 못 뽑은 글이 1편 있다. 커버가 비는 것보다 제목이 낫다.
-const terms = keyTerms(post.id).length ? keyTerms(post.id) : [c.short];
-// 커버 도식 — 그 글이 다루는 알고리즘이 어떻게 도는지. 낱말이 무엇인지 말하고
-// 도식이 어떻게 도는지 보여 준다.
-const algo = algoShape(post.id, post.data.tags ?? [], post.data.categories ?? []);
+// 커버 = 그 글에서 뽑은 낱말들의 조판.
+// 세로는 점수 순으로 쌓아 늘 읽히게 하고, 가로 들여쓰기는 낱말끼리의 의미 좌표에서
+// 가져온다. 정해 둔 도식이 없어 어떤 주제가 들어와도 그대로 돈다.
+const raw = keyTerms(post.id);
+const shown = (raw.length ? raw : [{ w: c.short, s: 1, x: 0, y: 0 }]).slice(0, featured ? 6 : 4);
+const terms = shown.map((t, i) => ({
+  ...t,
+  size: featured ? 30 - i * 3.6 : 19 - i * 2.6,
+  indent: Math.round(t.x * (featured ? 96 : 62)),
+  op: 0.45 + t.s * 0.55,
+}));
 // 커버 바탕색이 곧 이 글의 주제다. 밝기를 고정해 그리드가 한 톤으로 어우러진다.
 const tone = semanticColor(post.id, 0.33) ?? "var(--pc-night)";
 const toneDark = semanticColor(post.id, 0.28) ?? "var(--pc-night)";
@@ -41,24 +47,16 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
   style={`--tier:var(${c.token});--tone:${tone};--tone-dark:${toneDark};--edge:${edge}`}
 >
   <div class="pc-cover">
-    <svg
-      class="pc-algo"
-      viewBox="0 0 160 100"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-      set:html={algo.svg}
-    />
     <span class="pc-top">
-      <span class="pc-kind">{algo.name}</span>
+      <span class="pc-kind">{c.kind}</span>
       <span class="pc-id">{c.ident}</span>
       {c.tier && <span class="pc-tier">{c.tier}</span>}
     </span>
     <span class="pc-terms">
-      {terms.map((t, i) => (
-        <>
-          {i > 0 && <b>·</b>}
-          {t}
-        </>
+      {terms.map(t => (
+        <b style={`font-size:${t.size}px;padding-left:${t.indent}px;opacity:${t.op.toFixed(2)}`}>
+          {t.w}
+        </b>
       ))}
     </span>
   </div>
@@ -108,7 +106,7 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
      대표 글(첫 카드) 하나만 큰 커버로 올려 인상을 남긴다. */
   .pc-cover {
     position: relative;
-    height: 118px;
+    height: 132px;
     background: var(--pc-night);
     background: var(--tone);
     color: #fff;
@@ -119,14 +117,6 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
     gap: 5px;
     padding: 0 16px 13px;
     overflow: hidden;
-  }
-  .pc-algo {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    opacity: 0.34;
   }
   /* 도식 위에 글자를 얹으므로 아래쪽에 그늘을 깐다 */
   .pc-cover::before {
@@ -150,21 +140,22 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
   .pc-terms {
     position: relative;
     z-index: 2;
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    width: 100%;
     color: #fff;
-    text-shadow: 0 1px 12px rgba(8, 20, 25, 0.6);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
   .pc-terms b {
-    opacity: 0.45;
-    font-weight: 400;
-    margin: 0 5px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 0 1px 12px rgba(8, 20, 25, 0.45);
   }
   .pc-cover::after {
     content: "";
@@ -280,18 +271,12 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
   .pc[data-featured] .pc-lean {
     display: none;
   }
-  .pc[data-featured] .pc-algo {
-    opacity: 0.55;
-  }
   .pc[data-featured] .pc-top {
     position: absolute;
     inset: 16px 20px auto;
     justify-content: flex-start;
   }
-  .pc[data-featured] .pc-terms {
-    font-size: clamp(22px, 2.6vw, 30px);
-    -webkit-line-clamp: 3;
-  }
+
   .pc[data-featured] .pc-cover::after {
     inset: auto 0 0 0;
   }

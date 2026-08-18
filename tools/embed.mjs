@@ -395,16 +395,63 @@ function candidates(text) {
     // '엔트로피 차이' 와 '경우 엔트로피' 처럼 낱말이 겹치면 하나만 쓴다
     const picked = [];
     const used = new Set();
-    for (const [w] of scored) {
+    for (const [w, sc] of scored) {
       const parts = w.split(" ");
+      // 낱말이 겹치거나(엔트로피 차이 / 경우 엔트로피) 한쪽이 다른 쪽에 들어가면
+      // (병사 / 병사들) 하나만 쓴다
       if (parts.some(x => used.has(x))) continue;
+      if (picked.some(([q]) => q.includes(w) || w.includes(q))) continue;
       parts.forEach(x => used.add(x));
-      picked.push(w);
-      if (picked.length === 2) break;
+      picked.push([w, sc]);
+      if (picked.length === 6) break;
     }
-    // 두 개를 못 채우면 하나라도 쓴다. 커버가 비는 것보다 낫다.
-    if (!picked.length && scored.length) picked.push(scored[0][0]);
-    cache[s].terms = picked;
+    if (!picked.length && scored.length) picked.push(scored[0]);
+
+    // 낱말들을 저희끼리의 의미 관계로 2차원에 놓는다. 그 글의 말이 만드는 배치라
+    // 미리 정해 둔 도식이 없다 — 어떤 주제가 들어와도 그대로 돈다.
+    const TV = picked.map(([w]) => termCache[w]);
+    let xy;
+    if (TV.length >= 3) {
+      const mu = Array(dim).fill(0);
+      TV.forEach(v => v.forEach((x, i) => (mu[i] += x / TV.length)));
+      let Rt = TV.map(v => v.map((x, i) => x - mu[i]));
+      const comp = [];
+      for (let k = 0; k < 2; k++) {
+        let a = Array.from({ length: dim }, (_, i) => Math.sin(i * (k + 1) * 1.7) + 0.001);
+        let n = Math.hypot(...a);
+        a = a.map(x => x / n);
+        for (let it = 0; it < 40; it++) {
+          const pr = Rt.map(r => r.reduce((t, x, i) => t + x * a[i], 0));
+          const w2 = Array(dim).fill(0);
+          Rt.forEach((r, j) => { for (let i = 0; i < dim; i++) w2[i] += r[i] * pr[j]; });
+          n = Math.hypot(...w2);
+          if (!n) break;
+          a = w2.map(x => x / n);
+        }
+        const pr = Rt.map(r => r.reduce((t, x, i) => t + x * a[i], 0));
+        Rt = Rt.map((r, j) => r.map((x, i) => x - pr[j] * a[i]));
+        comp.push(a);
+      }
+      xy = TV.map(v => {
+        const d = v.map((x, i) => x - mu[i]);
+        return comp.map(a => d.reduce((t, x, i) => t + x * a[i], 0));
+      });
+      for (const j of [0, 1]) {
+        const vals = xy.map(q => q[j]);
+        const lo = Math.min(...vals), sp = (Math.max(...vals) - lo) || 1;
+        xy.forEach(q => (q[j] = (q[j] - lo) / sp));
+      }
+    } else {
+      xy = picked.map((_, i) => [0.5, picked.length === 1 ? 0.5 : i / (picked.length - 1)]);
+    }
+
+    const top = picked[0] ? picked[0][1] : 1;
+    cache[s].terms = picked.map(([w, sc], i) => ({
+      w,
+      s: +(sc / top).toFixed(3),
+      x: +xy[i][0].toFixed(3),
+      y: +xy[i][1].toFixed(3),
+    }));
   });
 }
 
