@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { relatedSlugs, embeddingMeta, fingerprint } from "@/utils/related";
+import { coverShape } from "@/utils/coverShape";
 import { cover } from "@/utils/cover";
 import config from "@/config";
 
@@ -15,16 +16,8 @@ const byId = new Map(all.map(p => [p.id, p]));
 const catOf = (s: string) => byId.get(s)?.data.categories?.[0] ?? "";
 
 // 지문을 같은 폭으로 세로로 쌓아야 '닮았다' 가 눈으로 확인된다.
-const CLIP = 2.2;
-const toBars = (s: string) => {
-  const fp = fingerprint(s);
-  const w = 100 / (fp.length || 1);
-  return fp.map((z, i) => {
-    const v = Math.max(-CLIP, Math.min(CLIP, z));
-    const h = Math.max((Math.abs(v) / CLIP) * 40, 2.5);
-    return { x: i * w + w / 2 - 1.05, y: v >= 0 ? 50 - h : 50, h };
-  });
-};
+// 목록 칸은 가로로 길고 낮아 막대 형태가 맞다(커버의 띠는 파형, 대표는 방사형).
+const toBars = (s: string) => coverShape(fingerprint(s), "bars");
 
 const picks = relatedSlugs(slug, catOf).flatMap(n => {
   const post = byId.get(n.slug);
@@ -48,11 +41,7 @@ const selfCover = (() => {
       <h2 id="rel-h">비슷한 글</h2>
 
       <div class="row self">
-        <svg class="fp" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          {selfBars.map(b => (
-            <rect x={b.x.toFixed(2)} y={b.y.toFixed(2)} width="2.1" height={b.h.toFixed(2)} rx="0.9" />
-          ))}
-        </svg>
+        <svg class="fp" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" set:html={selfBars} />
         <span class="ident">{selfCover?.ident}</span>
         <span class="t">이 글</span>
         <span class="s">—</span>
@@ -62,11 +51,7 @@ const selfCover = (() => {
         {picks.map(({ post, c, score, bars }) => (
           <li>
             <a class="row" href={getRelativeLocaleUrl(locale, `posts/${post.id}/`)}>
-              <svg class="fp" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                {bars.map(b => (
-                  <rect x={b.x.toFixed(2)} y={b.y.toFixed(2)} width="2.1" height={b.h.toFixed(2)} rx="0.9" />
-                ))}
-              </svg>
+              <svg class="fp" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" set:html={bars} />
               <span class="ident" style={`--tier:var(${c.token})`}>
                 {c.ident}
               </span>
@@ -128,16 +113,14 @@ const selfCover = (() => {
     height: 32px;
     flex: none;
   }
-  .fp rect {
-    fill: var(--pc-muted);
-    opacity: 0.65;
+  .fp {
+    color: var(--pc-muted);
   }
-  .self .fp rect {
-    fill: var(--pc-night);
-    opacity: 0.75;
+  .self .fp {
+    color: var(--pc-night);
   }
-  a.row:hover .fp rect {
-    opacity: 1;
+  a.row:hover .fp {
+    color: var(--pc-night);
   }
   .ident {
     font-family: var(--pc-mono);
