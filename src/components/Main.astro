@@ -6,9 +6,11 @@ type Props = {
   pageTitle: string | [string, string];
   pageDesc?: string;
   class?: string;
+  /** "grid" 면 카드 그리드 폭(78rem). 글 읽는 페이지는 그대로 둔다. */
+  layout?: "grid";
 };
 
-const { pageTitle, pageDesc, class: className } = Astro.props;
+const { pageTitle, pageDesc, class: className, layout } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const backUrl = config.features.showBackButton
@@ -18,6 +20,7 @@ const backUrl = config.features.showBackButton
 
 <main
   data-backUrl={backUrl}
+  data-layout={layout}
   id="main-content"
   class:list={["app-layout pb-4", className]}
 >

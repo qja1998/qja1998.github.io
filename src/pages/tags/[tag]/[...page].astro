@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
-import Card from "@/components/Card.astro";
+import PostGrid from "@/components/PostGrid.astro";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
 import { getUniqueTags } from "@/utils/getUniqueTags";
@@ -45,10 +45,9 @@ const t = useTranslations(locale);
   <Main
     pageTitle={`${t.pages.tagTitle}: ${tagName}`}
     pageDesc={`${t.pages.tagDesc} "${tagName}".`}
+    layout="grid"
   >
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
-    </ul>
+    <PostGrid posts={page.data} />
   </Main>
 
   <Pagination {page} />

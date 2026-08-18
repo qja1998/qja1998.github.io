@@ -4,7 +4,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import PostCard from "@/components/PostCard.astro";
+import PostGrid from "@/components/PostGrid.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getUniqueCategories } from "@/utils/getUniqueCategories";
 import { categoryHue } from "@/utils/related";
@@ -83,7 +83,7 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index" class="app-layout my-1">
+  <main id="main-content" data-layout="grid" class="app-layout my-1">
     <section class="hero">
       <p class="eyebrow">{posts.length} POSTS · {range}</p>
       <h1>막힌 걸 풀고,<br />왜 그렇게 풀렸는지 적어 둡니다.</h1>
@@ -126,17 +126,7 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
       </div>
     </section>
 
-    <section class="grid" id="grid" data-home={HOME} data-per-cat={PER_CAT}>
-      {
-        rendered.map((post, i) => (
-          <PostCard
-            post={post}
-            cat={post.data.categories?.[0] ?? ""}
-            featured={i === 0}
-          />
-        ))
-      }
-    </section>
+    <PostGrid posts={rendered} featureFirst id="grid" home={HOME} perCat={PER_CAT} />
 
     <a class="more" id="more" href={postsPath} data-all-href={postsPath}>
       전체 {posts.length}개 보기 →
@@ -197,13 +187,6 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
 </script>
 
 <style>
-  /* 홈만 그리드 폭이라 헤더·푸터도 같이 넓혀야 중심이 맞는다.
-     포스트 페이지는 읽기 폭(3xl)을 그대로 둔다. */
-  :global(body:has([data-layout="index"])) :global(header .app-layout),
-  :global(body:has([data-layout="index"])) :global(footer .app-layout) {
-    max-width: 78rem;
-  }
-
   .hero {
     padding: 44px 0 30px;
     border-bottom: 1px solid var(--pc-line);
@@ -280,24 +263,6 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
   }
   .legend a[aria-current="true"] .n {
     color: #9fb6bc;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-    margin-top: 38px;
-  }
-  @media (max-width: 900px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-  }
-  @media (max-width: 560px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
   }
 
   .more {

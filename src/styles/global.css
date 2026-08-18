@@ -58,8 +58,14 @@
   @apply max-w-3xl;
 }
 
-/* 글 읽기 폭(3xl)은 포스트에 맞다. 홈은 3열 카드 그리드라 더 넓어야 한다. */
-[data-layout="index"] {
+/* 글 읽기 폭(3xl)은 포스트에 맞다. 카드 그리드를 쓰는 페이지는 더 넓어야 한다.
+   그리드 폭일 때는 헤더·푸터도 같이 넓혀야 중심이 맞는다. */
+[data-layout="grid"] {
+  max-width: 78rem;
+}
+body:has([data-layout="grid"]) header .app-layout,
+body:has([data-layout="grid"]) footer .app-layout,
+body:has([data-layout="grid"]) nav[aria-label="breadcrumb"].app-layout {
   max-width: 78rem;
 }
 

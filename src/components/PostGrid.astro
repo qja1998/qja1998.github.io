@@ -1,0 +1,65 @@
+---
+/**
+ * 글 목록은 어디서나 같은 격자다.
+ *
+ * 홈만 카드였고 목록·분류·태그·아카이브는 파란 링크 줄이라, 홈에서 한 번 클릭하면
+ * 갑자기 다른 사이트로 넘어간 것처럼 보였다. 표지는 그 글이 실제로 무엇을 담고
+ * 있는지 보여 주는 유일한 자리이므로 목록에서도 그대로 쓴다.
+ */
+import PostCard from "@/components/PostCard.astro";
+
+interface Props {
+  posts: any[];
+  /** 첫 카드를 한 줄 통째로 크게 — 홈에서만 쓴다 */
+  featureFirst?: boolean;
+  id?: string;
+  home?: number;
+  perCat?: number;
+  class?: string;
+}
+const {
+  posts,
+  featureFirst = false,
+  id,
+  home,
+  perCat,
+  class: className,
+} = Astro.props;
+---
+
+<section
+  class:list={["grid", className]}
+  id={id}
+  data-home={home}
+  data-per-cat={perCat}
+>
+  {
+    posts.map((post, i) => (
+      <PostCard
+        post={post}
+        cat={post.data.categories?.[0] ?? ""}
+        featured={featureFirst && i === 0}
+      />
+    ))
+  }
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 38px;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

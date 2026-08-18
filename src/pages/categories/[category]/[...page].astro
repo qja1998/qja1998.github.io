@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
-import Card from "@/components/Card.astro";
+import PostGrid from "@/components/PostGrid.astro";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
 import { getUniqueCategories, primaryCategory } from "@/utils/getUniqueCategories";
@@ -29,10 +29,8 @@ const { page, name } = Astro.props;
 <Layout title={`카테고리: ${name} | ${config.site.title}`}>
   <Header />
   <Breadcrumb />
-  <Main pageTitle={`카테고리: ${name}`} pageDesc={`"${name}" 로 분류된 글.`}>
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
-    </ul>
+  <Main pageTitle={`카테고리: ${name}`} pageDesc={`"${name}" 로 분류된 글.`} layout="grid">
+    <PostGrid posts={page.data} />
   </Main>
   <Pagination {page} />
   <Footer noMarginTop={page.lastPage > 1} />
