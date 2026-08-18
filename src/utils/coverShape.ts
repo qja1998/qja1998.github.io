@@ -4,7 +4,7 @@
  * 값은 전부 `src/data/embeddings.json` 에서 오고, 그리기만 여기서 한다.
  * viewBox 는 항상 0 0 100 100 이고 카드 쪽에서 preserveAspectRatio 로 늘린다.
  */
-export type Shape = "bars" | "wave" | "radial" | "cube";
+export type Shape = "bars" | "wave" | "radial" | "cube" | "axes" | "axisBars";
 
 const CLIP = 2.2;
 const cl = (z: number) => Math.max(-CLIP, Math.min(CLIP, z));
@@ -75,7 +75,66 @@ function cube(fp: number[]) {
   );
 }
 
-const SHAPES: Record<Shape, (fp: number[]) => string> = { bars, wave, radial, cube };
+/**
+ * 이름 붙은 8축 방사형. 축마다 뜻이 있어 하나만 봐도 무슨 글인지 읽힌다.
+ * 라벨은 자리가 넓은 대표 커버에서만 쓴다.
+ */
+function axes(ax: number[], labels: string[] = [], withLabels = true) {
+  const n = ax.length;
+  const AC = 2.0;
+  const c = (z: number) => Math.max(-AC, Math.min(AC, z));
+  const pos = (z: number, i: number, pad = 0) => {
+    const a = (i / n) * Math.PI * 2 - Math.PI / 2;
+    const r = 12 + ((c(z) + AC) / (AC * 2)) * 26 + pad;
+    return [50 + Math.cos(a) * r, 50 + Math.sin(a) * r];
+  };
+  const pts = ax.map((z, i) => pos(z, i).map(n2).join(",")).join(" ");
+  const spokes = ax
+    .map((_, i) => {
+      const a = (i / n) * Math.PI * 2 - Math.PI / 2;
+      return `<line x1="50" y1="50" x2="${n2(50 + Math.cos(a) * 38)}" y2="${n2(50 + Math.sin(a) * 38)}" stroke="currentColor" stroke-width="0.35" opacity="0.18"/>`;
+    })
+    .join("");
+  const labelSvg =
+    withLabels && labels.length
+      ? ax
+          .map((_, i) => {
+            const a = (i / n) * Math.PI * 2 - Math.PI / 2;
+            const x = 50 + Math.cos(a) * 45;
+            const y = 50 + Math.sin(a) * 45;
+            const anchor = Math.abs(Math.cos(a)) < 0.3 ? "middle" : Math.cos(a) > 0 ? "start" : "end";
+            const strong = ax[i] > 0.8 ? "0.95" : "0.4";
+            return `<text x="${n2(x)}" y="${n2(y + 1.4)}" text-anchor="${anchor}" font-size="4.4" fill="currentColor" opacity="${strong}">${labels[i]}</text>`;
+          })
+          .join("")
+      : "";
+  return (
+    `<circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="0.35" opacity="0.18"/>` +
+    spokes +
+    `<polygon points="${pts}" fill="currentColor" opacity="0.26"/>` +
+    `<polygon points="${pts}" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.9" stroke-linejoin="round"/>` +
+    labelSvg
+  );
+}
+
+/** 같은 8축을 가로 막대로. 얇은 띠처럼 낮고 긴 자리에 쓴다. */
+function axisBars(ax: number[]) {
+  const w = 100 / ax.length;
+  const AC = 2.0;
+  return (
+    `<line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" stroke-width="0.4" opacity="0.2"/>` +
+    ax
+      .map((z, i) => {
+        const v = Math.max(-AC, Math.min(AC, z));
+        const h = Math.max((Math.abs(v) / AC) * 40, 2);
+        return `<rect x="${n2(i * w + w * 0.22)}" y="${n2(v >= 0 ? 50 - h : 50)}" width="${n2(w * 0.56)}" height="${n2(h)}" rx="1" fill="currentColor" opacity="${n2(0.28 + (Math.abs(v) / AC) * 0.6)}"/>`;
+      })
+      .join("")
+  );
+}
+
+const SHAPES: Record<Shape, (fp: number[]) => string> = { bars, wave, radial, cube, axes: a => axes(a, [], false), axisBars };
+export { axes as axesShape };
 
 export function coverShape(fp: number[], shape: Shape): string {
   if (!fp.length) return "";

@@ -133,3 +133,59 @@ slugs.forEach((s, i) => {
 
 writeFileSync(OUT, JSON.stringify({ model: MODEL, dim, fpDim: K, posts: cache }, null, 0));
 console.log(`의미 지문 ${K}차원 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);
+
+/* ---------------------------------------------------------------------------
+ * 의미 축 — 사람이 읽을 수 있는 8개 방향.
+ *
+ * PCA 축은 분산이 큰 방향일 뿐 이름이 없다. 그래서 하나만 보고는 무슨 글인지
+ * 알 수 없었다. 여기서는 축을 코퍼스에서 뽑는다 — 그 주제에 해당하는 글들의
+ * 평균 벡터를 방향으로 쓰고, 사람이 이름을 붙인다.
+ *
+ * 손으로 쓴 개념 문구로도 해 봤지만 SQL 글이 SQL 축에 안 걸렸다.
+ * 문구의 말투가 이 블로그의 말투와 달라서다. 중심점 쪽이 훨씬 정확했다.
+ * ------------------------------------------------------------------------- */
+const AXES = [
+  ["그래프", d => d.tags.some(t => /graph|bfs|dfs|shortest|tree/.test(t))],
+  ["구현", d => d.tags.some(t => /implementation|simulation|bruteforcing|string|sort/.test(t))],
+  ["수학", d => d.tags.some(t => /math|number theory|geometry|prime|combinat/.test(t))],
+  ["SQL", d => d.tags.includes("sql")],
+  ["신경망", d => d.cats[0] === "pytorch" || d.cats[0] === "generative-model"],
+  ["확률", d => d.tags.some(t => /entropy|divergence|autoencoder|probab|kl/.test(t))],
+  ["인프라", d => d.cats[0] === "docker" || d.tags.some(t => /docker|gitlab|jenkins|ci|nginx/.test(t))],
+  ["디버깅", d => d.cats[0] === "troubleshooting"],
+];
+
+const byslug = Object.fromEntries(docs.map(d => [d.slug, d]));
+const centroids = AXES.map(([name, pred]) => {
+  const mem = order.filter(s => byslug[s] && pred(byslug[s]));
+  const c = Array(dim).fill(0);
+  mem.forEach(s => cache[s].vec.forEach((v, i) => (c[i] += v / mem.length)));
+  const norm = Math.hypot(...c) || 1;
+  return { name, n: mem.length, vec: c.map(v => v / norm) };
+});
+
+const dotv = (a, b) => a.reduce((t, x, i) => t + x * b[i], 0);
+const rawAx = order.map(s => centroids.map(c => dotv(cache[s].vec, c.vec)));
+// 개념과의 유사도는 절대값이 다 비슷하다. 축마다 코퍼스 전체로 표준화해야
+// '이 글이 어느 쪽으로 기울었나' 가 드러난다.
+const axMean = centroids.map((_, j) => rawAx.reduce((t, r) => t + r[j], 0) / order.length);
+const axSd = centroids.map((_, j) =>
+  Math.sqrt(rawAx.reduce((t, r) => t + (r[j] - axMean[j]) ** 2, 0) / order.length) || 1
+);
+order.forEach((s, i) => {
+  cache[s].ax = rawAx[i].map((v, j) => +((v - axMean[j]) / axSd[j]).toFixed(3));
+});
+
+writeFileSync(
+  OUT,
+  JSON.stringify(
+    { model: MODEL, dim, fpDim: K, axes: centroids.map(c => c.name), posts: cache },
+    null,
+    0
+  )
+);
+console.log(
+  `의미 축 ${AXES.length}개 기록 · ` +
+    centroids.map(c => `${c.name}(${c.n})`).join(" ") +
+    ` · ${Math.round(readFileSync(OUT).length / 1024)}KB`
+);

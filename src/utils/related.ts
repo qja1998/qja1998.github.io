@@ -10,7 +10,8 @@ type Store = {
   model: string;
   dim: number;
   fpDim: number;
-  posts: Record<string, { hash: string; vec: number[]; fp: number[] }>;
+  axes: string[];
+  posts: Record<string, { hash: string; vec: number[]; fp: number[]; ax: number[] }>;
 };
 
 const store = data as Store;
@@ -75,4 +76,25 @@ export function fingerprint(slug: string): number[] {
 
 export function fingerprintDim() {
   return store.fpDim ?? 0;
+}
+
+/**
+ * 의미 축 점수 — 코퍼스에서 뽑은 8개 방향에 이 글을 투영한 값(표준화).
+ * 값이 클수록 그 주제 쪽으로 기울었다는 뜻이라, 사람이 읽을 수 있다.
+ */
+export function axisScores(slug: string): number[] {
+  return store.posts[slug]?.ax ?? [];
+}
+
+export function axisNames(): string[] {
+  return store.axes ?? [];
+}
+
+/** 가장 기울어진 축의 이름. 카드에 한 단어로 찍는다. */
+export function topAxis(slug: string): string {
+  const a = axisScores(slug);
+  if (!a.length) return "";
+  let best = 0;
+  for (let i = 1; i < a.length; i++) if (a[i] > a[best]) best = i;
+  return a[best] > 0.35 ? axisNames()[best] : "";
 }
