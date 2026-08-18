@@ -5,7 +5,7 @@ export default defineAstroPaperConfig({
     url: "https://qja1998.github.io/",
     title: "CatBus",
     description:
-      "알고리즘 문제 풀이와 삽질 기록. 백준·프로그래머스 풀이가 대부분이고, PyTorch 스터디와 인프라 트러블슈팅이 섞여 있습니다.",
+      "백준·프로그래머스 문제 풀이가 대부분입니다. PyTorch 스터디 정리와 도커·CI 트러블슈팅이 섞여 있습니다.",
     author: "kwon_gi_beom",
     profile: "https://github.com/qja1998",
     lang: "ko",
