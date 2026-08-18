@@ -223,3 +223,82 @@ console.log(
     centroids.map(c => `${c.name}(${c.n})`).join(" ") +
     ` · ${Math.round(readFileSync(OUT).length / 1024)}KB`
 );
+
+/* ---------------------------------------------------------------------------
+ * 의미 색 — 커버를 채우는 색.
+ *
+ * 차트는 해석을 요구한다. 사람이 해석 없이 바로 느끼는 채널은 색이다.
+ * 그래서 의미 공간의 방향을 색상환에 그대로 얹는다.
+ *   색상(hue)  = 코퍼스 중심에서 본 방향 (PC1·PC2 평면의 각도)
+ *   채도(chroma) = 중심에서 얼마나 멀리 나갔나 = 얼마나 뚜렷한 글인가
+ *   밝기(L)    = 고정. 그래야 그리드 전체가 한 톤으로 어우러진다
+ *
+ * 분류를 넣지 않았는데도 분류별로 뭉친다(뭉침 0.97~1.00). 헷갈리는 쌍도
+ * 의미상 맞다 — pytorch↔background 4°, troubleshooting↔docker 13°, boj↔swea 19°.
+ * ------------------------------------------------------------------------- */
+{
+  const cen = Array(dim).fill(0);
+  order.forEach(s => cache[s].vec.forEach((v, i) => (cen[i] += v / order.length)));
+  let Rz = order.map(s => cache[s].vec.map((v, i) => v - cen[i]));
+  const axis2 = [];
+  for (let k = 0; k < 2; k++) {
+    let v = Array.from({ length: dim }, (_, i) => Math.sin(i * (k + 1) * 0.7) + 0.001);
+    let n = Math.hypot(...v);
+    v = v.map(x => x / n);
+    for (let it = 0; it < 80; it++) {
+      const proj = Rz.map(r => r.reduce((t, x, i) => t + x * v[i], 0));
+      const w = Array(dim).fill(0);
+      Rz.forEach((r, j) => { for (let i = 0; i < dim; i++) w[i] += r[i] * proj[j]; });
+      n = Math.hypot(...w);
+      if (!n) break;
+      v = w.map(x => x / n);
+    }
+    const proj = Rz.map(r => r.reduce((t, x, i) => t + x * v[i], 0));
+    Rz = Rz.map((r, j) => r.map((x, i) => x - proj[j] * v[i]));
+    axis2.push(v);
+  }
+  const xy = order.map(s => {
+    const d = cache[s].vec.map((v, i) => v - cen[i]);
+    return axis2.map(a => d.reduce((t, x, i) => t + x * a[i], 0));
+  });
+  // 채도는 95퍼센타일로 정규화한다. 한 글이 유독 멀리 있어도 나머지가 죽지 않게.
+  const rads = xy.map(([a, b]) => Math.hypot(a, b));
+  const rMax = [...rads].sort((a, b) => a - b)[Math.floor(rads.length * 0.95)] || 1;
+  // 각도를 그대로 쓰면 백준 77편이 한 색으로 뭉쳐 그리드가 단조롭다.
+  // 각도 순서를 유지한 채 색상환 전체로 펴면(순위 균등화) 무리는 여전히 붙어
+  // 있으면서 무리 안쪽 차이도 보인다.
+  let ang = order.map((_, i) => ((Math.atan2(xy[i][1], xy[i][0]) * 180) / Math.PI + 360) % 360);
+  // 0°/360° 경계에 걸친 무리는 순위를 매길 때 양 끝으로 찢긴다(트러블슈팅·도커가 그랬다).
+  // 각도 분포에서 가장 빈 구간을 찾아 거기서 자른다.
+  {
+    const srt = [...ang].sort((a, b) => a - b);
+    let gap = 360 - srt[srt.length - 1] + srt[0], cut = (srt[srt.length - 1] + 360 + srt[0]) / 2 % 360;
+    for (let i = 1; i < srt.length; i++)
+      if (srt[i] - srt[i - 1] > gap) { gap = srt[i] - srt[i - 1]; cut = (srt[i] + srt[i - 1]) / 2; }
+    ang = ang.map(a => (a - cut + 360) % 360);
+  }
+  const rank = order.map((_, i) => i).sort((a, b) => ang[a] - ang[b]);
+  // 색상환을 다 쓰면 따뜻한 구간이 탁한 올리브·고동색으로 나온다(밝기를 고정한 대가).
+  // 순서만 유지한 채 청록→파랑→보라 180° 구간에 얹는다. 사이트의 딥틸·앰버와도 맞는다.
+  // 순위로만 펴면 백준(47%)이 색상환 절반을 먹어 작은 분류들이 6° 안에 붙는다.
+  // 원래 각도만 쓰면 분류는 잘 갈리지만 백준 77편이 한 색이 된다.
+  // 둘을 반씩 섞어 무리는 갈리면서 무리 안쪽도 조금씩 달라지게 한다.
+  const HUE_FROM = 160, HUE_SPAN = 180, MIX = 0.5;
+  const pos = new Array(order.length);
+  rank.forEach((idx, r) => (pos[idx] = r / order.length));
+  order.forEach((s, i) => {
+    const t = MIX * pos[i] + (1 - MIX) * (ang[i] / 360);
+    cache[s].hue = +(HUE_FROM + t * HUE_SPAN).toFixed(1);
+    cache[s].chr = +Math.min(rads[i] / rMax, 1).toFixed(3);
+  });
+}
+
+writeFileSync(
+  OUT,
+  JSON.stringify(
+    { model: MODEL, dim, fpDim: K, axes: centroids.map(c => c.name), posts: cache },
+    null,
+    0
+  )
+);
+console.log(`의미 색 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);

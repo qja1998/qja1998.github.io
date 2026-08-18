@@ -7,6 +7,7 @@ import Footer from "@/components/Footer.astro";
 import PostCard from "@/components/PostCard.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getUniqueCategories } from "@/utils/getUniqueCategories";
+import { categoryHue } from "@/utils/related";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -38,10 +39,11 @@ const SEGMENTS: { label: string; token: string; match: (c: string[]) => boolean 
   { label: "배경지식", token: "--d-base", match: c => c[0] === "background" },
   { label: "SWEA", token: "--d-swea", match: c => c[0] === "swea" },
 ];
-const counts = SEGMENTS.map(s => ({
-  ...s,
-  n: posts.filter(p => s.match(p.data.categories ?? [])).length,
-})).filter(s => s.n > 0);
+const counts = SEGMENTS.map(seg => {
+  const mem = posts.filter(p => seg.match(p.data.categories ?? []));
+  const h = categoryHue(mem.map(p => p.id));
+  return { ...seg, n: mem.length, color: h === null ? "var(--pc-line)" : `oklch(0.58 0.14 ${h.toFixed(1)})` };
+}).filter(s => s.n > 0);
 const other = posts.length - counts.reduce((a, b) => a + b.n, 0);
 
 // 칩은 실제로 갈 수 있는 곳이어야 한다. 밴드는 티어까지 쪼개 보여 주지만
@@ -66,7 +68,11 @@ const CHIP_TOKEN: Record<string, string> = {
   swea: "--d-swea",
   "generative-model": "--d-bronze",
 };
-const chips = getUniqueCategories(await getCollection("posts"));
+const chips = getUniqueCategories(await getCollection("posts")).map(c => {
+  const mem = posts.filter(p => (p.data.categories?.[0] ?? "") === c.name).map(p => p.id);
+  const h = categoryHue(mem);
+  return { ...c, color: h === null ? "var(--pc-line)" : `oklch(0.55 0.13 ${h.toFixed(1)})` };
+});
 
 const dates = posts.map(p => new Date(p.data.pubDatetime)).sort((a, b) => +a - +b);
 const span = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
@@ -91,7 +97,7 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
         >
           {
             counts.map(c => (
-              <span style={`flex:${c.n};background:var(${c.token})`} title={`${c.label} ${c.n}`} />
+              <span style={`flex:${c.n};background:${c.color}`} title={`${c.label} ${c.n}`} />
             ))
           }
           {other > 0 && <span style={`flex:${other};background:var(--pc-line)`} title={`기타 ${other}`} />}
@@ -109,10 +115,7 @@ const tagsPath = getRelativeLocaleUrl(locale, "tags/");
                 data-count={c.count}
                 data-label={LABEL[c.category] ?? c.name}
               >
-                <span
-                  class="dot"
-                  style={`background:var(${CHIP_TOKEN[c.category] ?? "--d-base"})`}
-                />
+                <span class="dot" style={`background:${c.color}`} />
                 {LABEL[c.category] ?? c.name}
                 <span class="n">{c.count}</span>
               </a>

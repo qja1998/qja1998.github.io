@@ -11,7 +11,7 @@ type Store = {
   dim: number;
   fpDim: number;
   axes: string[];
-  posts: Record<string, { hash: string; vec: number[]; fp: number[]; ax: number[] }>;
+  posts: Record<string, { hash: string; vec: number[]; fp: number[]; ax: number[]; hue?: number; chr?: number }>;
 };
 
 const store = data as Store;
@@ -97,4 +97,25 @@ export function topAxis(slug: string): string {
   let best = 0;
   for (let i = 1; i < a.length; i++) if (a[i] > a[best]) best = i;
   return a[best] > 0.35 ? axisNames()[best] : "";
+}
+
+/**
+ * 의미 색 — 커버를 채우는 색.
+ * 밝기는 고정하고 색상·채도만 글마다 다르게 해서 그리드가 한 톤으로 어우러지게 한다.
+ * L 은 라이트/다크에서 다르게 준다.
+ */
+export function semanticColor(slug: string, light: number, chromaMax = 0.115) {
+  const p = store.posts[slug];
+  if (!p || p.hue === undefined) return null;
+  const c = (0.02 + (p.chr ?? 0) * (chromaMax - 0.02)).toFixed(3);
+  return `oklch(${light} ${c} ${p.hue})`;
+}
+
+/** 분류의 대표 색상 — 그 분류 글들의 색상 원형 평균. 칩과 카드가 같은 말을 하게 한다. */
+export function categoryHue(slugs: string[]): number | null {
+  const hs = slugs.map(s => store.posts[s]?.hue).filter((h): h is number => h !== undefined);
+  if (!hs.length) return null;
+  const x = hs.reduce((t, h) => t + Math.cos((h * Math.PI) / 180), 0);
+  const y = hs.reduce((t, h) => t + Math.sin((h * Math.PI) / 180), 0);
+  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
 }
