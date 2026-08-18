@@ -80,3 +80,56 @@ writeFileSync(OUT, JSON.stringify({ model: MODEL, dim, posts: cache }, null, 0))
 
 const kb = Math.round(readFileSync(OUT).length / 1024);
 console.log(`${OUT} 기록 · ${order.length}편 · ${dim}차원 · ${kb}KB`);
+
+/* ---------------------------------------------------------------------------
+ * 의미 지문 — 커버에 그릴 값.
+ *
+ * 384차원을 그대로 그리면 글마다 비슷한 노이즈로 보인다(상위 32차원이 전체
+ * 분산의 12.5% 뿐). PCA 로 축을 다시 잡으면 같은 32개가 63.8% 를 담아
+ * 글끼리의 차이가 눈에 보이고, 비슷한 글은 지문도 닮게 된다.
+ * ------------------------------------------------------------------------- */
+const K = 32;
+const slugs = Object.keys(cache);
+const M = slugs.map(s => cache[s].vec);
+const D = M[0].length;
+const N = M.length;
+
+const mean = Array(D).fill(0);
+M.forEach(v => v.forEach((x, i) => (mean[i] += x / N)));
+let R = M.map(v => v.map((x, i) => x - mean[i]));
+
+const comps = [];
+for (let c = 0; c < K; c++) {
+  // 거듭제곱 반복. 시작 벡터는 고정된 식으로 만들어 매번 같은 결과가 나오게 한다.
+  let v = Array.from({ length: D }, (_, i) => Math.sin(i * (c + 1) * 0.7) + 0.001);
+  let n = Math.hypot(...v);
+  v = v.map(x => x / n);
+  for (let it = 0; it < 60; it++) {
+    const proj = R.map(r => r.reduce((s, x, i) => s + x * v[i], 0));
+    const w = Array(D).fill(0);
+    R.forEach((r, j) => {
+      for (let i = 0; i < D; i++) w[i] += r[i] * proj[j];
+    });
+    n = Math.hypot(...w);
+    if (!n) break;
+    v = w.map(x => x / n);
+  }
+  const proj = R.map(r => r.reduce((s, x, i) => s + x * v[i], 0));
+  R = R.map((r, j) => r.map((x, i) => x - proj[j] * v[i]));   // deflation
+  comps.push(v);
+}
+
+const raw = slugs.map(s => {
+  const x = cache[s].vec.map((v, i) => v - mean[i]);
+  return comps.map(c => x.reduce((a, y, i) => a + y * c[i], 0));
+});
+// 주성분마다 크기가 달라 그대로 그리면 앞쪽 몇 개만 보인다. 축별로 표준화한다.
+const sd = Array.from({ length: K }, (_, j) =>
+  Math.sqrt(raw.reduce((a, r) => a + r[j] ** 2, 0) / N) || 1
+);
+slugs.forEach((s, i) => {
+  cache[s].fp = raw[i].map((x, j) => +(x / sd[j]).toFixed(3));
+});
+
+writeFileSync(OUT, JSON.stringify({ model: MODEL, dim, fpDim: K, posts: cache }, null, 0));
+console.log(`의미 지문 ${K}차원 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);

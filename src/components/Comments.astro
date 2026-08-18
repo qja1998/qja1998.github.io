@@ -1,14 +1,16 @@
 ---
-// Jekyll 시절 utterances 를 그대로 이어 간다. issue_term 은 Chirpy 기본값(pathname)이라
+// Jekyll 시절 utterances 를 그대로 이어 간다. issue-term 은 Chirpy 기본값(pathname)이라
 // 기존 이슈가 같은 글에 계속 붙는다.
+// utterances 가 요구하는 속성명(repo, issue-term …)이 TS 의 script 타입에 없어
+// 요소를 문자열로 넣는다.
+const UTTERANCES = `<script src="https://utteranc.es/client.js"
+  repo="qja1998/qja1998.github.io"
+  issue-term="pathname"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async></script>`;
 ---
+
 <section class="mt-10" aria-label="댓글">
-  <script
-    is:inline
-    src="https://utteranc.es/client.js"
-    repo="qja1998/qja1998.github.io"
-    issue-term="pathname"
-    theme="preferred-color-scheme"
-    crossorigin="anonymous"
-    async></script>
+  <Fragment set:html={UTTERANCES} />
 </section>

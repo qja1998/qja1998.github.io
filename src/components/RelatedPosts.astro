@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { relatedSlugs, embeddingMeta } from "@/utils/related";
+import { relatedSlugs, embeddingMeta, fingerprint } from "@/utils/related";
 import { cover } from "@/utils/cover";
 import config from "@/config";
 
@@ -14,25 +14,59 @@ const all = await getCollection("posts", ({ data }) => !data.draft);
 const byId = new Map(all.map(p => [p.id, p]));
 const catOf = (s: string) => byId.get(s)?.data.categories?.[0] ?? "";
 
+// 지문을 같은 폭으로 세로로 쌓아야 '닮았다' 가 눈으로 확인된다.
+const CLIP = 2.2;
+const toBars = (s: string) => {
+  const fp = fingerprint(s);
+  const w = 100 / (fp.length || 1);
+  return fp.map((z, i) => {
+    const v = Math.max(-CLIP, Math.min(CLIP, z));
+    const h = Math.max((Math.abs(v) / CLIP) * 40, 2.5);
+    return { x: i * w + w / 2 - 1.05, y: v >= 0 ? 50 - h : 50, h };
+  });
+};
+
 const picks = relatedSlugs(slug, catOf).flatMap(n => {
   const post = byId.get(n.slug);
   if (!post) return [];
   const c = cover(post.data.title, post.data.categories ?? [], post.body ?? "");
-  return [{ ...n, post, c }];
+  return [{ ...n, post, c, bars: toBars(n.slug) }];
 });
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const meta = embeddingMeta();
+const selfBars = toBars(slug);
+const selfCover = (() => {
+  const p = byId.get(slug);
+  return p ? cover(p.data.title, p.data.categories ?? [], p.body ?? "") : null;
+})();
 ---
 
 {
   picks.length > 0 && (
     <section class="rel" aria-labelledby="rel-h">
       <h2 id="rel-h">비슷한 글</h2>
+
+      <div class="row self">
+        <svg class="fp" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          {selfBars.map(b => (
+            <rect x={b.x.toFixed(2)} y={b.y.toFixed(2)} width="2.1" height={b.h.toFixed(2)} rx="0.9" />
+          ))}
+        </svg>
+        <span class="ident">{selfCover?.ident}</span>
+        <span class="t">이 글</span>
+        <span class="s">—</span>
+      </div>
+
       <ul>
-        {picks.map(({ post, c, score }) => (
+        {picks.map(({ post, c, score, bars }) => (
           <li>
-            <a href={getRelativeLocaleUrl(locale, `posts/${post.id}/`)}>
+            <a class="row" href={getRelativeLocaleUrl(locale, `posts/${post.id}/`)}>
+              <svg class="fp" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                {bars.map(b => (
+                  <rect x={b.x.toFixed(2)} y={b.y.toFixed(2)} width="2.1" height={b.h.toFixed(2)} rx="0.9" />
+                ))}
+              </svg>
               <span class="ident" style={`--tier:var(${c.token})`}>
                 {c.ident}
               </span>
@@ -44,9 +78,11 @@ const meta = embeddingMeta();
           </li>
         ))}
       </ul>
+
       <p class="note">
-        본문을 <code>{meta.model}</code> 로 임베딩해 코사인 유사도로 고릅니다.
-        계산은 빌드 때 끝나고 벡터는 브라우저로 오지 않습니다.
+        본문을 <code>{meta.model}</code> 로 임베딩하고, 그 벡터를 PCA 로 32축에 눌러
+        왼쪽 막대로 그렸습니다. <strong>비슷한 글은 지문도 닮습니다</strong> — 위아래를
+        견줘 보세요. 계산은 빌드 때 끝나고 벡터는 브라우저로 오지 않습니다.
       </p>
     </section>
   )
@@ -67,30 +103,49 @@ const meta = embeddingMeta();
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
   }
-  .rel a {
+  .row {
     display: flex;
-    align-items: baseline;
-    gap: 12px;
-    padding: 9px 10px;
+    align-items: center;
+    gap: 16px;
+    padding: 7px 10px;
     border-radius: 8px;
     text-decoration: none;
     color: inherit;
   }
-  .rel a:hover {
+  .self {
+    color: var(--pc-muted);
+    border-bottom: 1px dashed var(--pc-line);
+    margin-bottom: 4px;
+    padding-bottom: 10px;
+  }
+  a.row:hover {
     background: color-mix(in oklab, var(--pc-night) 7%, transparent);
+  }
+  .fp {
+    /* 32개 막대를 눈으로 견주려면 막대 하나가 최소 5~6px 은 돼야 한다 */
+    width: 208px;
+    height: 32px;
+    flex: none;
+  }
+  .fp rect {
+    fill: var(--pc-muted);
+    opacity: 0.65;
+  }
+  .self .fp rect {
+    fill: var(--pc-night);
+    opacity: 0.75;
+  }
+  a.row:hover .fp rect {
+    opacity: 1;
   }
   .ident {
     font-family: var(--pc-mono);
     font-size: 12px;
     font-weight: 700;
-    color: var(--tier);
+    color: var(--tier, var(--pc-muted));
     width: 6.5rem;
     flex: none;
-    /* PyTorch 글은 식별자가 'RNN - hihello / charseq' 처럼 길다 */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -98,6 +153,9 @@ const meta = embeddingMeta();
   .t {
     flex: 1;
     font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .s {
     font-family: var(--pc-mono);
@@ -106,12 +164,21 @@ const meta = embeddingMeta();
     flex: none;
   }
   .note {
-    margin: 0.9rem 0 0;
+    margin: 1rem 0 0;
     font-size: 12.5px;
     color: var(--pc-muted);
-    line-height: 1.6;
+    line-height: 1.7;
   }
   .note code {
     font-size: 11.5px;
+  }
+  @media (max-width: 560px) {
+    .fp {
+      width: 120px;
+      height: 26px;
+    }
+    .ident {
+      width: 4.5rem;
+    }
   }
 </style>

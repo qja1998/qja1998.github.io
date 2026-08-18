@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { cover, minimapRects, readMinutes } from "@/utils/cover";
+import { cover, readMinutes } from "@/utils/cover";
+import { fingerprint } from "@/utils/related";
 import config from "@/config";
 
 interface Props {
@@ -11,7 +12,20 @@ interface Props {
 const { post, cat = "", featured = false } = Astro.props;
 const body: string = post.body ?? "";
 const c = cover(post.data.title, post.data.categories ?? [], body);
-const rects = minimapRects(c.minimap);
+// 커버 = 이 글의 의미 지문. 임베딩을 PCA 로 32축에 눌러 표준화한 값이다.
+// 비슷한 글끼리 지문이 닮는다 — 코드 구조가 아니라 내용이 만든 그림이다.
+const fp = fingerprint(post.id);
+const CLIP = 2.2;
+const bars = fp.map((z, i) => {
+  const v = Math.max(-CLIP, Math.min(CLIP, z));
+  const h = Math.max((Math.abs(v) / CLIP) * 44, 1.2);
+  return {
+    x: i * (100 / fp.length) + 100 / fp.length / 2 - 1.1,
+    y: v >= 0 ? 50 - h : 50,
+    h,
+    o: (0.3 + (Math.abs(v) / CLIP) * 0.55).toFixed(2),
+  };
+});
 const minutes = readMinutes(body);
 const locale = Astro.currentLocale ?? config.site.lang;
 const href = getRelativeLocaleUrl(locale, `posts/${post.id}/`);
@@ -29,21 +43,22 @@ const isNum = /^\d+$/.test(c.ident);
 >
   <div class="pc-cover">
     <svg
-      class="pc-mm"
+      class="pc-fp"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
+      <line x1="0" y1="50" x2="100" y2="50" />
       {
-        rects.map(r => (
+        bars.map(b => (
           <rect
-            x={r.x.toFixed(2)}
-            y={r.y.toFixed(2)}
-            width={r.w.toFixed(2)}
-            height={r.h.toFixed(2)}
-            rx={(r.h / 2).toFixed(2)}
+            x={b.x.toFixed(2)}
+            y={b.y.toFixed(2)}
+            width="2.2"
+            height={b.h.toFixed(2)}
+            rx="0.9"
             fill="#fff"
-            opacity={r.o.toFixed(2)}
+            opacity={b.o}
           />
         ))
       }
@@ -125,12 +140,17 @@ const isNum = /^\d+$/.test(c.ident);
     height: 3px;
     background: var(--tier);
   }
-  .pc-mm {
+  .pc-fp {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.42;
+    opacity: 0.34;
+  }
+  .pc-fp line {
+    stroke: #fff;
+    stroke-width: 0.4;
+    opacity: 0.22;
   }
   .pc-id {
     position: relative;
@@ -153,6 +173,7 @@ const isNum = /^\d+$/.test(c.ident);
   .pc-kind,
   .pc-tier {
     font-family: var(--pc-mono);
+    text-shadow: 0 1px 10px rgba(8, 20, 25, 0.95);
     font-size: 10.5px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -229,8 +250,8 @@ const isNum = /^\d+$/.test(c.ident);
     justify-content: flex-start;
     padding: 0 20px 18px;
   }
-  .pc[data-featured] .pc-mm {
-    opacity: 0.9;
+  .pc[data-featured] .pc-fp {
+    opacity: 0.92;
   }
   .pc[data-featured] .pc-top {
     position: absolute;

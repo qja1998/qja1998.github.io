@@ -9,7 +9,8 @@ import data from "@/data/embeddings.json";
 type Store = {
   model: string;
   dim: number;
-  posts: Record<string, { hash: string; vec: number[] }>;
+  fpDim: number;
+  posts: Record<string, { hash: string; vec: number[]; fp: number[] }>;
 };
 
 const store = data as Store;
@@ -62,4 +63,16 @@ export function relatedSlugs(
 
 export function embeddingMeta() {
   return { model: store.model, dim: store.dim, count: Object.keys(store.posts).length };
+}
+
+/**
+ * 의미 지문 — 임베딩을 PCA 로 32축에 눌러 축별로 표준화한 값.
+ * 커버는 이 값을 막대로 그린다. 비슷한 글은 지문도 닮는다.
+ */
+export function fingerprint(slug: string): number[] {
+  return store.posts[slug]?.fp ?? [];
+}
+
+export function fingerprintDim() {
+  return store.fpDim ?? 0;
 }

@@ -19,7 +19,7 @@ export default defineAstroPaperConfig({
     showArchives: true,
     showBackButton: true,
     // 저장소 경로가 Jekyll 시절과 달라 링크가 깨지므로 끈다
-    editPost: { enabled: false, url: "" },
+    editPost: { enabled: false },
     search: "pagefind",
   },
   socials: [
