@@ -3,6 +3,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { cover, readMinutes } from "@/utils/cover";
 import { fingerprint } from "@/utils/related";
 import { semanticColor, keyTerms } from "@/utils/related";
+import { algoShape } from "@/utils/algoShape";
 import config from "@/config";
 
 interface Props {
@@ -18,6 +19,9 @@ const c = cover(post.data.title, post.data.categories ?? [], body);
 const fp = fingerprint(post.id);
 // 본문이 너무 짧아 낱말을 못 뽑은 글이 1편 있다. 커버가 비는 것보다 제목이 낫다.
 const terms = keyTerms(post.id).length ? keyTerms(post.id) : [c.short];
+// 커버 도식 — 그 글이 다루는 알고리즘이 어떻게 도는지. 낱말이 무엇인지 말하고
+// 도식이 어떻게 도는지 보여 준다.
+const algo = algoShape(post.id, post.data.tags ?? [], post.data.categories ?? []);
 // 커버 바탕색이 곧 이 글의 주제다. 밝기를 고정해 그리드가 한 톤으로 어우러진다.
 const tone = semanticColor(post.id, 0.33) ?? "var(--pc-night)";
 const toneDark = semanticColor(post.id, 0.28) ?? "var(--pc-night)";
@@ -37,8 +41,15 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
   style={`--tier:var(${c.token});--tone:${tone};--tone-dark:${toneDark};--edge:${edge}`}
 >
   <div class="pc-cover">
+    <svg
+      class="pc-algo"
+      viewBox="0 0 160 100"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      set:html={algo.svg}
+    />
     <span class="pc-top">
-      <span class="pc-kind">{c.kind}</span>
+      <span class="pc-kind">{algo.name}</span>
       <span class="pc-id">{c.ident}</span>
       {c.tier && <span class="pc-tier">{c.tier}</span>}
     </span>
@@ -97,20 +108,39 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
      대표 글(첫 카드) 하나만 큰 커버로 올려 인상을 남긴다. */
   .pc-cover {
     position: relative;
-    height: 84px;
+    height: 118px;
     background: var(--pc-night);
     background: var(--tone);
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-end;
     gap: 5px;
-    padding: 0 16px;
+    padding: 0 16px 13px;
     overflow: hidden;
   }
+  .pc-algo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    opacity: 0.34;
+  }
+  /* 도식 위에 글자를 얹으므로 아래쪽에 그늘을 깐다 */
+  .pc-cover::before {
+    content: "";
+    position: absolute;
+    inset: 40% 0 0 0;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent, rgba(6, 16, 20, 0.72));
+  }
   .pc-top {
-    position: relative;
+    position: absolute;
+    top: 11px;
+    left: 16px;
+    right: 16px;
     z-index: 2;
     display: flex;
     align-items: baseline;
@@ -245,9 +275,13 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
     justify-content: flex-end;
     padding: 0 22px 20px;
     gap: 9px;
+    height: auto;
   }
   .pc[data-featured] .pc-lean {
     display: none;
+  }
+  .pc[data-featured] .pc-algo {
+    opacity: 0.55;
   }
   .pc[data-featured] .pc-top {
     position: absolute;
