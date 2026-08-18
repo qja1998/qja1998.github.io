@@ -2,8 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { cover, readMinutes } from "@/utils/cover";
 import { fingerprint } from "@/utils/related";
-import { coverShape, axesShape } from "@/utils/coverShape";
-import { axisScores, axisNames, topAxis, semanticColor } from "@/utils/related";
+import { semanticColor, keyTerms } from "@/utils/related";
 import config from "@/config";
 
 interface Props {
@@ -17,13 +16,8 @@ const c = cover(post.data.title, post.data.categories ?? [], body);
 // 커버 = 이 글의 의미 지문. 임베딩을 PCA 로 32축에 눌러 표준화한 값이다.
 // 비슷한 글끼리 지문이 닮는다 — 코드 구조가 아니라 내용이 만든 그림이다.
 const fp = fingerprint(post.id);
-// 축은 코퍼스에서 뽑아 사람이 이름을 붙인 8방향이다. 그래서 하나만 봐도 읽힌다.
-const ax = axisScores(post.id);
-// 대표 커버는 이름 붙은 8축 레이더(그림만 봐도 읽힌다).
-// 얇은 띠는 자리가 낮아 라벨을 못 넣으므로, 그림은 32축 지문의 파형으로 두고
-// 의미는 옆에 찍히는 낱말(lean)이 맡는다.
-const svg = featured ? axesShape(ax, axisNames(), true) : "";
-const lean = topAxis(post.id);
+// 본문이 너무 짧아 낱말을 못 뽑은 글이 1편 있다. 커버가 비는 것보다 제목이 낫다.
+const terms = keyTerms(post.id).length ? keyTerms(post.id) : [c.short];
 // 커버 바탕색이 곧 이 글의 주제다. 밝기를 고정해 그리드가 한 톤으로 어우러진다.
 const tone = semanticColor(post.id, 0.33) ?? "var(--pc-night)";
 const toneDark = semanticColor(post.id, 0.28) ?? "var(--pc-night)";
@@ -33,7 +27,6 @@ const locale = Astro.currentLocale ?? config.site.lang;
 const href = getRelativeLocaleUrl(locale, `posts/${post.id}/`);
 const date = new Date(post.data.pubDatetime);
 const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
-const isNum = /^\d+$/.test(c.ident);
 ---
 
 <a
@@ -44,19 +37,19 @@ const isNum = /^\d+$/.test(c.ident);
   style={`--tier:var(${c.token});--tone:${tone};--tone-dark:${toneDark};--edge:${edge}`}
 >
   <div class="pc-cover">
-    <svg
-      class="pc-fp"
-      viewBox="0 0 100 100"
-      preserveAspectRatio={featured ? "xMidYMid meet" : "none"}
-      aria-hidden="true"
-      set:html={svg}
-    />
     <span class="pc-top">
       <span class="pc-kind">{c.kind}</span>
-      {lean && <span class="pc-lean">{lean}</span>}
+      <span class="pc-id">{c.ident}</span>
       {c.tier && <span class="pc-tier">{c.tier}</span>}
     </span>
-    <span class={isNum ? "pc-id" : "pc-id pc-id-sm"}>{c.ident}</span>
+    <span class="pc-terms">
+      {terms.map((t, i) => (
+        <>
+          {i > 0 && <b>·</b>}
+          {t}
+        </>
+      ))}
+    </span>
   </div>
   <div class="pc-body">
     <h2>{c.short}</h2>
@@ -104,14 +97,15 @@ const isNum = /^\d+$/.test(c.ident);
      대표 글(첫 카드) 하나만 큰 커버로 올려 인상을 남긴다. */
   .pc-cover {
     position: relative;
-    height: 66px;
+    height: 84px;
     background: var(--pc-night);
     background: var(--tone);
     color: #fff;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
     padding: 0 16px;
     overflow: hidden;
   }
@@ -120,7 +114,27 @@ const isNum = /^\d+$/.test(c.ident);
     z-index: 2;
     display: flex;
     align-items: baseline;
-    gap: 10px;
+    gap: 9px;
+  }
+  /* 본문에서 뽑은 말. 커버에서 가장 크게 — 사람이 의미를 읽는 자리다. */
+  .pc-terms {
+    position: relative;
+    z-index: 2;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: #fff;
+    text-shadow: 0 1px 12px rgba(8, 20, 25, 0.6);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pc-terms b {
+    opacity: 0.45;
+    font-weight: 400;
+    margin: 0 5px;
   }
   .pc-cover::after {
     content: "";
@@ -132,35 +146,15 @@ const isNum = /^\d+$/.test(c.ident);
   :global([data-theme="dark"]) .pc-cover {
     background: var(--tone-dark);
   }
-  .pc-fp {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.34;
-  }
-  .pc-fp :global(line) {
-    stroke: #fff;
-    stroke-width: 0.4;
-    opacity: 0.22;
-  }
   .pc-id {
-    position: relative;
-    z-index: 2;
     font-family: var(--pc-mono);
-    font-weight: 800;
-    font-size: 21px;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    text-shadow: 0 2px 20px rgba(8, 20, 25, 0.9);
-    transition: transform 0.22s ease;
-  }
-  .pc-id-sm {
-    font-size: 15px;
-    letter-spacing: -0.01em;
-  }
-  .pc:hover .pc-id {
-    transform: translateY(-3px);
+    font-weight: 700;
+    font-size: 11px;
+    color: #fff;
+    opacity: 0.9;
+    letter-spacing: 0.06em;
+    text-shadow: 0 1px 10px rgba(8, 20, 25, 0.95);
+    white-space: nowrap;
   }
   .pc-kind,
   .pc-tier {
@@ -248,26 +242,21 @@ const isNum = /^\d+$/.test(c.ident);
     height: auto;
     width: 42%;
     flex: none;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: 0 20px 18px;
-  }
-  .pc[data-featured] .pc-fp {
-    opacity: 0.92;
+    justify-content: flex-end;
+    padding: 0 22px 20px;
+    gap: 9px;
   }
   .pc[data-featured] .pc-lean {
     display: none;
   }
   .pc[data-featured] .pc-top {
     position: absolute;
-    inset: 14px 18px auto;
-    justify-content: space-between;
+    inset: 16px 20px auto;
+    justify-content: flex-start;
   }
-  .pc[data-featured] .pc-id {
-    font-size: clamp(30px, 3.4vw, 42px);
-  }
-  .pc[data-featured] .pc-id-sm {
-    font-size: clamp(19px, 2.2vw, 26px);
+  .pc[data-featured] .pc-terms {
+    font-size: clamp(22px, 2.6vw, 30px);
+    -webkit-line-clamp: 3;
   }
   .pc[data-featured] .pc-cover::after {
     inset: auto 0 0 0;

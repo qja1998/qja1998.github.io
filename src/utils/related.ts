@@ -11,7 +11,7 @@ type Store = {
   dim: number;
   fpDim: number;
   axes: string[];
-  posts: Record<string, { hash: string; vec: number[]; fp: number[]; ax: number[]; hue?: number; chr?: number }>;
+  posts: Record<string, { hash: string; vec: number[]; fp: number[]; ax: number[]; hue?: number; chr?: number; terms?: string[] }>;
 };
 
 const store = data as Store;
@@ -118,4 +118,9 @@ export function categoryHue(slugs: string[]): number | null {
   const x = hs.reduce((t, h) => t + Math.cos((h * Math.PI) / 180), 0);
   const y = hs.reduce((t, h) => t + Math.sin((h * Math.PI) / 180), 0);
   return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+}
+
+/** 본문에서 뽑은 핵심 낱말 두 개. 커버에 크게 찍는다. */
+export function keyTerms(slug: string): string[] {
+  return store.posts[slug]?.terms ?? [];
 }

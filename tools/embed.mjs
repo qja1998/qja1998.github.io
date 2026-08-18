@@ -44,6 +44,9 @@ const files = readdirSync(POSTS).filter(f => f.endsWith(".md")).sort();
 
 const prev = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : { model: MODEL, posts: {} };
 const cache = prev.model === MODEL ? prev.posts : {};
+// 낱말 벡터는 결과가 아니라 계산 캐시다. 저장소에 넣지 않는다(6MB 가 된다).
+const TERM_CACHE = "src/data/.term-vectors.json";
+const termCache = existsSync(TERM_CACHE) ? JSON.parse(readFileSync(TERM_CACHE, "utf8")) : {};
 
 const docs = files.map(f => {
   const slug = f.replace(/\.md$/, "");
@@ -302,3 +305,115 @@ writeFileSync(
   )
 );
 console.log(`의미 색 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);
+
+
+/* ---------------------------------------------------------------------------
+ * 핵심 낱말 — 커버에 크게 찍는 말.
+ *
+ * 색은 '이 둘이 비슷하다' 는 알려 줘도 '이게 무슨 글이다' 는 못 알려 준다.
+ * 범례를 봐야 하고, 이웃한 주제는 색이 붙어 구별도 안 된다.
+ * 사람에게 의미를 즉각 전하는 건 낱말이다.
+ *
+ * 태그를 쓰지 않는다. 본문에서 후보를 뽑고, 같은 모델로 후보를 임베딩해
+ * 글 전체 벡터와 가까운 순으로 고른다(KeyBERT 와 같은 방식).
+ * 그래서 새 주제로 글을 써도 그 글의 말이 그대로 나온다.
+ *
+ * 걸렸던 것:
+ *  - 코드까지 후보로 넣으면 cur_w · bridge.append 같은 식별자가 희귀해서
+ *    IDF 를 먹고 1등이 된다 → 후보는 산문에서만 뽑는다.
+ *  - 3~4위부터 잡음이 섞인다 → 두 개만 쓴다.
+ * ------------------------------------------------------------------------- */
+const PARTICLE = /(을|를|이|가|은|는|에|의|로|으로|와|과|에서|까지|부터|도|만|보다|처럼|에게|한테|라는|이라는|하는|되는|하고|해서|하여|한|된|들)$/;
+const STOP = new Set(
+  ("문제 풀이 코드 시간 메모리 제한 사용 경우 다음 아래 위해 통해 대해 이때 다시 정도 부분 방법 결과 " +
+   "확인 진행 발생 구하 만들 이런 그런 저런 무엇 어떤 여기 저기 이것 그것 입력 출력 표현 내부 영향 구성 " +
+   "상태 형태 생각 이유 의미 필요 가능 이상 이하 자체 기준 조건 시작 종료 처음 마지막 전체 각각 서로 모두 " +
+   "하나 실제 관련 참고 예시 설명 정리 곳에서 것들 명시 자신 우리 저희 당신 자기 서로 만약 때문 " +
+   "이제 아직 아무 어디 언제 얼마 조금 매우 정말 그냥 바로 다른 같이 여러 각종 등등 " +
+   "app start local main test run name value data code file path size index count print input output " +
+   "true false null none self return function class import export const let var").split(" ")
+);
+
+// 서술어로 끝나는 말은 이름이 아니라 문장 조각이다
+const VERBY = /(려고|려면|하려|었다|았다|한다|된다|입니다|합니다|이다|하며|하고|해야|되어|보자|보면|한다면|같다|있다|없다|어진|워진|아진|같은|다른|이런|저런|되는|하는|된|할|될|즉|또한)$/;
+const ok = w => {
+  if (STOP.has(w) || w.length < 2) return false;
+  if (/^[a-z0-9_.\-]+$/.test(w)) return w.length >= 4 && !/[.\-_]$/.test(w);   // al. · tab 같은 조각 제거
+  return !VERBY.test(w);
+};
+
+function candidates(text) {
+  const out = new Map();
+  const add = w => { if (ok(w)) out.set(w, (out.get(w) ?? 0) + 1); };
+  for (const m of text.matchAll(/[A-Za-z][A-Za-z0-9_.\-]{2,}/g)) add(m[0].toLowerCase().replace(/[.\-_]+$/, ""));
+  const kor = [...text.matchAll(/[가-힣]{2,}/g)].map(m => m[0].replace(PARTICLE, "")).filter(w => w.length >= 2);
+  kor.forEach(add);
+  // 두 낱말 붙이기는 양쪽이 다 이름일 때만
+  for (let i = 0; i < kor.length - 1; i++) if (ok(kor[i]) && ok(kor[i + 1])) add(`${kor[i]} ${kor[i + 1]}`);
+  return [...out.entries()].filter(([, c]) => c >= 2).sort((a, b) => b[1] - a[1]).slice(0, 40).map(([w]) => w);
+}
+
+{
+  const proseOf = {};
+  docs.forEach(d => {
+    const raw = readFileSync(join(POSTS, files.find(f => f.startsWith(d.slug) || f === `${d.slug}.md`) ?? `${d.slug}.md`), "utf8");
+    const body = raw.replace(/^---\n[\s\S]*?\n---\n/, "");
+    proseOf[d.slug] = `${d.title} ${body.replace(/```[\s\S]*?```/g, " ").replace(/!\[.*?\]\(.*?\)|<[^>]+>/g, " ")}`;
+  });
+
+  const df = new Map(), candOf = {};
+  order.forEach(s => {
+    const c = candidates(proseOf[s]);
+    candOf[s] = c;
+    new Set(c).forEach(w => df.set(w, (df.get(w) ?? 0) + 1));
+  });
+  const N = order.length;
+  const idf = w => Math.log(N / (df.get(w) ?? 1));
+
+  // 후보 벡터는 글 사이에 겹치므로 한 번만 계산해 돌려 쓴다
+  const need = [...new Set(order.flatMap(s => candOf[s].filter(w => (df.get(w) ?? 0) <= 0.15 * N).slice(0, 26)))];
+  const stale = need.filter(w => !(termCache[w]));
+  console.log(`핵심 낱말 후보 ${need.length}개 · 새로 계산 ${stale.length}개`);
+  if (stale.length) {
+    const embed = await pipeline("feature-extraction", MODEL, { quantized: true });
+    for (let i = 0; i < stale.length; i++) {
+      const o = await embed(`query: ${stale[i]}`, { pooling: "mean", normalize: true });
+      termCache[stale[i]] = Array.from(o.data).map(v => +v.toFixed(5));
+      if ((i + 1) % 300 === 0) console.log(`  ${i + 1}/${stale.length}`);
+    }
+  }
+
+  writeFileSync(TERM_CACHE, JSON.stringify(termCache));
+
+  order.forEach(s => {
+    const dv = cache[s].vec;
+    const scored = candOf[s]
+      .filter(w => (df.get(w) ?? 0) <= 0.15 * N && termCache[w])
+      .slice(0, 26)
+      .map(w => [w, dotv(dv, termCache[w]) * (1 + 0.28 * idf(w))])
+      .sort((a, b) => b[1] - a[1]);
+    // '엔트로피 차이' 와 '경우 엔트로피' 처럼 낱말이 겹치면 하나만 쓴다
+    const picked = [];
+    const used = new Set();
+    for (const [w] of scored) {
+      const parts = w.split(" ");
+      if (parts.some(x => used.has(x))) continue;
+      parts.forEach(x => used.add(x));
+      picked.push(w);
+      if (picked.length === 2) break;
+    }
+    // 두 개를 못 채우면 하나라도 쓴다. 커버가 비는 것보다 낫다.
+    if (!picked.length && scored.length) picked.push(scored[0][0]);
+    cache[s].terms = picked;
+  });
+}
+
+writeFileSync(
+  OUT,
+  JSON.stringify(
+    { model: MODEL, dim, fpDim: K, axes: centroids.map(c => c.name), posts: cache },
+    null,
+    0
+  )
+);
+console.log(`핵심 낱말 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);
