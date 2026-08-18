@@ -30,9 +30,10 @@ VGG는 여러 층에 따라 이름을 붙여주는데 예를 들면 E의 경우 
 
 224x224 크기의 행렬에 3x3커널로 stride=1 의 conv를 2번 하면 output size는 220x220이고,
 
-\\[ Output \, size = \frac{input \, size - filter \, size + (2*padding)}{Stride} + 1 \\\\\\
+$$
+Output \, size = \frac{input \, size - filter \, size + (2*padding)}{Stride} + 1 \\\\\\
 =((224 - 3) + 1)-3 + 1 = 220
- \\]
+$$
 
 5x5 커널로 stride=1 의 conv를 하면 output size는 $224-5+1=220$로 output size가 같은 것을 볼 수 있다. 참고로 3번의 3x3 conv를 하면 7x7 conv 한번과 size가 같다.
 

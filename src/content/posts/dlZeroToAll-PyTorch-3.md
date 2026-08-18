@@ -14,7 +14,9 @@ categories: ["pytorch", "study"]
 
 cost는 똑같이 MSE(Mean Square Error)를 사용하고 데이터도 이전과 같은 공부 시간 - 성적 데이터를 사용한다. ([Lab2 포스팅 참조](/posts/dlZeroToAll-PyTorch-2/))
 
-\\[ MSE = cost(W) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2 \\]
+$$
+MSE = cost(W) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2
+$$
 
 ***
 
@@ -55,15 +57,21 @@ cost가 가장 작은 점을 찾는 것이 우리의 목표인데, 이것을 cos
 
 cost는 다음과 같으므로
 <br><br>
-\\[ MSE = cost(W) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2 \\]
+$$
+MSE = cost(W) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2
+$$
 
 $W$에 대해 미분하면 아래와 같은 결과를 얻을 수 있다.
 
-\\[ \nabla W = \frac{\partial cost}{\partial W} = \frac{2}{m} \sum^m_{i=1} \left( Wx^{(i)} - y^{(i)} \right)x^{(i)} \\]
+$$
+\nabla W = \frac{\partial cost}{\partial W} = \frac{2}{m} \sum^m_{i=1} \left( Wx^{(i)} - y^{(i)} \right)x^{(i)}
+$$
 
 이렇게 구한 gradient는 다음 식과 같이 학습에 적용하게 된다.
 
-\\[ W := W - \alpha \nabla W \,\,\left(\alpha = learning\,\,rate\right)\\]
+$$
+W := W - \alpha \nabla W \,\,\left(\alpha = learning\,\,rate\right)
+$$
 
 이런 형태로 학습을 하는 이유를 한번 알아보자.
 <br><br>
@@ -85,7 +93,9 @@ $W$에 대해 미분하면 아래와 같은 결과를 얻을 수 있다.
 
 이어서 앞선 식들을 코드로 표현하면 다음과 같다.
 
-\\[ \nabla W = \frac{\partial cost}{\partial W} = \frac{2}{m} \sum^m_{i=1} \left( Wx^{(i)} - y^{(i)} \right)x^{(i)} \\]
+$$
+\nabla W = \frac{\partial cost}{\partial W} = \frac{2}{m} \sum^m_{i=1} \left( Wx^{(i)} - y^{(i)} \right)x^{(i)}
+$$
 
 ```python
 gradient = torch.sum((W * x_train - y_train) * x_train)
@@ -96,7 +106,9 @@ tensor(-14.)
 '''
 ```
 
-\\[ W := W - \alpha \nabla W \,\,\left(\alpha = learning\,\,rate\right)\\]
+$$
+W := W - \alpha \nabla W \,\,\left(\alpha = learning\,\,rate\right)
+$$
 
 ```python
 lr = 0.1

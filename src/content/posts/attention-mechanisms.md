@@ -57,11 +57,17 @@ Seq2Seq는 encoder가 입력을 순서대로 읽어 마지막에 context vector 
 
 수식으로 쓰면 다음과 같다. $i$는 decoder 시점, $j$는 encoder 위치다.
 
-\\[ c_i = \sum_{j=1}^{T_x} \alpha_{ij} h_j \\]
+$$
+c_i = \sum_{j=1}^{T_x} \alpha_{ij} h_j
+$$
 
-\\[ \alpha_{ij} = \frac{\exp(e_{ij})}{\sum_{k=1}^{T_x} \exp(e_{ik})} \\]
+$$
+\alpha_{ij} = \frac{\exp(e_{ij})}{\sum_{k=1}^{T_x} \exp(e_{ik})}
+$$
 
-\\[ e_{ij} = a(s_{i-1}, h_j) \\]
+$$
+e_{ij} = a(s_{i-1}, h_j)
+$$
 
 여기서 $\alpha_{ij}$가 attention weight, $a$가 점수를 매기는 함수다.
 **attention의 종류가 갈리는 지점은 대부분 이 $a$를 어떻게 정하느냐이다.**
@@ -76,7 +82,9 @@ $\alpha_{ij}$를 표로 늘어놓으면 어떤 출력 단어가 어떤 입력 �
 
 가장 처음 제안된 방식이다. 점수를 매길 때 작은 신경망을 하나 쓴다.
 
-\\[ e_{ij} = a(s_{i-1}, h_j) = v_a^\top \tanh(W_a s_{i-1} + U_a h_j) \\]
+$$
+e_{ij} = a(s_{i-1}, h_j) = v_a^\top \tanh(W_a s_{i-1} + U_a h_j)
+$$
 
 ![Bahdanau attention (additive attention) 설명 그림](/posting_imgs/attention-4.svg)
 
@@ -96,7 +104,9 @@ $s_{i-1}$과 $h_j$를 각각 행렬로 변환한 뒤 **더하고**, $\tanh$를 �
 Luong의 논문은 “점수를 꼭 그렇게 복잡하게 매겨야 하는가”를 물으면서 세 가지 방식을 비교했다.
 표기는 원 논문을 따라 decoder 상태를 $h_t$, encoder 상태를 $\bar{h}_s$로 쓴다.
 
-\\[ \text{score}(h_t, \bar{h}_s) = \begin{cases} h_t^\top \bar{h}_s & \textit{dot} \\\\ h_t^\top W_a \bar{h}_s & \textit{general} \\\\ v_a^\top \tanh(W_a [h_t ; \bar{h}_s]) & \textit{concat} \end{cases} \\]
+$$
+\text{score}(h_t, \bar{h}_s) = \begin{cases} h_t^\top \bar{h}_s & \textit{dot} \\\\ h_t^\top W_a \bar{h}_s & \textit{general} \\\\ v_a^\top \tanh(W_a [h_t ; \bar{h}_s]) & \textit{concat} \end{cases}
+$$
 
 ![Luong attention 설명 그림](/posting_imgs/attention-5.svg)
 
@@ -107,7 +117,9 @@ Luong의 논문은 “점수를 꼭 그렇게 복잡하게 매겨야 하는가�
 점수를 낸 뒤에는 세 방식 모두 똑같이 softmax → 가중합을 거친다.
 다만 만들어진 context를 쓰는 방법이 Bahdanau와 다르다.
 
-\\[ \tilde{h}_t = \tanh(W_c [c_t ; h_t]) \\]
+$$
+\tilde{h}_t = \tanh(W_c [c_t ; h_t])
+$$
 
 context $c_t$와 현재 상태 $h_t$를 이어 붙여 한 번 더 변환한 $\tilde{h}_t$를 만들고, 이것으로 다음 단어를 예측한다.
 
@@ -151,7 +163,9 @@ Query와 Key를 견주어 점수를 내고, 그 점수 비율대로 Value를 섞
 
 이것을 행렬로 한 번에 쓰면 다음과 같다.
 
-\\[ \text{Attention}(Q, K, V) = \text{softmax}\left( \frac{QK^\top}{\sqrt{d_k}} \right) V \\]
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left( \frac{QK^\top}{\sqrt{d_k}} \right) V
+$$
 
 Luong의 dot 방식과 뼈대가 같고, 다른 점은 $\sqrt{d_k}$로 나누는 것뿐이다. 그래서 이름이 **Scaled** Dot-Product Attention이다.
 
@@ -187,9 +201,13 @@ attention을 512차원에서 한 번 하는 대신, 64차원짜리로 8번 나�
 
 ![Multi-Head Attention 설명 그림](/posting_imgs/attention-9.svg)
 
-\\[ \text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O \\]
+$$
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O
+$$
 
-\\[ \text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V) \\]
+$$
+\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
+$$
 
 head마다 $W_i^Q, W_i^K, W_i^V$를 따로 두기 때문에, head마다 서로 다른 기준으로 점수를 매기게 된다.
 논문의 기본 설정은 $h = 8$, $d_{model} = 512$, $d_k = d_v = d_{model} / h = 64$ 이다.

@@ -14,7 +14,9 @@ categories: ["pytorch", "study"]
 ### Hypothesis (가설)
 선형 회귀에서 사용하는 1차 방정식을 말한다. weight와 bias를 계속 바꿔가면거 마지막 학습이 끝난 뒤의 최종값을 사용하여 데이터를 예측한다. 수식은 다음과 같다.
 
-\\[ H(x) = Wx + b \\]
+$$
+H(x) = Wx + b
+$$
 
 최종 결과로 나온 가설을 model이라 하고 '학습되었다'고 한다.
 
@@ -23,7 +25,9 @@ model의 예측 값이 실제 값과 얼마나 다른 지를 알려준다. (작�
 
 여기서는 아래와 같은 MSE(Mean Square Error)를 사용한다.
 
-\\[ MSE = cost(W, b) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2 \\]
+$$
+MSE = cost(W, b) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2
+$$
 
 ***
 ## Import
@@ -75,7 +79,9 @@ tensor([0.], requires_grad=True)
 
 ***
 ## Hypothesis
-\\[ H(x) = Wx + b \\]
+$$
+H(x) = Wx + b
+$$
 
 앞서 보았던 Hypothesis 식에 따라 초기화해 준다.
 
@@ -94,7 +100,9 @@ tensor([[0.],
 
 ***
 ## Cost
-\\[ MSE = cost(W, b) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2 \\]
+$$
+MSE = cost(W, b) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2
+$$
 
 Cost도 마찬가지로 앞서 나온 식에 맞춰 정의해 준다.
 

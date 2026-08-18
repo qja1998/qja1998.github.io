@@ -122,10 +122,3 @@ export function categoryHue(slugs: string[]): number | null {
   return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
 }
 
-/**
- * 본문에서 뽑은 낱말들. 점수(s)와 의미 좌표(x, y)를 함께 준다.
- * 미리 정해 둔 낱말 목록이 없으므로 어떤 주제가 들어와도 그 글의 말이 나온다.
- */
-export function keyTerms(slug: string): Term[] {
-  return store.posts[slug]?.terms ?? [];
-}

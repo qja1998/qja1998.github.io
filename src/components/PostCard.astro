@@ -1,10 +1,8 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { cover, readMinutes } from "@/utils/cover";
-import { fingerprint } from "@/utils/related";
-import { semanticColor, keyTerms } from "@/utils/related";
-import { coverSource } from "@/utils/coverSource";
-import katex from "katex";
+import { semanticColor } from "@/utils/related";
+import { renderHero } from "@/utils/hero";
 import config from "@/config";
 
 interface Props {
@@ -15,29 +13,9 @@ interface Props {
 const { post, cat = "", featured = false } = Astro.props;
 const body: string = post.body ?? "";
 const c = cover(post.data.title, post.data.categories ?? [], body);
-// 커버 = 이 글의 의미 지문. 임베딩을 PCA 로 32축에 눌러 표준화한 값이다.
-// 비슷한 글끼리 지문이 닮는다 — 코드 구조가 아니라 내용이 만든 그림이다.
-const fp = fingerprint(post.id);
-// 본문이 너무 짧아 낱말을 못 뽑은 글이 1편 있다. 커버가 비는 것보다 제목이 낫다.
-// 커버 = 그 글에서 뽑은 낱말들의 조판.
-// 세로는 점수 순으로 쌓아 늘 읽히게 하고, 가로 들여쓰기는 낱말끼리의 의미 좌표에서
-// 가져온다. 정해 둔 도식이 없어 어떤 주제가 들어와도 그대로 돈다.
-// 커버는 그 글이 실제로 갖고 있는 것으로 채운다 — 그림 · 수식 · 코드 구조,
-// 셋 다 없으면 본문에서 뽑은 낱말.
-const src = coverSource(body);
-const tex =
-  src.kind === "formula"
-    ? katex.renderToString(src.tex, { throwOnError: false, displayMode: false })
-    : "";
-
-const raw = keyTerms(post.id);
-const shown = (raw.length ? raw : [{ w: c.short, s: 1, x: 0, y: 0 }]).slice(0, featured ? 6 : 4);
-const terms = shown.map((t, i) => ({
-  ...t,
-  size: featured ? 30 - i * 3.6 : 19 - i * 2.6,
-  indent: Math.round(t.x * (featured ? 96 : 62)),
-  op: 0.45 + t.s * 0.55,
-}));
+// 커버 = 그 글에서 고른 조각 하나를 마크다운 그대로 그린 것.
+// 고를 때도 그릴 때도 조각의 종류를 묻지 않는다(src/utils/hero.ts).
+const hero = await renderHero(post.id);
 // 커버 바탕색이 곧 이 글의 주제다. 밝기를 고정해 그리드가 한 톤으로 어우러진다.
 const tone = semanticColor(post.id, 0.33) ?? "var(--pc-night)";
 const toneDark = semanticColor(post.id, 0.28) ?? "var(--pc-night)";
@@ -62,44 +40,7 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
       <span class="pc-id">{c.ident}</span>
       {c.tier && <span class="pc-tier">{c.tier}</span>}
     </span>
-    {
-      src.kind === "image" && (
-        <>
-          <img class="pc-img" src={src.src} alt="" loading="lazy" />
-          {/* 밝은 그림 위에서 라벨이 묻히지 않게 위쪽에 그늘을 깐다 */}
-          <span class="pc-scrim" />
-        </>
-      )
-    }
-    {src.kind === "formula" && <span class="pc-tex" set:html={tex} />}
-    {
-      src.kind === "code" && (
-        <svg class="pc-code" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          {src.rects.map(r => (
-            <rect
-              x={r.x.toFixed(2)}
-              y={r.y.toFixed(2)}
-              width={r.w.toFixed(2)}
-              height={r.h.toFixed(2)}
-              rx={(r.h / 2).toFixed(2)}
-              fill="#fff"
-              opacity={r.o.toFixed(2)}
-            />
-          ))}
-        </svg>
-      )
-    }
-    {
-      src.kind === "terms" && (
-        <span class="pc-terms">
-          {terms.map(t => (
-            <b style={`font-size:${t.size}px;padding-left:${t.indent}px;opacity:${t.op.toFixed(2)}`}>
-              {t.w}
-            </b>
-          ))}
-        </span>
-      )
-    }
+    <div class="pc-hero" set:html={hero} />
   </div>
   <div class="pc-body">
     <h2>{c.short}</h2>
@@ -165,7 +106,7 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
     position: absolute;
     inset: 40% 0 0 0;
     z-index: 1;
-    background: linear-gradient(180deg, transparent, rgba(6, 16, 20, 0.72));
+    background: linear-gradient(180deg, transparent, rgba(6, 16, 20, 0.45));
   }
   .pc-top {
     position: absolute;
@@ -177,62 +118,119 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
     align-items: baseline;
     gap: 9px;
   }
-  /* 본문에서 뽑은 말. 커버에서 가장 크게 — 사람이 의미를 읽는 자리다. */
-  .pc-img {
+  /* 커버 안의 조각.
+     조각이 무엇인지 CSS 도 묻지 않는다 — 표·코드·수식·목록이 들어와도
+     같은 규칙으로 작게 조판되고, 아래로 갈수록 흐려지며 잘린다.
+     잘린 자리가 경계가 아니라 "이 아래로 이어진다" 로 읽히게 하는 게 목적이다. */
+  .pc-hero {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* 본문 도식은 대부분 흰 배경이라 그대로 두면 카드가 하얗게 뜬다.
-       살짝 눌러 어두운 카드 계열에 맞추고, 라벨은 칩으로 띄운다. */
-    opacity: 0.9;
-    filter: brightness(0.78) saturate(0.95);
-  }
-  .pc-scrim {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background:
-      linear-gradient(180deg, rgba(6, 16, 20, 0.72) 0, transparent 44%),
-      linear-gradient(0deg, rgba(6, 16, 20, 0.6) 0, transparent 40%);
-  }
-  .pc-code {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.85;
-  }
-  .pc-tex {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-    font-size: 17px;
-    max-width: 100%;
+    inset: 32px 16px 0;
+    z-index: 0;
     overflow: hidden;
-    align-self: center;
-    margin: auto 0;
+    color: #dfeaee;
+    font-size: 9.5px;
+    line-height: 1.55;
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 46%, transparent 94%);
+    mask-image: linear-gradient(180deg, #000 0, #000 46%, transparent 94%);
   }
-  .pc-terms {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1px;
+  .pc-hero :global(pre) {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    border: 0;
+    font-size: inherit;
+    line-height: inherit;
+    white-space: pre;
+  }
+  .pc-hero :global(code) {
+    font-family: var(--pc-mono);
+    font-size: inherit;
+    background: transparent;
+    padding: 0;
+  }
+  /* 커버는 항상 어두우므로 라이트/다크 두 벌 중 다크 쪽 색만 쓴다 */
+  .pc-hero :global(span) {
+    color: var(--shiki-dark, inherit);
+  }
+  .pc-hero :global(table) {
+    border-collapse: collapse;
     width: 100%;
-    color: #fff;
+    font-size: 9px;
   }
-  .pc-terms b {
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.08;
-    max-width: 100%;
+  .pc-hero :global(th),
+  .pc-hero :global(td) {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2px 5px;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 12ch;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    text-shadow: 0 1px 12px rgba(8, 20, 25, 0.45);
+  }
+  .pc-hero :global(th) {
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .pc-hero :global(h1),
+  .pc-hero :global(h2),
+  .pc-hero :global(h3),
+  .pc-hero :global(h4) {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .pc-hero :global(p) {
+    margin: 0 0 4px;
+  }
+  .pc-hero :global(ul),
+  .pc-hero :global(ol) {
+    margin: 0;
+    padding-left: 13px;
+  }
+  .pc-hero :global(blockquote) {
+    margin: 0;
+    padding-left: 8px;
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  .pc-hero :global(img) {
+    max-width: 100%;
+    filter: brightness(0.86);
+  }
+  .pc-hero :global(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+  .pc-hero :global(.katex) {
+    font-size: 15px;
+    color: #fff;
+  }
+  .pc-hero :global(.katex-display) {
+    margin: 0;
+  }
+  /* 대표 글은 커버가 크다 — 같은 조각을 읽을 수 있는 크기로 올린다 */
+  .pc[data-featured] .pc-hero {
+    inset: 44px 22px 0;
+    font-size: 12.5px;
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 62%, transparent 97%);
+    mask-image: linear-gradient(180deg, #000 0, #000 62%, transparent 97%);
+  }
+  .pc[data-featured] .pc-hero :global(table),
+  .pc[data-featured] .pc-hero :global(th),
+  .pc[data-featured] .pc-hero :global(td) {
+    font-size: 11.5px;
+    max-width: 20ch;
+  }
+  .pc[data-featured] .pc-hero :global(h1),
+  .pc[data-featured] .pc-hero :global(h2),
+  .pc[data-featured] .pc-hero :global(h3),
+  .pc[data-featured] .pc-hero :global(h4) {
+    font-size: 19px;
+  }
+  .pc[data-featured] .pc-hero :global(.katex) {
+    font-size: 22px;
   }
   .pc-cover::after {
     content: "";

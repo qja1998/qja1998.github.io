@@ -33,7 +33,9 @@ Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔�
 
 이번에는 로지스틱 회귀로 이 문제를 접근해 보자. 먼저 시그모이드 함수(로지스틱 함수)는 다음과 같이 정의된다.
 
-\\[ s(z) = \frac{1}{1+e^{-z}} \\]
+$$
+s(z) = \frac{1}{1+e^{-z}}
+$$
 
 이를 그래프로 그려보면 아래와 같은 형태를 띈다.
 
@@ -44,7 +46,9 @@ Hypothesis로 sigmoid(logistic) 함수를 사용하는 회귀 방법이다. 흔�
 
 그러므로 로지스틱 회귀의 hypothesis는 로지스틱 함수에 선형 회귀식을 넣는 것으로 정의된다.
 
-\\[ H(X) = \frac{1}{1+e^{-W^T X}} \\]
+$$
+H(X) = \frac{1}{1+e^{-W^T X}}
+$$
 
 이 hypothesis를 따른다면 아무리 크거나 작은 값이 주어지더라도 0과 1사이를 벗어나지 않기 때문에 기존에 합격이라고 분류 된 값이 갑자기 불합격이 될 가능성이 매우 줄어든다.
 
@@ -86,7 +90,9 @@ plt.show()
 
 그래서 cost로 다음과 같은 함수를 사용한다.
 
-\\[  cost(W) = -\frac{1}{m} \sum y \log\left(H(x)\right) + (1-y) \left( \log(1-H(x) \right) \\]
+$$
+cost(W) = -\frac{1}{m} \sum y \log\left(H(x)\right) + (1-y) \left( \log(1-H(x) \right)
+$$
 
 log를 사용하여 지수함수를 다루기 좋은 형태로 만들어 주고, 정답에 따라 적절한 cost를 사용할 수 있도록 만들었는데 그 cost의 형태는 다음과 같다.
 
@@ -97,7 +103,9 @@ log를 사용하여 지수함수를 다루기 좋은 형태로 만들어 주고,
 
 이를 통한 gradient descent는 전과 동일한 형태로 진행한다.
 
-\\[ W := W - \alpha \frac{\partial}{\partial W} cost(W) \\]
+$$
+W := W - \alpha \frac{\partial}{\partial W} cost(W)
+$$
 
 ***
 ## Import
@@ -134,7 +142,9 @@ torch.Size([6, 1])
 일단은 수식 그대로 코드를 작성해서 사용해보자.
 
 ### Hypothesis
-\\[ H(X) = \frac{1}{1+e^{-W^T X}} \\]
+$$
+H(X) = \frac{1}{1+e^{-W^T X}}
+$$
 
 ```python
 W = torch.zeros((2, 1), requires_grad=True)
@@ -159,7 +169,9 @@ torch.Size([6, 1])
 W와 b가 모두 0이기 때문에 0.5가 output으로 나온 것을 확인할 수 있다.
 
 ### Cost
-\\[  cost(W) = -\frac{1}{m} \sum y \log\left(H(x)\right) + (1-y) \left( \log(1-H(x) \right) \\]
+$$
+cost(W) = -\frac{1}{m} \sum y \log\left(H(x)\right) + (1-y) \left( \log(1-H(x) \right)
+$$
 
 ```python
 losses = -(y_train * torch.log(hypothesis) + (1 - y_train) * torch.log(1 - hypothesis))

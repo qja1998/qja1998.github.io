@@ -15,8 +15,12 @@ categories: ["pytorch", "study"]
 
 Hypothesis와 Cost는 앞에서 사용했던 것들을 사용하되 변수가 늘어난 것에 맞춰 수정해야 한다. 수정해서 나온 hypothesis와 cost는 다음과 같다.
 
-\\[ H(x_1, x_2, x_3) = x_1w_1 + x_2w_2 + x_3w_3 + b \\]
-\\[ cost(W, b) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2 \\]
+$$
+H(x_1, x_2, x_3) = x_1w_1 + x_2w_2 + x_3w_3 + b
+$$
+$$
+cost(W, b) = \frac{1}{m} \sum^m_{i=1} \left( H(x^{(i)}) - y^{(i)} \right)^2
+$$
 
 변수의 수에 따라 hypothesis가 변한 것을 확인할 수 있다. 이때 각각의 변수에 대해 $W$가 따로 주어진다. 
 
@@ -60,7 +64,7 @@ hypothesis = x1_train * w1 + x2_train * w2 + x3_train * w3 + b
 
 각 변수와 가중치의 곱은 아래와 같은 행렬 곱과 같다.
 
-\\[
+$$
 \begin{pmatrix}
 x_1 & x_2 & x_3
 \end{pmatrix}
@@ -74,7 +78,7 @@ w_3 \\\\\\
 \begin{pmatrix}
 x_1w_1 + x_2w_2 + x_3w_3
 \end{pmatrix}
-\\]
+$$
 
 그러므로 [lab1](/posts/dlZeroToAll-PyTorch-1/)에서 나왔던 `matmul()`을 사용하여 변수와 가중치의 곱을 간단하게 구할 수 있다.
 

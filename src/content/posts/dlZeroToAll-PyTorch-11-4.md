@@ -79,7 +79,9 @@ test_set = minmax_scaler(test_set)
 
 이번 에제에서는 min-max scaling을 적용할 것이다. min-max scaling은 아래 식을 통해 진행되는 scaling으로 최소, 최대값을 사용하여 0과 1사이의 값으로 바꾸어 준다.
 
-\\[x_{scaled}=\frac{x-x_{min}}{x_{max}-x_{min}}\\]
+$$
+x_{scaled}=\frac{x-x_{min}}{x_{max}-x_{min}}
+$$
 
 이번에도 데이터의 길이가 길기 때문에 RNN model에 넣어줄 만큼 잘라서 데이터를 만들어준다.
 

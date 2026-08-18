@@ -181,7 +181,9 @@ Accuracy: 0.0% Cost: 1.425844
 
 ## Learning Rate
 
-\\[ W := W - \alpha \nabla W \,\,\left(\alpha = learning\,\,rate\right)\\]
+$$
+W := W - \alpha \nabla W \,\,\left(\alpha = learning\,\,rate\right)
+$$
 
 위와 같은 gradient descent 식에서 $\alpha$가 learning rate(학습률)이다. 학습하는 비율이라고 간단하게 언급하고 넘어갔었는데, 이번에는 어떤 영향을 미치는지 확인해 보자.
 
@@ -263,7 +265,9 @@ Epoch   19/20 Cost: 3.187324
 
 이런 전처리 중 하나인 Standardization(정규화)을 한번 알아보자. 정규화의 식은 다음과 같이 주어진다.
 
-\\[ x'_j = \frac{x_j - \mu_j}{\sigma_j} \\]
+$$
+x'_j = \frac{x_j - \mu_j}{\sigma_j}
+$$
 
 여기서 $\sigma$는 표준 분산, $\mu$는 평균을 의미한다. 이들을 코드로 표현하면 다음과 같다.
 

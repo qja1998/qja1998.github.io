@@ -32,11 +32,15 @@ Convolution 연산에 쓰이는 데이터에 **padding**이라는 처리를 할 
 
 Convolution output의 크기는 다음과 같이 주어진다.
 
-\\[ Output \, size = \frac{input \, size - filter \, size + (2*padding)}{Stride} + 1 \\]
+$$
+Output \, size = \frac{input \, size - filter \, size + (2*padding)}{Stride} + 1
+$$
 
 예를 들어 input size = (32, 64), kernel = 5, stride = 1, padding = 0로 주어졌을 때 
 
-\\[ (\frac{(32-5)+(0\times2)}{1}+1 , \frac{(32-5)+(0\times2)}{1}+1) = (28, 60) \\]
+$$
+(\frac{(32-5)+(0\times2)}{1}+1 , \frac{(32-5)+(0\times2)}{1}+1) = (28, 60)
+$$
 
 위처럼 계산할 수 있다.
 

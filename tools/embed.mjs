@@ -464,3 +464,164 @@ writeFileSync(
   )
 );
 console.log(`핵심 낱말 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);
+
+
+/* ---------------------------------------------------------------------------
+ * 대표 조각 — 커버에 그대로 싣는다.
+ *
+ * 종류를 열거하지 않는다. 본문을 빈 줄과 코드 펜스로만 잘라 블록을 만들고,
+ * 그 글 전체 벡터와 가장 가까운 블록을 고른다. 다만 그대로 고르면 산문이 이긴다
+ * (글의 대부분이 산문이니까). 그래서 '구조가 얼마나 있나' 를 재서 곱한다 —
+ * 기호·숫자 비율, 줄 수, 줄 길이의 들쭉날쭉함.
+ *
+ * 표·코드·수식이 자연히 이기지만 그것들을 이름으로 알지는 못한다. 벤치마크 표든
+ * 셸 세션이든 diff 든, 구조가 있으면 그대로 이긴다.
+ * ------------------------------------------------------------------------- */
+function splitBlocks(body) {
+  const out = [];
+  let buf = [], fence = false;
+  const flush = () => { const t = buf.join("\n").trim(); if (t) out.push(t); buf = []; };
+  for (const l of body.split("\n")) {
+    const isFence = /^\s*```/.test(l);
+    if (isFence && !fence) { flush(); fence = true; buf.push(l); continue; }
+    if (isFence && fence) { buf.push(l); fence = false; flush(); continue; }
+    if (fence) { buf.push(l); continue; }
+    if (!l.trim()) { flush(); continue; }
+    buf.push(l);
+  }
+  flush();
+  return out.filter(b => b.length >= 12 && b.length <= 1400);
+}
+
+/** 구조가 얼마나 있나. 종류를 모른 채 겉모습만 잰다. */
+function density(t) {
+  const sym = (t.match(/[^\w\s가-힣]/g) ?? []).length / t.length;
+  const dig = (t.match(/\d/g) ?? []).length / t.length;
+  const lens = t.split("\n").map(x => x.length);
+  const mean = lens.reduce((a, b) => a + b, 0) / lens.length;
+  const sd = Math.sqrt(lens.reduce((a, b) => a + (b - mean) ** 2, 0) / lens.length) / (mean || 1);
+  return Math.min(1, sym * 2.2 + dig * 1.6 + Math.min(lens.length, 12) / 24 + Math.min(sd, 1) * 0.35);
+}
+
+/**
+ * 제목이 이미 말한 것은 표지가 다시 말할 필요가 없다.
+ *
+ * 이것도 종류를 묻지 않는다 — 어떤 조각이든 제목과 겹치는 만큼만 깎는다.
+ * 결과적으로 제목을 되풀이하는 도입부·머리말이 밀려나고, 제목이 말하지 않은
+ * 것(코드·표·수식·설정 파일)이 올라온다.
+ */
+/**
+ * 골격 — 숫자와 공백을 지운 조각. 값만 다른 같은 틀은 같은 골격이 된다.
+ * (백준 글 77편에 다 있는 "시간 제한 | 메모리 제한" 표가 여기에 걸린다.)
+ */
+function skeleton(t) {
+  return t.toLowerCase().replace(/\d+/g, "#").replace(/\s+/g, " ").trim();
+}
+
+/** 여러 글이 공유하는 앞머리 줄을 걷어낸다. 펜스는 남긴다(코드로 그려야 하므로). */
+function trimShared(block, common) {
+  const ls = block.split("\n");
+  const head = /^\s*```/.test(ls[0]) ? 1 : 0;
+  // 글자도 숫자도 없는 줄($$, |---|, ``` …)은 내용이 아니라 구조다.
+  // 여러 글이 공유하는 게 당연하므로 걷어내면 울타리가 깨진다.
+  const content = l => /[\p{L}\p{N}]/u.test(l);
+  let i = head;
+  while (i < ls.length && !content(ls[i])) i++;
+  while (i < ls.length && content(ls[i]) && common.has(skeleton(ls[i]))) i++;
+  while (i < ls.length && !content(ls[i])) i++;
+  if (i > head && !content(ls.slice(head, i).join(""))) i = head;
+  // 절반 넘게 걷어낼 정도면 그 글은 원래 그런 글이다. 그대로 둔다.
+  if (i - head > (ls.length - head) / 2) return block;
+  return [...ls.slice(0, head), ...ls.slice(i)].join("\n");
+}
+
+function novelty(block, title) {
+  const tok = t =>
+    (t.toLowerCase().replace(/\]\([^)]*\)/g, "]").match(/[a-z0-9]+|[가-힣]{2,}/g) ?? []);
+  const T = new Set(tok(title));
+  const B = tok(block);
+  if (!B.length || !T.size) return 1;
+  return 1 - B.filter(w => T.has(w)).length / B.length;
+}
+
+{
+  const BLOCK_CACHE = "src/data/.block-vectors.json";
+  const bcache = existsSync(BLOCK_CACHE) ? JSON.parse(readFileSync(BLOCK_CACHE, "utf8")) : {};
+  const key = t => createHash("sha1").update(t).digest("hex").slice(0, 16);
+
+  const cand = {};
+  order.forEach(s => {
+    const raw = readFileSync(join(POSTS, `${s}.md`), "utf8").replace(/^---\n[\s\S]*?\n---\n/, "");
+    cand[s] = splitBlocks(raw);
+  });
+  const titleOf = {};
+  order.forEach(s => {
+    const fm = readFileSync(join(POSTS, `${s}.md`), "utf8").match(/^---\n([\s\S]*?)\n---/);
+    titleOf[s] = (fm?.[1].match(/^title:\s*(.+)$/m)?.[1] ?? "").replace(/^["']|["']$/g, "");
+  });
+  // 여러 글에 똑같이 나오는 조각은 그 글에 대해 아무 말도 하지 않는다.
+  // 제목 규칙과 같은 원리를 코퍼스 전체로 올린 것 — 여기서도 종류는 묻지 않는다.
+  const shared = {};
+  order.forEach(s => {
+    for (const k of new Set(cand[s].map(skeleton))) shared[k] = (shared[k] ?? 0) + 1;
+  });
+
+  // 같은 규칙을 줄 단위로 한 번 더. 코드 첫머리의 `import sys`, `input = sys.stdin.readline`
+  // 처럼 수십 편이 공유하는 줄은 표지의 첫 줄을 차지할 자격이 없다.
+  const common = new Set();
+  {
+    const per = {};
+    order.forEach(s => {
+      for (const k of new Set(cand[s].flatMap(b => b.split("\n")).map(skeleton)))
+        per[k] = (per[k] ?? 0) + 1;
+    });
+    for (const [k, n] of Object.entries(per)) if (n >= 6 && k) common.add(k);
+  }
+
+  const need = [...new Set(Object.values(cand).flat())].filter(b => !bcache[key(b)]);
+  console.log(`대표 조각 후보 ${Object.values(cand).flat().length}개 · 새로 계산 ${need.length}개`);
+  if (need.length) {
+    const embed = await pipeline("feature-extraction", MODEL, { quantized: true });
+    for (let i = 0; i < need.length; i++) {
+      const o = await embed(`passage: ${need[i].slice(0, 1200)}`, { pooling: "mean", normalize: true });
+      bcache[key(need[i])] = Array.from(o.data).map(v => +v.toFixed(5));
+      if ((i + 1) % 400 === 0) console.log(`  ${i + 1}/${need.length}`);
+    }
+    writeFileSync(BLOCK_CACHE, JSON.stringify(bcache));
+  }
+
+  order.forEach(s => {
+    const dv = cache[s].vec;
+    let best = -1, bestScore = -1;
+    cand[s].forEach((b, bi) => {
+      const v = bcache[key(b)];
+      if (!v) return;
+      const sc =
+        dotv(dv, v) *
+        (1 + 0.55 * density(b)) *
+        (0.35 + 0.65 * novelty(b, titleOf[s])) /
+        Math.sqrt(shared[skeleton(b)] ?? 1);
+      if (sc > bestScore) { bestScore = sc; best = bi; }
+    });
+    // 표지는 문서를 들여다보는 창이다. 고른 조각이 짧으면(제목 한 줄 같은)
+    // 창이 휑하므로, 그 자리에서 이어지는 것을 창이 찰 만큼 더 가져온다.
+    // 여기서도 무엇이 이어지는지는 묻지 않는다 — 문서 순서 그대로다.
+    if (best < 0) { cache[s].hero = ""; return; }
+    const parts = [trimShared(cand[s][best], common)];
+    for (let i = best + 1; i < cand[s].length; i++) {
+      if (parts.join("\n\n").length >= 480) break;
+      parts.push(cand[s][i]);
+    }
+    cache[s].hero = parts.join("\n\n");
+  });
+}
+
+writeFileSync(
+  OUT,
+  JSON.stringify(
+    { model: MODEL, dim, fpDim: K, axes: centroids.map(c => c.name), posts: cache },
+    null,
+    0
+  )
+);
+console.log(`대표 조각 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);

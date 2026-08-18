@@ -27,7 +27,7 @@ $x$ 값이 0에서 멀어질수록 미분값이 0에 수렴하는 것을 확인�
 
 ReLU의 식과 모습은 다음과 같이 간단히 주어진다.
 
-\\[f(x)=max(0,x)\\]]
+$$f(x)=max(0,x)$$]
 
 ![ReLU activation](/posting_imgs/lab9-1-2.webp)
 

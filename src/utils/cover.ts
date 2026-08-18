@@ -64,8 +64,9 @@ export function identify(
 
   m = title.match(/Lab\s*([\d.-]+\d)\s*:?\s*(.*)$/);
   if (m) {
+    // 제목의 앞부분("모두를 위한 딥러닝 2")은 26편이 공유한다. 글을 가르는 건 Lab 주제다.
     const topic = (m[2] ?? "").split(/\s*,\s*/)[0].trim() || `Lab ${m[1]}`;
-    return wrap("PYTORCH", `LAB ${m[1]}`, topic, title.replace(/\s*-\s*Lab.*$/, ""));
+    return wrap("PYTORCH", "", `LAB ${m[1]}`, topic);
   }
 
   if (categories[0] === "troubleshooting") {

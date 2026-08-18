@@ -28,3 +28,5 @@ node_modules/
 dist/
 .astro/
 src/data/.term-vectors.json
+src/data/.block-vectors.json
+public/pagefind/

@@ -30,11 +30,15 @@ Activation을 표현하여 조금 더 자세히 모델을 나타내면 다음과
 
 일반화하여 수식으로 나타내면 다음과 같고
 
-\\[h_t=f(h_{t-1}, x_t)\\]
+$$
+h_t=f(h_{t-1}, x_t)
+$$
 
 activation과 weight를 명시하여 표현하면 다음과 같다.
 
-\\[h_t=tanh(W_h h_{t-1}, W_x x_t)\\]
+$$
+h_t=tanh(W_h h_{t-1}, W_x x_t)
+$$
 
 ***
 
