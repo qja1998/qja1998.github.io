@@ -82,3 +82,6 @@ samp {
 :target {
   scroll-margin-block: 1rem;
 }
+
+/* 커버에 얹는 수식은 배경이 어두우므로 흰색으로 */
+.pc-tex .katex { color: #fff; }

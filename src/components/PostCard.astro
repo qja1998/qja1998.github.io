@@ -3,6 +3,8 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { cover, readMinutes } from "@/utils/cover";
 import { fingerprint } from "@/utils/related";
 import { semanticColor, keyTerms } from "@/utils/related";
+import { coverSource } from "@/utils/coverSource";
+import katex from "katex";
 import config from "@/config";
 
 interface Props {
@@ -20,6 +22,14 @@ const fp = fingerprint(post.id);
 // 커버 = 그 글에서 뽑은 낱말들의 조판.
 // 세로는 점수 순으로 쌓아 늘 읽히게 하고, 가로 들여쓰기는 낱말끼리의 의미 좌표에서
 // 가져온다. 정해 둔 도식이 없어 어떤 주제가 들어와도 그대로 돈다.
+// 커버는 그 글이 실제로 갖고 있는 것으로 채운다 — 그림 · 수식 · 코드 구조,
+// 셋 다 없으면 본문에서 뽑은 낱말.
+const src = coverSource(body);
+const tex =
+  src.kind === "formula"
+    ? katex.renderToString(src.tex, { throwOnError: false, displayMode: false })
+    : "";
+
 const raw = keyTerms(post.id);
 const shown = (raw.length ? raw : [{ w: c.short, s: 1, x: 0, y: 0 }]).slice(0, featured ? 6 : 4);
 const terms = shown.map((t, i) => ({
@@ -52,13 +62,44 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
       <span class="pc-id">{c.ident}</span>
       {c.tier && <span class="pc-tier">{c.tier}</span>}
     </span>
-    <span class="pc-terms">
-      {terms.map(t => (
-        <b style={`font-size:${t.size}px;padding-left:${t.indent}px;opacity:${t.op.toFixed(2)}`}>
-          {t.w}
-        </b>
-      ))}
-    </span>
+    {
+      src.kind === "image" && (
+        <>
+          <img class="pc-img" src={src.src} alt="" loading="lazy" />
+          {/* 밝은 그림 위에서 라벨이 묻히지 않게 위쪽에 그늘을 깐다 */}
+          <span class="pc-scrim" />
+        </>
+      )
+    }
+    {src.kind === "formula" && <span class="pc-tex" set:html={tex} />}
+    {
+      src.kind === "code" && (
+        <svg class="pc-code" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          {src.rects.map(r => (
+            <rect
+              x={r.x.toFixed(2)}
+              y={r.y.toFixed(2)}
+              width={r.w.toFixed(2)}
+              height={r.h.toFixed(2)}
+              rx={(r.h / 2).toFixed(2)}
+              fill="#fff"
+              opacity={r.o.toFixed(2)}
+            />
+          ))}
+        </svg>
+      )
+    }
+    {
+      src.kind === "terms" && (
+        <span class="pc-terms">
+          {terms.map(t => (
+            <b style={`font-size:${t.size}px;padding-left:${t.indent}px;opacity:${t.op.toFixed(2)}`}>
+              {t.w}
+            </b>
+          ))}
+        </span>
+      )
+    }
   </div>
   <div class="pc-body">
     <h2>{c.short}</h2>
@@ -137,6 +178,42 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
     gap: 9px;
   }
   /* 본문에서 뽑은 말. 커버에서 가장 크게 — 사람이 의미를 읽는 자리다. */
+  .pc-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 본문 도식은 대부분 흰 배경이라 그대로 두면 카드가 하얗게 뜬다.
+       살짝 눌러 어두운 카드 계열에 맞추고, 라벨은 칩으로 띄운다. */
+    opacity: 0.9;
+    filter: brightness(0.78) saturate(0.95);
+  }
+  .pc-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(6, 16, 20, 0.72) 0, transparent 44%),
+      linear-gradient(0deg, rgba(6, 16, 20, 0.6) 0, transparent 40%);
+  }
+  .pc-code {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+  }
+  .pc-tex {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 17px;
+    max-width: 100%;
+    overflow: hidden;
+    align-self: center;
+    margin: auto 0;
+  }
   .pc-terms {
     position: relative;
     z-index: 2;
