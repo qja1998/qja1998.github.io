@@ -6,9 +6,10 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
-import PostGrid from "@/components/PostGrid.astro";
 import { postFilter } from "@/utils/postFilter";
-import { getPostsByGroupCondition } from "./_utils/getPostsByGroupCondition";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { cover } from "@/utils/cover";
+import { semanticColor } from "@/utils/related";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -22,9 +23,46 @@ if (!config.features.showArchives && notFoundUrl) {
 
 const t = useTranslations(locale);
 
-const posts = await getCollection("posts");
-const filteredPosts = posts.filter(postFilter);
-const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
+// 아카이브는 「무엇이 있나」가 아니라 「언제 무엇을 했나」를 보는 곳이다.
+// 그래서 표지 격자가 아니라 한 줄짜리 연표다 — 한 화면에 몇 달이 들어와야
+// 뜸했던 시기와 몰아 쓴 시기가 눈에 보인다.
+const posts = getSortedPosts((await getCollection("posts")).filter(postFilter));
+
+type Row = {
+  id: string;
+  day: string;
+  ident: string;
+  title: string;
+  dot: string;
+  token: string;
+};
+const years: { year: number; n: number; months: { label: string; rows: Row[] }[] }[] = [];
+for (const p of posts) {
+  const d = new Date(p.data.pubDatetime);
+  const y = d.getFullYear();
+  const c = cover(p.data.title, p.data.categories ?? [], p.body ?? "");
+  const row: Row = {
+    id: p.id,
+    day: `${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`,
+    ident: c.ident,
+    title: c.short,
+    dot: semanticColor(p.id, 0.55, 0.14) ?? "var(--pc-line)",
+    token: c.token,
+  };
+  let year = years.at(-1);
+  if (!year || year.year !== y) {
+    year = { year: y, n: 0, months: [] };
+    years.push(year);
+  }
+  year.n++;
+  const label = `${d.getMonth() + 1}월`;
+  let month = year.months.at(-1);
+  if (!month || month.label !== label) {
+    month = { label, rows: [] };
+    year.months.push(month);
+  }
+  month.rows.push(row);
+}
 ---
 
 <Layout title={`${t.pages.archivesTitle} | ${config.site.title}`}>
@@ -32,50 +70,153 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
 
   <Breadcrumb />
 
-  <Main pageTitle={t.pages.archivesTitle} pageDesc={t.pages.archivesDesc} layout="grid">
-    {
-      Object.entries(
-        getPostsByGroupCondition(filteredPosts, post =>
-          post.data.pubDatetime.getFullYear()
-        )
-      )
-        .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
-        .map(([year, yearGroup]) => (
-          <div>
-            <span class="text-2xl font-bold">{year}</span>
-            <sup class="text-muted-foreground text-sm">{yearGroup.length}</sup>
-            {Object.entries(
-              getPostsByGroupCondition(
-                yearGroup,
-                post => post.data.pubDatetime.getMonth() + 1
-              )
-            )
-              .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
-              .map(([month, monthGroup]) => (
-                <div>
-                  <div class="mt-8 text-lg">
-                    <span class="font-bold">
-                      {monthFormatter.format(
-                        new Date(2000, Number(month) - 1, 1)
-                      )}
-                    </span>
-                    <sup class="text-muted-foreground text-xs">
-                      {monthGroup.length}
-                    </sup>
-                  </div>
-                  <PostGrid
-                    posts={monthGroup.sort(
-                      (a, b) =>
-                        +new Date(b.data.pubDatetime) -
-                        +new Date(a.data.pubDatetime)
-                    )}
-                  />
-                </div>
-              ))}
-          </div>
+  <Main pageTitle={t.pages.archivesTitle} pageDesc={t.pages.archivesDesc}>
+    <div class="tl">
+      {
+        years.map(y => (
+          <section class="year">
+            <h2>
+              {y.year}
+              <span class="n">{y.n}편</span>
+            </h2>
+            {y.months.map(m => (
+              <div class="month">
+                <h3>
+                  {m.label}
+                  <span class="n">{m.rows.length}</span>
+                </h3>
+                <ol>
+                  {m.rows.map(r => (
+                    <li>
+                      <a href={getRelativeLocaleUrl(locale, `posts/${r.id}/`)}>
+                        <span class="dot" style={`background:${r.dot}`} />
+                        <time>{r.day}</time>
+                        <span class="ident" style={`--tier:var(${r.token})`}>
+                          {r.ident}
+                        </span>
+                        <span class="t">{r.title}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
+          </section>
         ))
-    }
+      }
+    </div>
   </Main>
 
   <Footer />
 </Layout>
+
+<style>
+  /* 세로줄 하나가 시간축이다. 연·월은 그 축에 찍힌 눈금이고 글은 점이다. */
+  .tl {
+    margin-top: 6px;
+  }
+  .year + .year {
+    margin-top: 34px;
+  }
+  .year > h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 4px;
+    font-family: var(--pc-mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .n {
+    font-family: var(--pc-mono);
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--pc-muted);
+  }
+  .month {
+    /* 축은 여기 있다 — 월 블록마다 이어져 한 줄로 보인다 */
+    border-left: 2px solid var(--pc-line);
+    padding: 6px 0 6px 18px;
+    margin-left: 6px;
+  }
+  .month > h3 {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    margin: 0 0 2px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--pc-muted);
+  }
+  .month > h3::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 0.55em;
+    width: 8px;
+    height: 2px;
+    background: var(--pc-line);
+  }
+  .month ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .month a {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 3px 8px 3px 0;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 6px;
+  }
+  .month a:hover {
+    background: color-mix(in oklab, var(--pc-night) 7%, transparent);
+  }
+  .dot {
+    /* 색은 홈 카드·분류 칩과 같은 값이다. 줄만 봐도 무슨 갈래인지 짐작된다 */
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex: none;
+    align-self: center;
+    margin-left: -21px;
+    outline: 3px solid var(--background);
+  }
+  time {
+    font-family: var(--pc-mono);
+    font-size: 11.5px;
+    color: var(--pc-muted);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .ident {
+    font-family: var(--pc-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--tier, var(--pc-muted));
+    flex: none;
+    max-width: 7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .t {
+    font-size: 14.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .month a:hover .t {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 560px) {
+    .ident {
+      display: none;
+    }
+  }
+</style>
