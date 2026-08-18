@@ -135,36 +135,70 @@ writeFileSync(OUT, JSON.stringify({ model: MODEL, dim, fpDim: K, posts: cache },
 console.log(`의미 지문 ${K}차원 기록 · ${Math.round(readFileSync(OUT).length / 1024)}KB`);
 
 /* ---------------------------------------------------------------------------
- * 의미 축 — 사람이 읽을 수 있는 8개 방향.
+ * 의미 축 — 사람이 읽을 수 있는 방향. 목록을 손으로 적지 않는다.
  *
- * PCA 축은 분산이 큰 방향일 뿐 이름이 없다. 그래서 하나만 보고는 무슨 글인지
- * 알 수 없었다. 여기서는 축을 코퍼스에서 뽑는다 — 그 주제에 해당하는 글들의
- * 평균 벡터를 방향으로 쓰고, 사람이 이름을 붙인다.
+ * PCA 축은 분산이 큰 방향일 뿐 이름이 없어, 하나만 보고는 무슨 글인지 알 수 없었다.
+ * 그렇다고 축을 손으로 정해 두면 새 주제를 쓸 때마다 사람이 고쳐야 한다.
  *
- * 손으로 쓴 개념 문구로도 해 봤지만 SQL 글이 SQL 축에 안 걸렸다.
- * 문구의 말투가 이 블로그의 말투와 달라서다. 중심점 쪽이 훨씬 정확했다.
+ * 그래서 축을 코퍼스에서 자동으로 뽑는다.
+ *   1. 글 MIN_POSTS 편 이상인 태그·분류를 전부 후보로 삼는다
+ *   2. 후보의 중심점 방향이 거의 같으면 자동으로 합친다
+ *      (graph theory · graph traversal · bfs 가 이렇게 한 축이 된다)
+ *   3. 코퍼스의 MAX_SHARE 를 넘게 덮는 것은 주제가 아니라 분류라 뺀다 (boj 처럼)
+ *   4. 남은 것 중 큰 순으로 AXIS_COUNT 개, 이름은 그 묶음에서 가장 흔한 태그
+ *
+ * 손으로 쓴 개념 문구로도 해 봤지만 SQL 글이 SQL 축에 안 걸렸다. 문구의 말투가
+ * 이 블로그의 말투와 달라서다. 코퍼스에서 뽑은 중심점 쪽이 훨씬 정확했다.
+ *
+ * 한계: 이 코퍼스에서는 굵은 단위까지만 갈린다. 백준 안에서 bfs 와 dp 는
+ * 중심점 코사인이 0.98 이라 나뉘지 않는다 — 설명문이 템플릿이라 텍스트에 차이가
+ * 없기 때문이고, 코드를 임베딩에 넣어도 0.985 로 오히려 나빠진다.
  * ------------------------------------------------------------------------- */
-const AXES = [
-  ["그래프", d => d.tags.some(t => /graph|bfs|dfs|shortest|tree/.test(t))],
-  ["구현", d => d.tags.some(t => /implementation|simulation|bruteforcing|string|sort/.test(t))],
-  ["수학", d => d.tags.some(t => /math|number theory|geometry|prime|combinat/.test(t))],
-  ["SQL", d => d.tags.includes("sql")],
-  ["신경망", d => d.cats[0] === "pytorch" || d.cats[0] === "generative-model"],
-  ["확률", d => d.tags.some(t => /entropy|divergence|autoencoder|probab|kl/.test(t))],
-  ["인프라", d => d.cats[0] === "docker" || d.tags.some(t => /docker|gitlab|jenkins|ci|nginx/.test(t))],
-  ["디버깅", d => d.cats[0] === "troubleshooting"],
-];
-
-const byslug = Object.fromEntries(docs.map(d => [d.slug, d]));
-const centroids = AXES.map(([name, pred]) => {
-  const mem = order.filter(s => byslug[s] && pred(byslug[s]));
-  const c = Array(dim).fill(0);
-  mem.forEach(s => cache[s].vec.forEach((v, i) => (c[i] += v / mem.length)));
-  const norm = Math.hypot(...c) || 1;
-  return { name, n: mem.length, vec: c.map(v => v / norm) };
-});
+const MIN_POSTS = 6;      // 이만큼은 쌓여야 주제로 본다
+const MERGE_SIM = 0.995;  // 이보다 가까운 후보는 한 축으로 합친다
+const MAX_SHARE = 0.4;    // 코퍼스의 이 비율을 넘으면 주제가 아니라 분류다
+const AXIS_COUNT = 8;
 
 const dotv = (a, b) => a.reduce((t, x, i) => t + x * b[i], 0);
+const unit = (mem) => {
+  const c = Array(dim).fill(0);
+  mem.forEach(s => cache[s].vec.forEach((v, i) => (c[i] += v / mem.length)));
+  const n = Math.hypot(...c) || 1;
+  return c.map(v => v / n);
+};
+
+const labelOf = {};
+docs.forEach(d => (labelOf[d.slug] = [...d.tags, ...d.cats]));
+const freq = {};
+order.forEach(s => (labelOf[s] ?? []).forEach(t => (freq[t] = (freq[t] ?? 0) + 1)));
+
+let cand = Object.entries(freq)
+  .filter(([, c]) => c >= MIN_POSTS)
+  .map(([t]) => {
+    const mem = order.filter(s => (labelOf[s] ?? []).includes(t));
+    return { names: [t], mem, vec: unit(mem) };
+  });
+
+for (let merged = true; merged; ) {
+  merged = false;
+  outer: for (let i = 0; i < cand.length; i++)
+    for (let j = i + 1; j < cand.length; j++)
+      if (dotv(cand[i].vec, cand[j].vec) > MERGE_SIM) {
+        const mem = [...new Set([...cand[i].mem, ...cand[j].mem])];
+        cand[i] = { names: [...cand[i].names, ...cand[j].names], mem, vec: unit(mem) };
+        cand.splice(j, 1);
+        merged = true;
+        break outer;
+      }
+}
+
+cand.forEach(g => g.names.sort((a, b) => freq[b] - freq[a]));
+const centroids = cand
+  .filter(g => g.mem.length <= MAX_SHARE * order.length)
+  .sort((a, b) => b.mem.length - a.mem.length)
+  .slice(0, AXIS_COUNT)
+  .map(g => ({ name: g.names[0], n: g.mem.length, vec: g.vec }));
+
 const rawAx = order.map(s => centroids.map(c => dotv(cache[s].vec, c.vec)));
 // 개념과의 유사도는 절대값이 다 비슷하다. 축마다 코퍼스 전체로 표준화해야
 // '이 글이 어느 쪽으로 기울었나' 가 드러난다.
@@ -185,7 +219,7 @@ writeFileSync(
   )
 );
 console.log(
-  `의미 축 ${AXES.length}개 기록 · ` +
+  `의미 축 ${centroids.length}개(자동) · ` +
     centroids.map(c => `${c.name}(${c.n})`).join(" ") +
     ` · ${Math.round(readFileSync(OUT).length / 1024)}KB`
 );
