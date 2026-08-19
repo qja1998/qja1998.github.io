@@ -50,45 +50,11 @@ const isActive = (path: string) => {
   >
     <a
       href={getRelativeLocaleUrl(locale, "")}
-      class="brand absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
+      class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
-      {/* 팔레트를 뽑아 온 자리. 눈 둘과 이빨 웃음 — 웃음은 버스 창문 줄로도 읽힌다. */}
-      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
-        <rect width="64" height="64" rx="15" />
-        <ellipse cx="20.5" cy="23" rx="8.5" ry="7" class="lamp" />
-        <ellipse cx="43.5" cy="23" rx="8.5" ry="7" class="lamp" />
-        <path d="M11 40h42a0 0 0 0 1 0 0c0 6.6-9.4 12-21 12s-21-5.4-21-12Z" class="lamp" />
-        <path d="M25 41v9M32 41v10M39 41v9" class="teeth" />
-      </svg>
       {site.title}
     </a>
 
-    <style>
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-      }
-      .mark {
-        width: 1.15em;
-        height: 1.15em;
-        flex: none;
-      }
-      .mark rect {
-        fill: var(--pc-night);
-      }
-      .mark .lamp {
-        fill: var(--pc-lamp);
-      }
-      .mark .teeth {
-        stroke: var(--pc-night);
-        stroke-width: 3;
-      }
-      /* 어두운 배경에서는 night 바탕이 페이지와 붙어 버린다. 한 단계 띄운다. */
-      :global([data-theme="dark"]) .mark rect {
-        fill: #1b3d49;
-      }
-    </style>
     <nav
       id="nav-menu"
       class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"
