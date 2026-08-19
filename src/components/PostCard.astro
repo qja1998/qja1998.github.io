@@ -171,10 +171,7 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
     font-weight: 700;
     background: rgba(255, 255, 255, 0.08);
   }
-  .pc-hero :global(h1),
-  .pc-hero :global(h2),
-  .pc-hero :global(h3),
-  .pc-hero :global(h4) {
+  .pc-hero :global(.hh) {
     margin: 0 0 4px;
     font-size: 13px;
     font-weight: 700;
@@ -223,10 +220,7 @@ const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2,
     font-size: 11.5px;
     max-width: 20ch;
   }
-  .pc[data-featured] .pc-hero :global(h1),
-  .pc[data-featured] .pc-hero :global(h2),
-  .pc[data-featured] .pc-hero :global(h3),
-  .pc[data-featured] .pc-hero :global(h4) {
+  .pc[data-featured] .pc-hero :global(.hh) {
     font-size: 19px;
   }
   .pc[data-featured] .pc-hero :global(.katex) {

@@ -33,6 +33,19 @@ async function get() {
   return processor;
 }
 
+/**
+ * 표지 안의 제목은 제목이 아니다.
+ *
+ * 마크다운 처리기가 `# 해결책` 을 `<h1 id="해결책">` 으로 내놓는데, 카드가 165장이면
+ * 한 페이지에 h1 이 여러 개 생기고 id 도 겹친다(문서 개요가 망가지고 앵커가 충돌한다).
+ * 표지는 본문의 한 조각을 보여 주는 그림이므로 제목 의미를 벗기고 모양만 남긴다.
+ */
+function demoteHeadings(html: string) {
+  return html
+    .replace(/<h([1-6])\b[^>]*>/g, '<div class="hh">')
+    .replace(/<\/h[1-6]>/g, "</div>");
+}
+
 const cache = new Map<string, string>();
 
 export async function renderHero(slug: string): Promise<string> {
@@ -41,6 +54,7 @@ export async function renderHero(slug: string): Promise<string> {
   const hit = cache.get(slug);
   if (hit !== undefined) return hit;
   const { code } = await (await get()).render(md);
-  cache.set(slug, code);
-  return code;
+  const html = demoteHeadings(code);
+  cache.set(slug, html);
+  return html;
 }
